@@ -14,6 +14,9 @@
 		91874A831E27DBAB005D6EA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91874A811E27DBAB005D6EA4 /* LaunchScreen.storyboard */; };
 		91874A8E1E27DBAC005D6EA4 /* UtubeAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91874A8D1E27DBAC005D6EA4 /* UtubeAPITests.swift */; };
 		91874A991E27DBAC005D6EA4 /* UtubeAPIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91874A981E27DBAC005D6EA4 /* UtubeAPIUITests.swift */; };
+		91874AA71E27DD24005D6EA4 /* DemoJSONTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91874AA61E27DD24005D6EA4 /* DemoJSONTableViewController.swift */; };
+		918819571E290374004297DB /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918819561E290374004297DB /* TableViewCell.swift */; };
+		91EF7A271E28D6D600B8F1A9 /* DetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EF7A261E28D6D600B8F1A9 /* DetailsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		91874A941E27DBAC005D6EA4 /* UtubeAPIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UtubeAPIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91874A981E27DBAC005D6EA4 /* UtubeAPIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtubeAPIUITests.swift; sourceTree = "<group>"; };
 		91874A9A1E27DBAC005D6EA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91874AA61E27DD24005D6EA4 /* DemoJSONTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoJSONTableViewController.swift; path = ../DemoJSONTableViewController.swift; sourceTree = "<group>"; };
+		918819561E290374004297DB /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		91EF7A261E28D6D600B8F1A9 /* DetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,9 +103,12 @@
 		91874A771E27DBAB005D6EA4 /* UtubeAPI */ = {
 			isa = PBXGroup;
 			children = (
-				91874A781E27DBAB005D6EA4 /* AppDelegate.swift */,
+				91874AA61E27DD24005D6EA4 /* DemoJSONTableViewController.swift */,
 				91874A7A1E27DBAB005D6EA4 /* ViewController.swift */,
 				91874A7C1E27DBAB005D6EA4 /* Main.storyboard */,
+				918819561E290374004297DB /* TableViewCell.swift */,
+				91EF7A261E28D6D600B8F1A9 /* DetailsController.swift */,
+				91874A781E27DBAB005D6EA4 /* AppDelegate.swift */,
 				91874A7F1E27DBAB005D6EA4 /* Assets.xcassets */,
 				91874A811E27DBAB005D6EA4 /* LaunchScreen.storyboard */,
 				91874A841E27DBAB005D6EA4 /* Info.plist */,
@@ -193,6 +202,7 @@
 				TargetAttributes = {
 					91874A741E27DBAB005D6EA4 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 424XP5MAS8;
 						ProvisioningStyle = Automatic;
 					};
 					91874A881E27DBAC005D6EA4 = {
@@ -259,7 +269,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				918819571E290374004297DB /* TableViewCell.swift in Sources */,
 				91874A7B1E27DBAB005D6EA4 /* ViewController.swift in Sources */,
+				91874AA71E27DD24005D6EA4 /* DemoJSONTableViewController.swift in Sources */,
+				91EF7A271E28D6D600B8F1A9 /* DetailsController.swift in Sources */,
 				91874A791E27DBAB005D6EA4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,6 +425,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 424XP5MAS8;
 				INFOPLIST_FILE = UtubeAPI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.UtubeAPI;
@@ -424,6 +438,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 424XP5MAS8;
 				INFOPLIST_FILE = UtubeAPI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.UtubeAPI;
@@ -505,6 +520,7 @@
 				91874A9F1E27DBAC005D6EA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		91874AA01E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "UtubeAPITests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +529,7 @@
 				91874AA21E27DBAC005D6EA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		91874AA31E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "UtubeAPIUITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +538,7 @@
 				91874AA51E27DBAC005D6EA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
