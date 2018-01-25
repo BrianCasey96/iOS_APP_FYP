@@ -10,8 +10,6 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
 
-
-
     @IBOutlet var light: UILabel!
     @IBOutlet var temp: UILabel!
     @IBOutlet var date: UILabel!
