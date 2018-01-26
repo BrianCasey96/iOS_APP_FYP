@@ -20,8 +20,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         
         photosCollection.delegate = self
         photosCollection.dataSource = self
-        
-   //     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(PhotosViewController.imageTapped(gesture:)))
+        images.append(UIImage(named: "Hey")!)
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,7 +41,8 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         }
         
         cell.string.text = "Image \(indexPath.row+1)"
-        let image : UIImage = images[indexPath.row]
+        var image : UIImage = images[indexPath.row]
+        
         cell.img.image = image
         
         return cell
@@ -50,32 +50,45 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        var cell : UICollectionViewCell = photosCollection.cellForItem(at: indexPath)!
+        //     var cell : UICollectionViewCell = photosCollection.cellForItem(at: indexPath)!
         
-        //let cellIdentifier = "CollectionViewCell"
-
-//        guard let cell = photosCollection.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? CollectionViewCell  else {
-//            fatalError("The dequeued cell is not an instance of CollectionViewCell.")
-//        }
-        
-        print("image tapped")
-        //cell.string.text = "Changed"
-        //cell.backgroundColor = UIColor.magenta
         let imaged : UIImage = images[indexPath.row]
         
         let newImageView = UIImageView(image: imaged)
         newImageView.frame = UIScreen.main.bounds
         newImageView.backgroundColor = .black
-       // newImageView.contentMode = .scaleAspectFit
+        newImageView.contentMode = .scaleAspectFit
         newImageView.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
-        newImageView.addGestureRecognizer(tap)
+        
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        newImageView.addGestureRecognizer(pan)
+        //
+        
+        //        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        //        newImageView.addGestureRecognizer(tap)
+        //
         self.view.addSubview(newImageView)
-
-        self.navigationController?.isNavigationBarHidden = false
+        
+        self.navigationController?.isNavigationBarHidden = true
         self.tabBarController?.tabBar.isHidden = true
- 
- 
+        
+        
+    }
+    
+    func handlePan(sender: UIPanGestureRecognizer) {
+        print("hello")
+        let translation = sender.translation(in: self.view)
+        if let view = sender.view {
+            view.center = CGPoint(x:view.center.x + translation.x,
+                                  y:view.center.y + translation.y)
+        }
+        sender.setTranslation(CGPoint.zero, in: self.view)
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        
+        if sender.state == .ended{
+            sender.view?.removeFromSuperview()
+        }
     }
     
     func dismissFullscreenImage(sender: UITapGestureRecognizer) {
@@ -83,7 +96,6 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         self.tabBarController?.tabBar.isHidden = false
         sender.view?.removeFromSuperview()
     }
-    
     
     @IBAction func openLibrary(_ sender: UIButton) {
         
@@ -114,4 +126,5 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         photosCollection.reloadData()
     }
 }
+
 
