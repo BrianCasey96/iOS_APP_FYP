@@ -8,13 +8,6 @@
 
 import UIKit
 
-//struct plant_details{
-//    let date: String
-//    let mositure: String
-//    let light: String
-//    let temperature: String
-//}
-
 class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet var searchBar: UISearchBar!
@@ -41,7 +34,7 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.search
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DemoJSONTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
     }
