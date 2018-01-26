@@ -10,18 +10,18 @@ import UIKit
 
 class PhotosViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDelegate {
-   
+    
     var images : [UIImage] = []
     
     @IBOutlet var photosCollection: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        photosCollection.reloadData()
+        
         photosCollection.delegate = self
         photosCollection.dataSource = self
         
-      //  photosCollection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
+   //     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(PhotosViewController.imageTapped(gesture:)))
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,19 +37,53 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         
         let cellIdentifier = "CollectionViewCell"
         
-        let cell = self.photosCollection.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? CollectionViewCell;
+        guard let cell = photosCollection.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? CollectionViewCell  else {
+            fatalError("The dequeued cell is not an instance of CollectionViewCell.")
+        }
         
-        //let imageview : UIImageView? = nil
-       
+        cell.string.text = "Image \(indexPath.row+1)"
         let image : UIImage = images[indexPath.row]
+        cell.img.image = image
         
-        //imageview?.image = image
-    //    img.image = image
-        // self.view.addSubview(imageview)
-  //      cell?.contentView.addSubview(img)
-        return cell!
+        return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        var cell : UICollectionViewCell = photosCollection.cellForItem(at: indexPath)!
+        
+        //let cellIdentifier = "CollectionViewCell"
 
+//        guard let cell = photosCollection.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? CollectionViewCell  else {
+//            fatalError("The dequeued cell is not an instance of CollectionViewCell.")
+//        }
+        
+        print("image tapped")
+        //cell.string.text = "Changed"
+        //cell.backgroundColor = UIColor.magenta
+        let imaged : UIImage = images[indexPath.row]
+        
+        let newImageView = UIImageView(image: imaged)
+        newImageView.frame = UIScreen.main.bounds
+        newImageView.backgroundColor = .black
+       // newImageView.contentMode = .scaleAspectFit
+        newImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        newImageView.addGestureRecognizer(tap)
+        self.view.addSubview(newImageView)
+
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = true
+ 
+ 
+    }
+    
+    func dismissFullscreenImage(sender: UITapGestureRecognizer) {
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        sender.view?.removeFromSuperview()
+    }
+    
     
     @IBAction func openLibrary(_ sender: UIButton) {
         
@@ -60,13 +94,12 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
             imagePicker.allowsEditing = true
             self.present(imagePicker, animated: true, completion: nil)
         }
-        
     }
-   
+    
     @IBAction func openCamera(_ sender: UIButton) {
         
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            var imagePicker = UIImagePickerController()
+            let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = .camera;
             imagePicker.allowsEditing = false
@@ -77,7 +110,8 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         images.append(image)
-     //   img.image = image
         dismiss(animated:true, completion: nil)
+        photosCollection.reloadData()
     }
 }
+

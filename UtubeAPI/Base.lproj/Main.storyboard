@@ -35,9 +35,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OQ4-gr-bDn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-906" y="878"/>
+            <point key="canvasLocation" x="-1308" y="878"/>
         </scene>
-        <!--Photos-->
+        <!--Gallery-->
         <scene sceneID="c0q-rH-fxZ">
             <objects>
                 <viewController id="tHS-xK-HD6" customClass="PhotosViewController" customModule="UtubeAPI" customModuleProvider="target" sceneMemberID="viewController">
@@ -62,57 +62,62 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6Fg-Kj-Bi8">
-                                    <size key="itemSize" width="375" height="148"/>
+                                    <size key="itemSize" width="166" height="174"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="1xg-kv-Ou7" customClass="CollectionViewCell" customModule="UtubeAPI" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="148"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="1xg-kv-Ou7" customClass="CollectionViewCell" customModule="UtubeAPI" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="166" height="174"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="148"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="166" height="174"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gpn-YE-Ep2">
-                                                    <rect key="frame" x="67" y="10" width="240" height="128"/>
+                                                    <rect key="frame" x="20" y="15" width="126" height="118"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1dO-fp-Kl5">
+                                                    <rect key="frame" x="20" y="133" width="126" height="41"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
                                         <connections>
                                             <outlet property="img" destination="Gpn-YE-Ep2" id="X21-5r-KOQ"/>
+                                            <outlet property="string" destination="1dO-fp-Kl5" id="8U9-pr-gcR"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NK7-Mt-Tz2">
-                                <rect key="frame" x="143" y="502" width="88" height="70"/>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mJ7-mo-ORc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NK7-Mt-Tz2">
+                                <rect key="frame" x="124" y="502" width="127" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="addImg"/>
+                                <state key="normal" title="New Image"/>
                                 <connections>
                                     <action selector="openCamera:" destination="tHS-xK-HD6" eventType="touchUpInside" id="BeN-8z-5sr"/>
                                 </connections>
                             </button>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mJ7-mo-ORc">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Photos" id="Gz9-hn-Pmu"/>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Photos" id="Gwj-yY-FBJ"/>
+                    <navigationItem key="navigationItem" title="Gallery" id="Gwj-yY-FBJ"/>
                     <connections>
                         <outlet property="photosCollection" destination="dhN-SG-qpS" id="c6p-9k-2eq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zs7-LS-yGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="620" y="901.79910044977521"/>
+            <point key="canvasLocation" x="464.80000000000001" y="877.51124437781118"/>
         </scene>
         <!--Plant Details-->
         <scene sceneID="ccm-8x-Ts1">
@@ -212,7 +217,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="788" y="77.811094452773617"/>
+            <point key="canvasLocation" x="135" y="36"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="YZo-dt-dfa">
@@ -251,7 +256,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DYj-Nw-5KW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-286" y="36"/>
+            <point key="canvasLocation" x="-732" y="36"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7hC-2J-Ewo">
@@ -270,7 +275,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W6Q-bl-Hzo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-135.19999999999999" y="878.41079460269873"/>
+            <point key="canvasLocation" x="-418" y="878"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TdN-T2-FGT">
@@ -289,11 +294,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uvM-Un-9G8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1644.8" y="877.9610194902549"/>
+            <point key="canvasLocation" x="-2111" y="878"/>
         </scene>
     </scenes>
     <resources>
-        <image name="addImg" width="112" height="112"/>
         <image name="moisture_icon" width="112" height="112"/>
         <image name="sun_icon" width="112" height="112"/>
         <image name="temp_icon" width="100" height="100"/>
