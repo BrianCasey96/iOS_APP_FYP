@@ -41,7 +41,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         }
         
         cell.string.text = "Image \(indexPath.row+1)"
-        var image : UIImage = images[indexPath.row]
+        let image : UIImage = images[indexPath.row]
         
         cell.img.image = image
         
@@ -97,7 +97,27 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         sender.view?.removeFromSuperview()
     }
     
-    @IBAction func openLibrary(_ sender: UIButton) {
+    @IBAction func getAlert(_ sender: Any) {
+        
+        let myalert = UIAlertController(title: "Insert Picture", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        
+        myalert.addAction(UIAlertAction(title: "From Library", style: .default) { (action:UIAlertAction!) in
+            self.openLibrary()
+        })
+        
+        myalert.addAction(UIAlertAction(title: "Take Picture", style: .default) { (action:UIAlertAction!) in
+            self.openCamera()
+        })
+        
+        
+        myalert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
+        })
+        
+        self.present(myalert, animated: true)
+    }
+
+    
+    func openLibrary() {
         
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let imagePicker = UIImagePickerController()
@@ -108,7 +128,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         }
     }
     
-    @IBAction func openCamera(_ sender: UIButton) {
+    func openCamera() {
         
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             let imagePicker = UIImagePickerController()

@@ -49,14 +49,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFh-Jd-gus">
-                                <rect key="frame" x="67" y="580" width="258" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Open Photo Library"/>
-                                <connections>
-                                    <action selector="openLibrary:" destination="tHS-xK-HD6" eventType="touchUpInside" id="U48-53-iDf"/>
-                                </connections>
-                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dhN-SG-qpS">
                                 <rect key="frame" x="0.0" y="44" width="375" height="450"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -100,18 +92,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NK7-Mt-Tz2">
-                                <rect key="frame" x="124" y="502" width="127" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="New Image"/>
-                                <connections>
-                                    <action selector="openCamera:" destination="tHS-xK-HD6" eventType="touchUpInside" id="BeN-8z-5sr"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Gallery" id="Gwj-yY-FBJ"/>
+                    <navigationItem key="navigationItem" title="Gallery" id="Gwj-yY-FBJ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="YBh-Xb-60u"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="FvS-cw-s4K">
+                            <connections>
+                                <action selector="getAlert:" destination="tHS-xK-HD6" id="lLz-vK-wuJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="photosCollection" destination="dhN-SG-qpS" id="c6p-9k-2eq"/>
                     </connections>
@@ -223,7 +214,6 @@
         <!--Tab Bar Controller-->
         <scene sceneID="YZo-dt-dfa">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0Q4-AB-zPg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="hig-OZ-0Iz" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aF3-GA-HHY">
@@ -237,6 +227,7 @@
                         <segue destination="qTN-8t-dEO" kind="relationship" relationship="viewControllers" id="iw9-Pw-tNb"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Q4-AB-zPg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1721" y="36"/>
         </scene>
