@@ -14,10 +14,12 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
     
     var listData = [[String: AnyObject]]()
     var Dets : [String] = []
-    var filtered = [[String: AnyObject]]()
+    //var filtered = [[String: AnyObject]]()
+    var filtered = [String]()
     let refresh = UIRefreshControl()
     var numberOfRowsAtSection: [Int] = []
     var DateArray = [String]()
+    
     
     var isSearching = false
     
@@ -83,6 +85,23 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         super.didReceiveMemoryWarning()
     }
     
+    func reformatDates()-> [String]{
+        let dates = getDateFromEachSection()
+        var newDates = [String]()
+        for day in dates{
+            
+            dateformatter.dateFormat = "yyyy-MM-dd"
+            
+            let date = dateformatter.date(from: day)
+            dateformatter.dateFormat = "EEE dd, MMM"
+            let time = dateformatter.string(from: date!)
+            
+            newDates.append(time)
+            
+        }
+        return newDates
+    }
+    
     func sortDatabyDate() -> [[String: AnyObject]]{
         var myArray = [[String: AnyObject]]()
         var x = 1
@@ -112,133 +131,29 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         return myArray
     }
     
-    // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // let x = sortDatabyDate()
-        // return x.count
-        return 1
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "TableViewCell"
-        var absoluteRow: Int = indexPath.row
-        
-        for section in 0..<indexPath.section {
-            absoluteRow += tableView.numberOfRows(inSection: section)
-        }
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TableViewCell;
-        
-        //let item = self.listData[indexPath.row]
-        //uses absolute Row instead of IndexPath, because IndexPath.row resets itself to 0 at each new section
-        
-        //  var item = self.listData.reversed()[absoluteRow+1]
-        
-        
-        //        if isSearching{
-        //
-        //            item = self.filtered.reversed()[absoluteRow+1]
-        //        }
-        //        else{
-        
-        //        item = self.listData.reversed()[absoluteRow+1]
-        //        print("Index Path : - - - - - \(indexPath.row)")
-        //        //}
-        //
-        //
-        //        dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        //        let day = item["Date"] as! String?
-        //        let date = dateformatter.date(from: day!)
-        //
-        //        dateformatter.dateFormat = "h:mm a"
-        //        let time = dateformatter.string(from: date!)
-        
-        //        cell?.moisture!.text = "\(item["Moisture"] as! String? ?? "nil")%"
-        //        cell?.temp!.text = "\(item["Temp"] as! String? ?? "nil")°C"
-        //        cell?.light!.text = "\(item["Light"] as! String? ?? "nil")%"
-        //  cell?.date!.text = time
-        
-        //   print("Names from array  Called ---- \(nameOfRowsAtSection)")
-        
-        var dates = getDateFromEachSection()
-        dateformatter.dateFormat = "yyyy-MM-dd"
-        
-        var rowName: String = ""
-        
-        rowName = dates[indexPath.row]
-        print(rowName)
-        let day = rowName
-        let date = dateformatter.date(from: day)
-        dateformatter.dateFormat = "EEE dd, MMM"
-        let time = dateformatter.string(from: date!)
-        //print("RowName \(rowName)")
-        
-        cell?.date!.text = time
-        
-        return cell!
-    }
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         if searchBar.text == nil || searchBar.text == "" {
             
             isSearching = false
             self.view.endEditing(true)
+            tableView.reloadData()
+        }
             
+        else{
+            isSearching = true
+            let dates = reformatDates()
+            filtered = dates.filter({
+                $0.range(of: searchText, options: .caseInsensitive) != nil
+            })
             tableView.reloadData()
         }
         
     }
-    //        else{
-    //            var a = 0
-    //            var b = 0
-    //
-    //            while a < listData.count-1 {
-    //                let value = self.listData[a]["Date"]
-    //                DateArray.append(value as! String)
-    //                a = a + 1
-    //            }
-    //
-    //         //   let xx = listData[0]["Date"] as! String
-    //            isSearching = true
-    //
-    //
-    //
-    //
-    //           // print("Date Array is \(DateArray)")
-    //           // var arr = [String]()
-    //           // arr = DateArray.filter{$0 == searchText}
-    //           // print("SearchText is \(searchText)")
-    //          //  print("DateArray text \(DateArray)")
-    //          //  print("in Arr is \(arr)")
-    //          // DateArray.reversed()
-    //            while b < DateArray.count - 1{
-    //              //  for i in DateArray{
-    //                 //   print("I is \(i)")
-    //
-    //                    if DateArray[b].range(of: searchText) != nil {
-    //                        filtered.append(listData[b])
-    //                        print("In the Filtered Array is\(listData[b])")
-    //                    }
-    ////                    if arr[b] == i{
-    ////                        filtered.append(listData[b])
-    ////                        print("In the Filtered Array is\(listData[b])")
-    ////                    }
-    //                    b = b + 1
-    //               // }
-    //            }
-    //         //   filtered = listData
-    //            tableView.reloadData()
-    //        }
-    //    }
     
     func getDateFromEachSection() -> [String]{
         let x = sortDatabyDate()
-        
         var nameOfRowsForEachSection: [String] = []
-        
         
         for i in x.enumerated(){
             nameOfRowsForEachSection.append(i.element.keys.first!)
@@ -262,16 +177,68 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         return numberOfRowsAtSection
     }
     
+    // MARK: - Table view data source
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // let x = sortDatabyDate()
+        // return x.count
+        return 1
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellIdentifier = "TableViewCell"
+        // var absoluteRow: Int = indexPath.row
+        //        for section in 0..<indexPath.section {
+        //            absoluteRow += tableView.numberOfRows(inSection: section)
+        //        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TableViewCell;
+        
+        //let item = self.listData[indexPath.row]
+        //uses absolute Row instead of IndexPath, because IndexPath.row resets itself to 0 at each new section
+        
+        //  var item = self.listData.reversed()[absoluteRow+1]
+        //        item = self.listData.reversed()[absoluteRow+1]
+        //        print("Index Path : - - - - - \(indexPath.row)")
+        //        //}
+        //        dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        
+        var dates = getDateFromEachSection()
+        dateformatter.dateFormat = "yyyy-MM-dd"
+        
+        var rowName: String = ""
+        
+        rowName = dates[indexPath.row]
+        print(rowName)
+        let day = rowName
+        let date = dateformatter.date(from: day)
+        dateformatter.dateFormat = "EEE dd, MMM"
+        let time = dateformatter.string(from: date!)
+        
+        if isSearching{
+            cell?.date!.text = filtered[indexPath.row]
+        }
+        else{
+            cell?.date!.text = time
+        }
+        
+        return cell!
+    }
+    
+    
+    
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.numberOfRowsAtSection = getNumofRows()
         
-        //        if isSearching{
-        //
-        //            print("Fitered count is \([filtered.count])")
-        //            return filtered.count
-        //        }
+        if isSearching{
+            
+            print("Fitered count is \([filtered.count])")
+            return filtered.count
+        }
         
         //  var rows: Int = 0
         //  print("Section number ---- \(section)")
@@ -286,6 +253,7 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         //return rows
         //return self.listData.count
         
+        
         let dates = getDateFromEachSection()
         return dates.count
     }
@@ -293,7 +261,7 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("Segue")
-    
+        
         let index = tableView.indexPathForSelectedRow?.row
         var loops = -1
         let x = sortDatabyDate()
@@ -316,17 +284,17 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
             
             if loops == index{
                 startRange = startRange + 1
-                endRange = startRange + num 
+                endRange = startRange + num
                 break
             }
             startRange = startRange + num
         }
         
         let date = x.reversed()[index!].keys.first
-
+        
         
         let data = listData.reversed()[startRange..<endRange]
-  
+        
         let rangeOfValues: [[String:AnyObject]] = Array(data)
         
         if segue.identifier == "next" {
