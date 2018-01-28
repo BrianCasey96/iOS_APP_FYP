@@ -14,12 +14,10 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
     
     var listData = [[String: AnyObject]]()
     var Dets : [String] = []
-    //var filtered = [[String: AnyObject]]()
     var filtered = [String]()
     let refresh = UIRefreshControl()
     var numberOfRowsAtSection: [Int] = []
     var DateArray = [String]()
-    
     
     var isSearching = false
     
@@ -38,9 +36,6 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.search
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DemoJSONTableViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
         
         //        let gd = getData()
         //        self.data = gd.refreshFromServer()
@@ -93,7 +88,7 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
             dateformatter.dateFormat = "yyyy-MM-dd"
             
             let date = dateformatter.date(from: day)
-            dateformatter.dateFormat = "EEE dd, MMM"
+            dateformatter.dateFormat = "EEE dd, MMM yy"
             let time = dateformatter.string(from: date!)
             
             newDates.append(time)
@@ -148,7 +143,6 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
             })
             tableView.reloadData()
         }
-        
     }
     
     func getDateFromEachSection() -> [String]{
@@ -188,34 +182,13 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "TableViewCell"
-        // var absoluteRow: Int = indexPath.row
-        //        for section in 0..<indexPath.section {
-        //            absoluteRow += tableView.numberOfRows(inSection: section)
-        //        }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TableViewCell;
         
-        //let item = self.listData[indexPath.row]
-        //uses absolute Row instead of IndexPath, because IndexPath.row resets itself to 0 at each new section
+        var time: String? = nil
         
-        //  var item = self.listData.reversed()[absoluteRow+1]
-        //        item = self.listData.reversed()[absoluteRow+1]
-        //        print("Index Path : - - - - - \(indexPath.row)")
-        //        //}
-        //        dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        
-        var dates = getDateFromEachSection()
-        dateformatter.dateFormat = "yyyy-MM-dd"
-        
-        var rowName: String = ""
-        
-        rowName = dates[indexPath.row]
-        print(rowName)
-        let day = rowName
-        let date = dateformatter.date(from: day)
-        dateformatter.dateFormat = "EEE dd, MMM"
-        let time = dateformatter.string(from: date!)
+        var dates = reformatDates()
+        time = dates[indexPath.row]
         
         if isSearching{
             cell?.date!.text = filtered[indexPath.row]
@@ -223,16 +196,11 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         else{
             cell?.date!.text = time
         }
-        
         return cell!
     }
     
     
-    
-    
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.numberOfRowsAtSection = getNumofRows()
         
         if isSearching{
             
@@ -240,43 +208,24 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
             return filtered.count
         }
         
-        //  var rows: Int = 0
-        //  print("Section number ---- \(section)")
-        //  print("Number of rows at section ---- \(self.numberOfRowsAtSection[section])")
-        
-        //        if section < self.numberOfRowsAtSection.count {
-        //            rows = self.numberOfRowsAtSection[section]
-        //        }
-        
-        // print("Rows \(rows)")
-        
-        //return rows
-        //return self.listData.count
-        
-        
         let dates = getDateFromEachSection()
         return dates.count
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("Segue")
-        
         let index = tableView.indexPathForSelectedRow?.row
         var loops = -1
         let x = sortDatabyDate()
         
         var startRange = 0
         var endRange = 0
-        
         var num = 0
-        //print(x.enumerated())
+        
         for i in x.enumerated().reversed(){
             
             loops = loops + 1
             num = i.element.values.first as! Int
-            
-            print(num)
             
             if index == 0{
                 startRange = 0
@@ -305,63 +254,6 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         }
         
     }
-    
-    //    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    //
-    //        var nameOfRowsAtSection = getDateFromEachSection()
-    //      //  print("Names from array  Called ---- \(nameOfRowsAtSection)")
-    //
-    //        dateformatter.dateFormat = "yyyy-MM-dd"
-    //
-    //        var rowName: String = ""
-    //
-    //        if section < nameOfRowsAtSection.count {
-    //            rowName = nameOfRowsAtSection[section]
-    //        }
-    //
-    //        let day = rowName
-    //        let date = dateformatter.date(from: day)
-    //        dateformatter.dateFormat = "EEE dd, MMM"
-    //        let time = dateformatter.string(from: date!)
-    //        //print("RowName \(rowName)")
-    //
-    ////        if isSearching{
-    ////            return " "
-    ////        }
-    //
-    //        return time
-    //
-    //        //return "Plant"
-    //    }
-    
-    //    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    //
-    //        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 18))
-    //        /* Create custom view to display section header... */
-    //        let label = UILabel(frame: CGRect(x: 10, y: 5, width: tableView.frame.size.width, height: 18))
-    //        label.font = UIFont.boldSystemFont(ofSize: 12)
-    //
-    //        var nameOfRowsAtSection = getDateFromEachSection()
-    //        var rowName: String = ""
-    //
-    //        dateformatter.dateFormat = "yyyy-MM-dd"
-    //
-    //        if section < nameOfRowsAtSection.count {
-    //            rowName = nameOfRowsAtSection[section]
-    //        }
-    //
-    //        let day = rowName
-    //        let date = dateformatter.date(from: day)
-    //        dateformatter.dateFormat = "EEE dd, MMM"
-    //        let time = dateformatter.string(from: date!)
-    //
-    //        label.text = time
-    //        view.addSubview(label)
-    //        view.backgroundColor = UIColor(red: 166 / 255.0, green: 177 / 255.0, blue: 186 / 255.0, alpha: 1.0)
-    //
-    //        return view
-    //    }
-    
     
     /*
      // Override to support conditional editing of the table view.
