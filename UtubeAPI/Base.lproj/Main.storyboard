@@ -29,7 +29,6 @@
                                 </items>
                             </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.90506237413881163" blue="0.3918863039410968" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home Page" id="Udy-17-dM0"/>
                 </viewController>
@@ -79,9 +78,15 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tv9-Ym-jiH">
+                                                    <rect key="frame" x="111" y="0.0" width="55" height="48"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Button" image="delete_icon"/>
+                                                </button>
                                             </subviews>
                                         </view>
                                         <connections>
+                                            <outlet property="deleteAction" destination="tv9-Ym-jiH" id="CNJ-la-Ybr"/>
                                             <outlet property="img" destination="Gpn-YE-Ep2" id="X21-5r-KOQ"/>
                                             <outlet property="string" destination="1dO-fp-Kl5" id="8U9-pr-gcR"/>
                                         </connections>
@@ -96,7 +101,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" title="Gallery" id="Gwj-yY-FBJ">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="YBh-Xb-60u"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="YBh-Xb-60u">
+                            <connections>
+                                <action selector="editButton:" destination="tHS-xK-HD6" id="eDe-oP-1xp"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="FvS-cw-s4K">
                             <connections>
                                 <action selector="getAlert:" destination="tHS-xK-HD6" id="lLz-vK-wuJ"/>
@@ -109,7 +118,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zs7-LS-yGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="689" y="878"/>
+            <point key="canvasLocation" x="688.79999999999995" y="877.51124437781118"/>
         </scene>
         <!--Details Table View Controller-->
         <scene sceneID="gDj-3s-9c4">
@@ -331,6 +340,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="delete_icon" width="112" height="112"/>
         <image name="moisture_icon" width="112" height="112"/>
         <image name="sun_icon" width="112" height="112"/>
         <image name="temp_icon" width="100" height="100"/>

@@ -11,7 +11,10 @@ import UIKit
 class PhotosViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDelegate {
     
+    
     var images : [UIImage] = []
+    var inPath : IndexPath? = nil
+    var canDelete = false
     
     @IBOutlet var photosCollection: UICollectionView!
     
@@ -33,12 +36,29 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+        inPath = indexPath
         let cellIdentifier = "CollectionViewCell"
         
         guard let cell = photosCollection.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? CollectionViewCell  else {
             fatalError("The dequeued cell is not an instance of CollectionViewCell.")
         }
+        
+        let btnImage = UIImage(named: "delete_icon")
+        cell.deleteAction.setImage(btnImage , for: UIControlState.normal)
+        cell.deleteAction.isUserInteractionEnabled = false
+        cell.deleteAction.isHidden = true
+        
+        
+        if canDelete{
+            cell.deleteAction.isUserInteractionEnabled = true
+            cell.deleteAction.isHidden = false
+            cell.deleteAction?.layer.setValue(indexPath.row, forKey: "index")
+            cell.deleteAction?.addTarget(self, action: #selector(deleteUser), for: UIControlEvents.touchUpInside)
+     
+        }
+        
+        cell.img.layer.borderWidth = 2.0
+        cell.img.layer.borderColor = UIColor.green.cgColor
         
         cell.string.text = "Image \(indexPath.row+1)"
         let image : UIImage = images[indexPath.row]
@@ -48,35 +68,55 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         return cell
     }
     
+   
+    func deleteUser(sender:UIButton) {
+        
+        let i : Int = (sender.layer.value(forKey: "index")) as! Int
+        images.remove(at: i)
+        photosCollection.reloadData()
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        //     var cell : UICollectionViewCell = photosCollection.cellForItem(at: indexPath)!
+        if !canDelete{
+            //     var cell : UICollectionViewCell = photosCollection.cellForItem(at: indexPath)!
+            let imaged : UIImage = images[indexPath.row]
+            
+            let newImageView = UIImageView(image: imaged)
+            newImageView.frame = UIScreen.main.bounds
+            newImageView.backgroundColor = .black
+            newImageView.contentMode = .scaleAspectFit
+            newImageView.isUserInteractionEnabled = true
+            
+            let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+            newImageView.addGestureRecognizer(pan)
+            //
+            
+            //        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+            //        newImageView.addGestureRecognizer(tap)
+            //
+            self.view.addSubview(newImageView)
+            
+            self.navigationController?.isNavigationBarHidden = true
+            self.tabBarController?.tabBar.isHidden = true
+            }
+        }
+
+    @IBAction func editButton(_ sender: Any) {
+       
+        if canDelete{
+        canDelete = false
+        }
+        else{
+            canDelete = true
+        }
         
-        let imaged : UIImage = images[indexPath.row]
-        
-        let newImageView = UIImageView(image: imaged)
-        newImageView.frame = UIScreen.main.bounds
-        newImageView.backgroundColor = .black
-        newImageView.contentMode = .scaleAspectFit
-        newImageView.isUserInteractionEnabled = true
-        
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-        newImageView.addGestureRecognizer(pan)
-        //
-        
-        //        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
-        //        newImageView.addGestureRecognizer(tap)
-        //
-        self.view.addSubview(newImageView)
-        
-        self.navigationController?.isNavigationBarHidden = true
-        self.tabBarController?.tabBar.isHidden = true
-        
-        
+        photosCollection.reloadData()
+    
     }
     
     func handlePan(sender: UIPanGestureRecognizer) {
-        print("hello")
         let translation = sender.translation(in: self.view)
         if let view = sender.view {
             view.center = CGPoint(x:view.center.x + translation.x,
@@ -97,6 +137,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         sender.view?.removeFromSuperview()
     }
     
+    
     @IBAction func getAlert(_ sender: Any) {
         
         let myalert = UIAlertController(title: "Insert Picture", message: nil, preferredStyle: UIAlertControllerStyle.alert)
@@ -109,13 +150,12 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
             self.openCamera()
         })
         
-        
         myalert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
         })
         
         self.present(myalert, animated: true)
     }
-
+    
     
     func openLibrary() {
         
@@ -146,5 +186,3 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         photosCollection.reloadData()
     }
 }
-
-

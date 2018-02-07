@@ -53,8 +53,8 @@ class DetailsTableViewController: UITableViewController {
         let time = dateformatter.string(from: date!)
         //print()
         cell?.moisture!.text = "\(item["Moisture"] as! String? ?? "nil")%"
-        cell?.temp!.text = "\(item["Temp"] as! String? ?? "nil")%"
-        cell?.light!.text = "\(item["Light"] as! String? ?? "nil")°C"
+        cell?.temp!.text = "\(item["Temp"] as! String? ?? "nil")°C"
+        cell?.light!.text = "\(item["Light"] as! String? ?? "nil")%"
        // cell?.time.text = "\(item["Date"] as! String? ?? "nil")"
         cell?.time.text = time
         

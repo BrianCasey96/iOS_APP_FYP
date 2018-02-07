@@ -10,6 +10,8 @@ import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
     
+
+    @IBOutlet var deleteAction: UIButton!
     @IBOutlet var string: UILabel!
     @IBOutlet var img: UIImageView!
     

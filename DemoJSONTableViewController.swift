@@ -10,6 +10,7 @@ import UIKit
 
 class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
     
+    let gd = getData()
     @IBOutlet var searchBar: UISearchBar!
     
     var listData = [[String: AnyObject]]()
@@ -36,10 +37,10 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.search
-        
-        //        let gd = getData()
-        //        self.data = gd.refreshFromServer()
-        //        print (self.data)
+  
+        gd.refreshDataFromServer()
+        self.data = gd.populatePlantData()
+        print ("Data from proper \(self.data)")
     }
     
     func dismissKeyboard() {

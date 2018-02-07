@@ -10,12 +10,14 @@ import Foundation
 import UIKit
 
 class getData {
-    var plant_data = [PlantData]()
     
-    func refreshFromServer() -> [PlantData]{
-       // refresh.beginRefreshing()
-       // tableView.delegate = self
-       // tableView.dataSource = self
+    var plant_data = [PlantData]()
+    var listData = [[String: AnyObject]]()
+    
+    func refreshDataFromServer(){
+        // refresh.beginRefreshing()
+        // tableView.delegate = self
+        // tableView.dataSource = self
         let url:String = "https://fyppi.000webhostapp.com/service.php"
         let urlRequest = URL(string : url)
         
@@ -25,13 +27,9 @@ class getData {
                 print(error.debugDescription)
             }else{
                 do{
-                    self.plant_data = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [PlantData]
+                    self.listData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [[String: AnyObject]]
                     
                     DispatchQueue.main.async() { () -> Void in
-                        
-                        print(self.plant_data)
-                     //   self.tableView.reloadData()
-                     //   self.refresh.endRefreshing()
                         
                     }
                 }catch let error as NSError{
@@ -40,8 +38,37 @@ class getData {
             }
         }).resume()
         
+    }
+    
+    
+    func populatePlantData() -> [PlantData]{
+       // refreshFromServer()
+        print(self.listData)
+        print("Hello")
+    
+        //        print(listData)
+        //        print(xo)
+      print(self.listData.count)
+            for row in self.listData{
+                
+                let m = row["Moisture"] as! String?
+                let t = row["Temp"] as! String?
+                let l = row["Light"] as! String?
+                let d = row["Date"] as! String?
+                
+                print("Row is \(row)")
+                
+                
+                let data = PlantData(moisture: m!,
+                                     temp: t!,
+                                     light: l!,
+                                     date: d!)
+                
+                self.plant_data.append(data)
+            
+        }
         return self.plant_data
     }
-
     
 }
+
