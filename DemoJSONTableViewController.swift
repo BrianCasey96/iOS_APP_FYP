@@ -40,7 +40,7 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
   
         gd.refreshDataFromServer()
         self.data = gd.populatePlantData()
-        print ("Data from proper \(self.data)")
+    //    print ("Data from proper \(self.data)")
     }
     
     func dismissKeyboard() {
@@ -52,7 +52,7 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         
-        let url:String = "https://fyppi.000webhostapp.com/service.php"
+        let url:String = "http://35.198.67.227:8080/allData"
         let urlRequest = URL(string : url)
         
         URLSession.shared.dataTask(with: urlRequest!, completionHandler: {
@@ -64,7 +64,6 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
                     self.listData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [[String: AnyObject]]
                     
                     DispatchQueue.main.async() { () -> Void in
-                        
                         self.tableView.reloadData()
                         self.refresh.endRefreshing()
                         
@@ -105,11 +104,14 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         var section = 0
         
         while x < listData.count - 1{
-            let value = listData[x]["Date"]
-            let valueSplit = value?.lastPathComponent?.split(separator:" ").map(String.init)
-            
-            let nextValue = listData[x+1]["Date"]
-            let nextValueSplit = nextValue?.lastPathComponent?.split(separator:" ").map(String.init)
+            let value = listData[x]["time_value"]
+         //   let removeT = value?.replacingOccurrences(of: "T", with: " ")
+           // let removeZ = value?.replacingOccurrences(of: ".000Z", with: "")
+           
+            let valueSplit = value?.lastPathComponent.split(separator:"T").map(String.init)
+          //  print(valueSplit)
+            let nextValue = listData[x+1]["time_value"]
+            let nextValueSplit = nextValue?.lastPathComponent?.split(separator:"T").map(String.init)
             
             
             num_elements = num_elements + 1
