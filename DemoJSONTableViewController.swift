@@ -109,7 +109,6 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
            // let removeZ = value?.replacingOccurrences(of: ".000Z", with: "")
            
             let valueSplit = value?.lastPathComponent.split(separator:"T").map(String.init)
-          //  print(valueSplit)
             let nextValue = listData[x+1]["time_value"]
             let nextValueSplit = nextValue?.lastPathComponent?.split(separator:"T").map(String.init)
             

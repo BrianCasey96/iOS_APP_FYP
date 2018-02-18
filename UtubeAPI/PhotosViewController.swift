@@ -86,7 +86,9 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
             let newImageView = UIImageView(image: imaged)
             newImageView.frame = UIScreen.main.bounds
             newImageView.backgroundColor = .black
-            newImageView.contentMode = .scaleAspectFit
+          //  newImageView.contentMode = .scaleAspectFit
+          
+            newImageView.contentMode = UIViewContentMode.scaleAspectFit
             newImageView.isUserInteractionEnabled = true
             
             let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
