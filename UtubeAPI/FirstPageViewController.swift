@@ -7,19 +7,23 @@
 //
 
 import UIKit
+import CocoaMQTT
 
 class FirstPageViewController: UIViewController {
     @IBOutlet var moisture: UILabel!
     @IBOutlet var temp: UILabel!
     @IBOutlet var light: UILabel!
     
+    //  let mqttClient = CocoaMQTT(clientID: "iOS Device", host: "192.168.1.76", port: 1883)
+    
+    var mqtt : CocoaMQTT?
+    
     @IBOutlet var time: UILabel!
+    
     var topValue = [[String: AnyObject]]()
     let dateformatter = DateFormatter()
     let calendar = NSCalendar.current
     var top : [PlantData]?
-    
- 
     
     let shapeLayer = CAShapeLayer()
     let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
@@ -40,8 +44,9 @@ class FirstPageViewController: UIViewController {
         super.viewDidLoad()
         refreshFromServer()
         
+        mqttSetting()
+        
         // self.addTarget(self, action: #selector(refreshFromServer), for: .valueChanged)
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,16 +54,15 @@ class FirstPageViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        view.addSubview(circleLabel)
-//
-//        circleLabel.frame = CGRect(x:0, y:0, width: 50, height: 50 )
-//        circleLabel.center = view.center
-//
-//        addCircleBar()
-//    }
+    //    override func viewDidAppear(_ animated: Bool) {
+    //        super.viewDidAppear(animated)
+    //        view.addSubview(circleLabel)
+    //
+    //        circleLabel.frame = CGRect(x:0, y:0, width: 50, height: 50 )
+    //        circleLabel.center = view.center
+    //
+    //        addCircleBar()
+    //    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -68,6 +72,15 @@ class FirstPageViewController: UIViewController {
         circleLabel.center = view.center
         
         addCircleBar()
+        
+    }
+    
+    func mqttSetting() {
+        let clientID = "iOS Device"
+        let defaultHost = "35.198.67.227"
+        mqtt = CocoaMQTT(clientID: clientID, host: defaultHost, port: 1883)
+        mqtt!.delegate = self
+        mqtt?.connect()
     }
     
     
@@ -76,6 +89,8 @@ class FirstPageViewController: UIViewController {
         let trackLayer = CAShapeLayer()
         
         let circularPath = UIBezierPath(arcCenter: .zero, radius: 50, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+        
+        //        let lightReading = UIBezierPath(arcCenter: .zero, radius: 50, startAngle: 0, endAngle: CGFloat.pi/2, clockwise: true)
         
         trackLayer.path = circularPath.cgPath
         
@@ -104,11 +119,11 @@ class FirstPageViewController: UIViewController {
     
     func animateCircle(){
         
-       // basicAnimation.toValue = 1
+        // basicAnimation.toValue = 1
         basicAnimation.duration = 2
         basicAnimation.fillMode = kCAFillModeForwards
         basicAnimation.isRemovedOnCompletion = false
-
+        
         shapeLayer.add(basicAnimation, forKey: "key")
     }
     
@@ -118,6 +133,20 @@ class FirstPageViewController: UIViewController {
         
         URLSession.shared.dataTask(with: urlRequest!, completionHandler: {
             (data, response, error) in
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 500..<600:
+                    print("Server error \(httpResponse.statusCode)")
+                    self.time.text = "Server error \(httpResponse.statusCode)"
+                case 400..<500:
+                    print("Client request error \(httpResponse.statusCode)")
+                    self.time.text = "Server error \(httpResponse.statusCode)"
+                default:
+                    print("All Good")
+                }
+            }
+            
             if(error != nil){
                 print(error.debugDescription)
             }else{
@@ -125,19 +154,19 @@ class FirstPageViewController: UIViewController {
                     self.topValue = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [[String: AnyObject]]
                     
                     
-                        print(self.topValue)
-                        let x = self.topValue[0]
-                        
-                        self.dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                        let value = x["time_value"]
-                        
-                        let a = value?.replacingOccurrences(of: "T", with: " ")
-                        let b = a?.replacingOccurrences(of: ".000Z", with: "")
-                        
-                        let date = self.dateformatter.date(from: b!)
-                        
-                        self.dateformatter.dateFormat = "h:mm a"
-                        let time = self.dateformatter.string(from: date!)
+                    print(self.topValue)
+                    let x = self.topValue[0]
+                    
+                    self.dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    let value = x["time_value"]
+                    
+                    let a = value?.replacingOccurrences(of: "T", with: " ")
+                    let b = a?.replacingOccurrences(of: ".000Z", with: "")
+                    
+                    let date = self.dateformatter.date(from: b!)
+                    
+                    self.dateformatter.dateFormat = "h:mm a"
+                    let time = self.dateformatter.string(from: date!)
                     
                     DispatchQueue.main.async() { () -> Void in
                         self.m = x["moisture"] as! Int
@@ -145,7 +174,7 @@ class FirstPageViewController: UIViewController {
                         self.l = x["light"] as! Double
                         
                         self.circleLabel.text = "\(self.m)%"
-                     
+                        
                         let newVal: Double = (Double(self.m)/Double(100))
                         self.basicAnimation.toValue = newVal
                         self.animateCircle()
@@ -166,16 +195,68 @@ class FirstPageViewController: UIViewController {
     }
     
     @IBAction func waterPlant(_ sender: Any) {
+        print("water plant")
+        mqtt!.publish("rpi/gpio", withString: "on")
+
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
+
+extension UIViewController: CocoaMQTTDelegate {
+    
+    func mqtt(_ mqtt: CocoaMQTT, didConnect host: String, port: Int)
+    {
+        print("connected to host: \(host) on port: \(port)")
+    }
+    
+    public func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck)
+    {
+        print("connection ack")
+    }
+    public func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16)
+    {
+        print("published")
+    }
+    public func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16)
+    {
+        print("publish ack")
+        
+        let myalert = UIAlertController(title: "Plant Watered", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        
+        myalert.addAction(UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction!) in
+            print("Done")
+        })
+        
+        
+        self.present(myalert, animated: true)
+    }
+    public func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16 )
+    {
+        print("recived message: \(message.string ?? message.topic)")
+    }
+    public func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopic topic: String)
+    {
+        print("subscribed")
+    }
+    public func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopic topic: String)
+    {
+        print("unsuscribed")
+    }
+    public func mqttDidPing(_ mqtt: CocoaMQTT)
+    {
+        print("ping")
+    }
+    public func mqttDidReceivePong(_ mqtt: CocoaMQTT)
+    {
+        print("pong")
+    }
+    public func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?)
+    {
+        print("disconnected: \(err.debugDescription)")
+        Timer.after(5.seconds) {
+            _ = mqtt.connect()
+        }
+    }
+}
+
 
