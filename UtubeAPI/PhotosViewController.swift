@@ -14,7 +14,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
   //  var images : [UIImage] = []
     var inPath : IndexPath? = nil
     var canDelete = false
-    var imgs = [[UIImage: String]]()
+    var images = [[UIImage: String]]()
     
     @IBOutlet var photosCollection: UICollectionView!
     
@@ -33,7 +33,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imgs.count
+        return images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -61,7 +61,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         
         cell.string.text = "Image \(indexPath.row+1)"
        // let image : UIImage = images[indexPath.row]
-        let image : UIImage = imgs[indexPath.row].keys.first!
+        let image : UIImage = images[indexPath.row].keys.first!
         
         cell.img.image = image
         
@@ -72,12 +72,12 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     func deleteUser(sender:UIButton) {
         
         let i : Int = (sender.layer.value(forKey: "index")) as! Int
-        let x = imgs[i].values.first
+        let x = images[i].values.first
        // images.remove(at: i)
         
         let fileManager = FileManager.default
         try? fileManager.removeItem(atPath: x!)
-        imgs.remove(at: i)
+        images.remove(at: i)
         photosCollection.reloadData()
     }
     
@@ -85,7 +85,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if !canDelete{
-            let img : UIImage = imgs[indexPath.row].keys.first!
+            let img : UIImage = images[indexPath.row].keys.first!
             
             let newImageView = UIImageView(image: img)
             
@@ -202,7 +202,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("Image\(image.description)")
         
         let data = UIImagePNGRepresentation(image)
-        imgs.append([image : imagePath])
+        images.append([image : imagePath])
         
         print("Added Image \(imagePath)")
         fileManager.createFile(atPath: imagePath as String, contents: data, attributes: nil)
@@ -217,7 +217,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
           //  try? fileManager.removeItem(atPath: i.path)
             
             if let image = UIImage(contentsOfFile: i.path) {
-                imgs.append([image : i.path])
+                images.append([image : i.path])
             } else {
                 fatalError("Can't create image from file \(i)")
             }

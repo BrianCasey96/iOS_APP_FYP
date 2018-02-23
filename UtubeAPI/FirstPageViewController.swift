@@ -40,6 +40,11 @@ class FirstPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.alpha = 0.9
+        backgroundImage.image = UIImage(named: "leaves.png")
+        self.view.insertSubview(backgroundImage, at: 0)
+        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "leaves.png")!)
         refreshFromServer()
         
         mqttSetting()
