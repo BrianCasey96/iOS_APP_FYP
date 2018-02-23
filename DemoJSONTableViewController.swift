@@ -37,10 +37,10 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.search
-  
-        gd.refreshDataFromServer()
-        self.data = gd.populatePlantData()
-    //    print ("Data from proper \(self.data)")
+//  
+//        gd.refreshDataFromServer()
+//        self.data = gd.populatePlantData()
+//        print ("Data from proper \(self.data)")
     }
     
     func dismissKeyboard() {
@@ -66,6 +66,8 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
                     DispatchQueue.main.async() { () -> Void in
                         self.tableView.reloadData()
                         self.refresh.endRefreshing()
+                     //   self.data = self.gd.populatePlantData()
+                      //  print(self.data)
                         
                     }
                 }catch let error as NSError{

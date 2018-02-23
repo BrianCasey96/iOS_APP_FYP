@@ -9,21 +9,22 @@
 import UIKit
 
 class PhotosViewController: UIViewController, UIImagePickerControllerDelegate,
-UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDelegate {
+UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDelegate{
     
-    
-    var images : [UIImage] = []
+  //  var images : [UIImage] = []
     var inPath : IndexPath? = nil
     var canDelete = false
+    var imgs = [[UIImage: String]]()
     
     @IBOutlet var photosCollection: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getImage()
         photosCollection.delegate = self
         photosCollection.dataSource = self
-        images.append(UIImage(named: "Hey")!)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -32,7 +33,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return imgs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -48,20 +49,19 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         cell.deleteAction.isUserInteractionEnabled = false
         cell.deleteAction.isHidden = true
         
-        
         if canDelete{
             cell.deleteAction.isUserInteractionEnabled = true
             cell.deleteAction.isHidden = false
             cell.deleteAction?.layer.setValue(indexPath.row, forKey: "index")
             cell.deleteAction?.addTarget(self, action: #selector(deleteUser), for: UIControlEvents.touchUpInside)
-     
         }
         
         cell.img.layer.borderWidth = 2.0
         cell.img.layer.borderColor = UIColor.green.cgColor
         
         cell.string.text = "Image \(indexPath.row+1)"
-        let image : UIImage = images[indexPath.row]
+       // let image : UIImage = images[indexPath.row]
+        let image : UIImage = imgs[indexPath.row].keys.first!
         
         cell.img.image = image
         
@@ -72,7 +72,12 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     func deleteUser(sender:UIButton) {
         
         let i : Int = (sender.layer.value(forKey: "index")) as! Int
-        images.remove(at: i)
+        let x = imgs[i].values.first
+       // images.remove(at: i)
+        
+        let fileManager = FileManager.default
+        try? fileManager.removeItem(atPath: x!)
+        imgs.remove(at: i)
         photosCollection.reloadData()
     }
     
@@ -80,19 +85,20 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if !canDelete{
-            //     var cell : UICollectionViewCell = photosCollection.cellForItem(at: indexPath)!
-            let imaged : UIImage = images[indexPath.row]
+            let img : UIImage = imgs[indexPath.row].keys.first!
             
-            let newImageView = UIImageView(image: imaged)
+            let newImageView = UIImageView(image: img)
+            
             newImageView.frame = UIScreen.main.bounds
             newImageView.backgroundColor = .black
-          //  newImageView.contentMode = .scaleAspectFit
-          
-            newImageView.contentMode = UIViewContentMode.scaleAspectFit
-            newImageView.isUserInteractionEnabled = true
             
+            newImageView.contentMode = .scaleAspectFit
+           // newImageView.frame = CGRect(0, 0, 375, 667)
+            newImageView.isUserInteractionEnabled = true
+            newImageView.clipsToBounds = true
             let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
             newImageView.addGestureRecognizer(pan)
+            print(newImageView.description)
             //
             
             //        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
@@ -113,7 +119,6 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         else{
             canDelete = true
         }
-        
         photosCollection.reloadData()
     
     }
@@ -183,8 +188,46 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        images.append(image)
+        
+        saveImage(image)
+
         dismiss(animated:true, completion: nil)
         photosCollection.reloadData()
     }
+    
+    func saveImage(_ image: UIImage){
+        
+        let fileManager = FileManager.default
+        
+        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("Image\(image.description)")
+        
+        let data = UIImagePNGRepresentation(image)
+        imgs.append([image : imagePath])
+        
+        print("Added Image \(imagePath)")
+        fileManager.createFile(atPath: imagePath as String, contents: data, attributes: nil)
+    }
+    
+    func getImage(){
+        let fileManager = FileManager.default
+        let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let directoryContents = try! fileManager.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
+ 
+        for i in directoryContents{
+          //  try? fileManager.removeItem(atPath: i.path)
+            
+            if let image = UIImage(contentsOfFile: i.path) {
+                imgs.append([image : i.path])
+            } else {
+                fatalError("Can't create image from file \(i)")
+            }
+        }
+
+        
+    }
+    
 }
+
+
+
+

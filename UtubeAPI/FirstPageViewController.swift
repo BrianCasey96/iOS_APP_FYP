@@ -14,8 +14,6 @@ class FirstPageViewController: UIViewController {
     @IBOutlet var temp: UILabel!
     @IBOutlet var light: UILabel!
     
-    //  let mqttClient = CocoaMQTT(clientID: "iOS Device", host: "192.168.1.76", port: 1883)
-    
     var mqtt : CocoaMQTT?
     
     @IBOutlet var time: UILabel!
@@ -134,20 +132,21 @@ class FirstPageViewController: UIViewController {
         URLSession.shared.dataTask(with: urlRequest!, completionHandler: {
             (data, response, error) in
             
-            if let httpResponse = response as? HTTPURLResponse {
-                switch httpResponse.statusCode {
-                case 500..<600:
-                    print("Server error \(httpResponse.statusCode)")
-                    self.time.text = "Server error \(httpResponse.statusCode)"
-                case 400..<500:
-                    print("Client request error \(httpResponse.statusCode)")
-                    self.time.text = "Server error \(httpResponse.statusCode)"
-                default:
-                    print("All Good")
-                }
-            }
+//            if let httpResponse = response as? HTTPURLResponse {
+//                switch httpResponse.statusCode {
+//                case 500..<600:
+//                    print("Server error \(httpResponse.statusCode)")
+//                    self.time.text = "Server error \(httpResponse.statusCode)"
+//                case 400..<500:
+//                    print("Client request error \(httpResponse.statusCode)")
+//                    self.time.text = "Server error \(httpResponse.statusCode)"
+//                default:
+//                    print("All Good")
+//                }
+//            }
             
             if(error != nil){
+                self.m = 0
                 print(error.debugDescription)
             }else{
                 do{

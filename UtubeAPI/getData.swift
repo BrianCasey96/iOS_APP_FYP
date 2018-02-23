@@ -18,7 +18,7 @@ class getData {
         // refresh.beginRefreshing()
         // tableView.delegate = self
         // tableView.dataSource = self
-        let url:String = "https://fyppi.000webhostapp.com/service.php"
+        let url:String = "http://35.198.67.227:8080/allData"
         let urlRequest = URL(string : url)
         
         URLSession.shared.dataTask(with: urlRequest!, completionHandler: {
@@ -31,6 +31,7 @@ class getData {
                     
                     DispatchQueue.main.async() { () -> Void in
                         
+                        print(self.listData)
                     }
                 }catch let error as NSError{
                     print(error)
@@ -51,17 +52,17 @@ class getData {
       print(self.listData.count)
             for row in self.listData{
                 
-                let m = row["Moisture"] as! String?
-                let t = row["Temp"] as! String?
-                let l = row["Light"] as! String?
-                let d = row["Date"] as! String?
+                let m = row["moisture"] as! Int
+                let t = row["temp"] as! Double
+                let l = row["light"] as! Double
+                let d = row["time_value"] as! String?
                 
                 print("Row is \(row)")
                 
                 
-                let data = PlantData(moisture: m!,
-                                     temp: t!,
-                                     light: l!,
+                let data = PlantData(moisture: m,
+                                     temp: t,
+                                     light: l,
                                      date: d!)
                 
                 self.plant_data.append(data)
