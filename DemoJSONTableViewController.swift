@@ -27,7 +27,6 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         refreshFromServer()
         
         refresh.addTarget(self, action: #selector(self.refreshFromServer), for: UIControlEvents.valueChanged)
@@ -107,13 +106,10 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         
         while x < listData.count - 1{
             let value = listData[x]["time_value"]
-         //   let removeT = value?.replacingOccurrences(of: "T", with: " ")
-           // let removeZ = value?.replacingOccurrences(of: ".000Z", with: "")
-           
+       
             let valueSplit = value?.lastPathComponent.split(separator:"T").map(String.init)
             let nextValue = listData[x+1]["time_value"]
             let nextValueSplit = nextValue?.lastPathComponent?.split(separator:"T").map(String.init)
-            
             
             num_elements = num_elements + 1
             if valueSplit?.first != nextValueSplit?.first{
@@ -171,7 +167,6 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
             
         }
         numberOfRowsAtSection.reverse()
-        
         return numberOfRowsAtSection
     }
     
@@ -207,7 +202,6 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if isSearching{
-            
             print("Fitered count is \([filtered.count])")
             return filtered.count
         }

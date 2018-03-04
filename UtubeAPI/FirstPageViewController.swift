@@ -13,6 +13,10 @@ class FirstPageViewController: UIViewController {
     @IBOutlet var moisture: UILabel!
     @IBOutlet var temp: UILabel!
     @IBOutlet var light: UILabel!
+    @IBOutlet var time_watered: UILabel!
+    
+    @IBOutlet var waterimg: UIImageView!
+    let refresh = UIRefreshControl()
     
     var mqtt : CocoaMQTT?
     
@@ -44,9 +48,14 @@ class FirstPageViewController: UIViewController {
         backgroundImage.alpha = 0.9
         backgroundImage.image = UIImage(named: "leaves.png")
         self.view.insertSubview(backgroundImage, at: 0)
-        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "leaves.png")!)
+        
         refreshFromServer()
         
+        waterimg.image = #imageLiteral(resourceName: "waterCan")
+        waterimg.isUserInteractionEnabled = true
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        waterimg.addGestureRecognizer(tapRecognizer)
+        view.addSubview(waterimg)
         mqttSetting()
         
         // self.addTarget(self, action: #selector(refreshFromServer), for: .valueChanged)
@@ -56,16 +65,6 @@ class FirstPageViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    //    override func viewDidAppear(_ animated: Bool) {
-    //        super.viewDidAppear(animated)
-    //        view.addSubview(circleLabel)
-    //
-    //        circleLabel.frame = CGRect(x:0, y:0, width: 50, height: 50 )
-    //        circleLabel.center = view.center
-    //
-    //        addCircleBar()
-    //    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -86,14 +85,24 @@ class FirstPageViewController: UIViewController {
         mqtt?.connect()
     }
     
+    func imageTapped(recognizer: UITapGestureRecognizer) {
+        print("Image was tapped")
+        let imageView = recognizer.view as? UIImageView
+        if imageView != nil {
+            print("water plant")
+            mqtt!.publish("rpi/gpio", withString: "on")
+            let date = Date()
+            self.dateformatter.dateFormat = "h:mm a"
+            let result =  self.dateformatter.string(from: date)
+            time_watered.text = "Plant last watered at \(result)"
+        }
+    }
     
     func addCircleBar(){
         
         let trackLayer = CAShapeLayer()
         
         let circularPath = UIBezierPath(arcCenter: .zero, radius: 50, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
-        
-        //        let lightReading = UIBezierPath(arcCenter: .zero, radius: 50, startAngle: 0, endAngle: CGFloat.pi/2, clockwise: true)
         
         trackLayer.path = circularPath.cgPath
         
@@ -121,8 +130,7 @@ class FirstPageViewController: UIViewController {
     }
     
     func animateCircle(){
-        
-        // basicAnimation.toValue = 1
+
         basicAnimation.duration = 2
         basicAnimation.fillMode = kCAFillModeForwards
         basicAnimation.isRemovedOnCompletion = false
@@ -131,24 +139,25 @@ class FirstPageViewController: UIViewController {
     }
     
     func refreshFromServer(){
+        refresh.beginRefreshing()
         let url:String = "http://35.198.67.227:8080/top"
         let urlRequest = URL(string : url)
         
         URLSession.shared.dataTask(with: urlRequest!, completionHandler: {
             (data, response, error) in
             
-//            if let httpResponse = response as? HTTPURLResponse {
-//                switch httpResponse.statusCode {
-//                case 500..<600:
-//                    print("Server error \(httpResponse.statusCode)")
-//                    self.time.text = "Server error \(httpResponse.statusCode)"
-//                case 400..<500:
-//                    print("Client request error \(httpResponse.statusCode)")
-//                    self.time.text = "Server error \(httpResponse.statusCode)"
-//                default:
-//                    print("All Good")
-//                }
-//            }
+            if let httpResponse = response as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 500..<600:
+                    print("Server error \(httpResponse.statusCode)")
+                    self.time.text = "Server error \(httpResponse.statusCode)"
+                case 400..<500:
+                    print("Client request error \(httpResponse.statusCode)")
+                    self.time.text = "Server error \(httpResponse.statusCode)"
+                default:
+                    print("")
+                }
+            }
             
             if(error != nil){
                 self.m = 0
@@ -183,11 +192,12 @@ class FirstPageViewController: UIViewController {
                         self.basicAnimation.toValue = newVal
                         self.animateCircle()
                         
-                        
                         self.time.text = "\(time)"
                         self.moisture.text = "\(self.m)%"
                         self.temp.text = "\(self.t)°C"
                         self.light.text = "\(self.l)%"
+                        
+                        self.refresh.endRefreshing()
                         
                     }
                 }catch let error as NSError{
@@ -201,9 +211,12 @@ class FirstPageViewController: UIViewController {
     @IBAction func waterPlant(_ sender: Any) {
         print("water plant")
         mqtt!.publish("rpi/gpio", withString: "on")
-
+        
     }
     
+    @IBAction func update(_ sender: Any) {
+        refreshFromServer()
+    }
 }
 
 extension UIViewController: CocoaMQTTDelegate {
@@ -262,5 +275,3 @@ extension UIViewController: CocoaMQTTDelegate {
         }
     }
 }
-
-

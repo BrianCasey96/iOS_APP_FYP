@@ -49,6 +49,16 @@
                ReferencedContainer = "container:UtubeAPI.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "524DE581204C2616002DC3CB"
+               BuildableName = "PlantPiTests.xctest"
+               BlueprintName = "PlantPiTests"
+               ReferencedContainer = "container:UtubeAPI.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

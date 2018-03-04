@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0A76365524DA637540206FA5 /* Pods_UtubeAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31EB4B867750B650AA182FA3 /* Pods_UtubeAPI.framework */; };
+		524DE585204C2616002DC3CB /* PlantPiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524DE584204C2616002DC3CB /* PlantPiTests.swift */; };
+		528763D92047335A006D8385 /* PlantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528763D82047335A006D8385 /* PlantTableViewController.swift */; };
+		528763DB2047337E006D8385 /* PlantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528763DA2047337E006D8385 /* PlantTableViewCell.swift */; };
 		5289DBF9201CA52E001E120F /* PlantData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5289DBF8201CA52E001E120F /* PlantData.swift */; };
 		5289DBFB201CA686001E120F /* getData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5289DBFA201CA686001E120F /* getData.swift */; };
 		5289DBFD201CDC21001E120F /* DetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5289DBFC201CDC21001E120F /* DetailsTableViewController.swift */; };
@@ -26,6 +29,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		524DE587204C2616002DC3CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91874A6D1E27DBAB005D6EA4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 91874A741E27DBAB005D6EA4;
+			remoteInfo = UtubeAPI;
+		};
 		91874A8A1E27DBAC005D6EA4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 91874A6D1E27DBAB005D6EA4 /* Project object */;
@@ -58,6 +68,11 @@
 /* Begin PBXFileReference section */
 		084FA91A9FA53951CE150DBD /* Pods-UtubeAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtubeAPI.release.xcconfig"; path = "Pods/Target Support Files/Pods-UtubeAPI/Pods-UtubeAPI.release.xcconfig"; sourceTree = "<group>"; };
 		31EB4B867750B650AA182FA3 /* Pods_UtubeAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UtubeAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		524DE582204C2616002DC3CB /* PlantPiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantPiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		524DE584204C2616002DC3CB /* PlantPiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantPiTests.swift; sourceTree = "<group>"; };
+		524DE586204C2616002DC3CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		528763D82047335A006D8385 /* PlantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantTableViewController.swift; sourceTree = "<group>"; };
+		528763DA2047337E006D8385 /* PlantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantTableViewCell.swift; sourceTree = "<group>"; };
 		5289DBF8201CA52E001E120F /* PlantData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantData.swift; sourceTree = "<group>"; };
 		5289DBFA201CA686001E120F /* getData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getData.swift; sourceTree = "<group>"; };
 		5289DBFC201CDC21001E120F /* DetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +98,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		524DE57F204C2616002DC3CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		91874A721E27DBAB005D6EA4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -108,6 +130,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		524DE583204C2616002DC3CB /* PlantPiTests */ = {
+			isa = PBXGroup;
+			children = (
+				524DE584204C2616002DC3CB /* PlantPiTests.swift */,
+				524DE586204C2616002DC3CB /* Info.plist */,
+			);
+			path = PlantPiTests;
+			sourceTree = "<group>";
+		};
 		741F0C21974BA8C31DF84C3D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +153,7 @@
 				91874A771E27DBAB005D6EA4 /* UtubeAPI */,
 				91874A8C1E27DBAC005D6EA4 /* UtubeAPITests */,
 				91874A971E27DBAC005D6EA4 /* UtubeAPIUITests */,
+				524DE583204C2616002DC3CB /* PlantPiTests */,
 				91874A761E27DBAB005D6EA4 /* Products */,
 				D7AB543309D95A0996610978 /* Pods */,
 				741F0C21974BA8C31DF84C3D /* Frameworks */,
@@ -134,6 +166,7 @@
 				91874A751E27DBAB005D6EA4 /* UtubeAPI.app */,
 				91874A891E27DBAC005D6EA4 /* UtubeAPITests.xctest */,
 				91874A941E27DBAC005D6EA4 /* UtubeAPIUITests.xctest */,
+				524DE582204C2616002DC3CB /* PlantPiTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -145,7 +178,9 @@
 				91874AA61E27DD24005D6EA4 /* DemoJSONTableViewController.swift */,
 				5289DBFC201CDC21001E120F /* DetailsTableViewController.swift */,
 				52DE3BFF201A7ED600F212D4 /* PhotosViewController.swift */,
+				528763D82047335A006D8385 /* PlantTableViewController.swift */,
 				91874A7C1E27DBAB005D6EA4 /* Main.storyboard */,
+				528763DA2047337E006D8385 /* PlantTableViewCell.swift */,
 				5289DBFA201CA686001E120F /* getData.swift */,
 				5289DBF8201CA52E001E120F /* PlantData.swift */,
 				5289DBFE201CDC63001E120F /* DetailsTableViewCell.swift */,
@@ -189,6 +224,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		524DE581204C2616002DC3CB /* PlantPiTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 524DE58B204C2616002DC3CB /* Build configuration list for PBXNativeTarget "PlantPiTests" */;
+			buildPhases = (
+				524DE57E204C2616002DC3CB /* Sources */,
+				524DE57F204C2616002DC3CB /* Frameworks */,
+				524DE580204C2616002DC3CB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				524DE588204C2616002DC3CB /* PBXTargetDependency */,
+			);
+			name = PlantPiTests;
+			productName = PlantPiTests;
+			productReference = 524DE582204C2616002DC3CB /* PlantPiTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		91874A741E27DBAB005D6EA4 /* UtubeAPI */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91874A9D1E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "UtubeAPI" */;
@@ -252,10 +305,16 @@
 		91874A6D1E27DBAB005D6EA4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Casey, Brian";
 				TargetAttributes = {
+					524DE581204C2616002DC3CB = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = ECMP8NKXGD;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 91874A741E27DBAB005D6EA4;
+					};
 					91874A741E27DBAB005D6EA4 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 424XP5MAS8;
@@ -289,11 +348,19 @@
 				91874A741E27DBAB005D6EA4 /* UtubeAPI */,
 				91874A881E27DBAC005D6EA4 /* UtubeAPITests */,
 				91874A931E27DBAC005D6EA4 /* UtubeAPIUITests */,
+				524DE581204C2616002DC3CB /* PlantPiTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		524DE580204C2616002DC3CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		91874A731E27DBAB005D6EA4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -379,11 +446,20 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		524DE57E204C2616002DC3CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				524DE585204C2616002DC3CB /* PlantPiTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		91874A711E27DBAB005D6EA4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				5289DBFD201CDC21001E120F /* DetailsTableViewController.swift in Sources */,
+				528763DB2047337E006D8385 /* PlantTableViewCell.swift in Sources */,
 				52DE3C02201A887E00F212D4 /* CollectionViewCell.swift in Sources */,
 				52BF7AF72031E5440099ACC2 /* FirstPageViewController.swift in Sources */,
 				918819571E290374004297DB /* TableViewCell.swift in Sources */,
@@ -391,6 +467,7 @@
 				52DE3C00201A7ED600F212D4 /* PhotosViewController.swift in Sources */,
 				5289DBF9201CA52E001E120F /* PlantData.swift in Sources */,
 				5289DBFB201CA686001E120F /* getData.swift in Sources */,
+				528763D92047335A006D8385 /* PlantTableViewController.swift in Sources */,
 				91874AA71E27DD24005D6EA4 /* DemoJSONTableViewController.swift in Sources */,
 				91874A791E27DBAB005D6EA4 /* AppDelegate.swift in Sources */,
 			);
@@ -415,6 +492,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		524DE588204C2616002DC3CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 91874A741E27DBAB005D6EA4 /* UtubeAPI */;
+			targetProxy = 524DE587204C2616002DC3CB /* PBXContainerItemProxy */;
+		};
 		91874A8B1E27DBAC005D6EA4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 91874A741E27DBAB005D6EA4 /* UtubeAPI */;
@@ -447,6 +529,62 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		524DE589204C2616002DC3CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ECMP8NKXGD;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = PlantPiTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.PlantPiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UtubeAPI.app/UtubeAPI";
+			};
+			name = Debug;
+		};
+		524DE58A204C2616002DC3CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ECMP8NKXGD;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = PlantPiTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.PlantPiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UtubeAPI.app/UtubeAPI";
+			};
+			name = Release;
+		};
 		91874A9B1E27DBAC005D6EA4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -625,6 +763,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		524DE58B204C2616002DC3CB /* Build configuration list for PBXNativeTarget "PlantPiTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				524DE589204C2616002DC3CB /* Debug */,
+				524DE58A204C2616002DC3CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		91874A701E27DBAB005D6EA4 /* Build configuration list for PBXProject "UtubeAPI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
