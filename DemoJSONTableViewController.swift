@@ -56,6 +56,20 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         
         URLSession.shared.dataTask(with: urlRequest!, completionHandler: {
             (data, response, error) in
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 500..<600:
+                    print("Server error \(httpResponse.statusCode)")
+                     self.title = "Server request error \(httpResponse.statusCode)"
+                case 400..<500:
+                    print("Client request error \(httpResponse.statusCode)")
+                    self.title = "Client request error \(httpResponse.statusCode)"
+                default:
+                    print("")
+                }
+            }
+            
             if(error != nil){
                 print(error.debugDescription)
             }else{

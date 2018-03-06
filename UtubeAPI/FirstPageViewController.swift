@@ -34,7 +34,7 @@ class FirstPageViewController: UIViewController {
         let label = UILabel()
         label.text = "Nil"
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 30)
         return label
     }()
     
@@ -70,7 +70,7 @@ class FirstPageViewController: UIViewController {
         super.viewWillAppear(animated)
         view.addSubview(circleLabel)
         
-        circleLabel.frame = CGRect(x:0, y:0, width: 50, height: 50 )
+        circleLabel.frame = CGRect(x:0, y:0, width: 75, height: 75 )
         circleLabel.center = view.center
         
         addCircleBar()
@@ -95,6 +95,10 @@ class FirstPageViewController: UIViewController {
             self.dateformatter.dateFormat = "h:mm a"
             let result =  self.dateformatter.string(from: date)
             time_watered.text = "Plant last watered at \(result)"
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(15), execute: {
+                self.refreshFromServer()
+            })
+            
         }
     }
     
@@ -102,7 +106,7 @@ class FirstPageViewController: UIViewController {
         
         let trackLayer = CAShapeLayer()
         
-        let circularPath = UIBezierPath(arcCenter: .zero, radius: 50, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+        let circularPath = UIBezierPath(arcCenter: .zero, radius: 70, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
         
         trackLayer.path = circularPath.cgPath
         
@@ -123,6 +127,7 @@ class FirstPageViewController: UIViewController {
         shapeLayer.transform = CATransform3DMakeRotation(-CGFloat.pi/2, 0, 0, 1)
         shapeLayer.strokeEnd = 0
         shapeLayer.fillColor = UIColor.clear.cgColor
+        
         
         view.layer.addSublayer(trackLayer)
         view.layer.addSublayer(shapeLayer)
@@ -186,6 +191,7 @@ class FirstPageViewController: UIViewController {
                         self.t = x["temp"] as! Double
                         self.l = x["light"] as! Double
                         
+                        
                         self.circleLabel.text = "\(self.m)%"
                         
                         let newVal: Double = (Double(self.m)/Double(100))
@@ -193,7 +199,7 @@ class FirstPageViewController: UIViewController {
                         self.animateCircle()
                         
                         self.time.text = "\(time)"
-                        self.moisture.text = "\(self.m)%"
+                     //   self.moisture.text = "\(self.m)%"
                         self.temp.text = "\(self.t)°C"
                         self.light.text = "\(self.l)%"
                         
@@ -211,6 +217,8 @@ class FirstPageViewController: UIViewController {
     @IBAction func waterPlant(_ sender: Any) {
         print("water plant")
         mqtt!.publish("rpi/gpio", withString: "on")
+        sleep(5)
+        refreshFromServer()
         
     }
     
