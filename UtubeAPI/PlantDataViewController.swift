@@ -23,7 +23,7 @@ class PlantDataViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height+100)
-
+        self.title = data!["name"] as! String
         desc.text = data?["desc"] as! String
         soil.text = data?["soil"] as! String
         sun.text = data?["sun"] as! String

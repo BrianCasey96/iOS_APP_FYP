@@ -43,7 +43,6 @@ class DetailsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? DetailsTableViewCell;
         
         var item = self.data![indexPath.row]
-        print(item)
         
         dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let day = item["time_value"] as! String? ?? "nil"
