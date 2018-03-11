@@ -63,8 +63,6 @@ class DetailsTableViewController: UITableViewController {
         cell?.moisture!.text = "\(m)%"
         cell?.temp!.text = "\(t)°C"
         cell?.light!.text = "\(l)%"
-        //  cell?.light!.text = "\(item["light"] as! Double? ?? "nil")%"
-        // cell?.time.text = "\(item["Date"] as! String? ?? "nil")"
         cell?.time.text = time
         
         return cell!

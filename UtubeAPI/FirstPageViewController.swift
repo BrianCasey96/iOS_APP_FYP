@@ -9,14 +9,17 @@
 import UIKit
 import CocoaMQTT
 
-class FirstPageViewController: UIViewController {
-    @IBOutlet var moisture: UILabel!
+class FirstPageViewController: UIViewController, PlantDataViewDelegate {
+
+    @IBOutlet var name: UILabel!
     @IBOutlet var temp: UILabel!
     @IBOutlet var light: UILabel!
     @IBOutlet var time_watered: UILabel!
     
     @IBOutlet var waterimg: UIImageView!
     let refresh = UIRefreshControl()
+    
+    var plantController: PlantDataViewController?
     
     var mqtt : CocoaMQTT?
     
@@ -38,6 +41,7 @@ class FirstPageViewController: UIViewController {
         return label
     }()
     
+    
     var m : Int = 0
     var t : Double = 0
     var l : Double = 0
@@ -49,6 +53,9 @@ class FirstPageViewController: UIViewController {
         backgroundImage.image = UIImage(named: "leaves.png")
         self.view.insertSubview(backgroundImage, at: 0)
         
+        plantController = PlantDataViewController()
+        plantController?.delegate = self
+
         refreshFromServer()
         
         waterimg.image = #imageLiteral(resourceName: "waterCan")
@@ -63,7 +70,6 @@ class FirstPageViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,7 +80,13 @@ class FirstPageViewController: UIViewController {
         circleLabel.center = view.center
         
         addCircleBar()
-        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showSecondViewController" {
+            let pdvc = segue.destination as! PlantDataViewController
+            pdvc.delegate = self
+        }
     }
     
     func mqttSetting() {
@@ -95,7 +107,8 @@ class FirstPageViewController: UIViewController {
             self.dateformatter.dateFormat = "h:mm a"
             let result =  self.dateformatter.string(from: date)
             time_watered.text = "Plant last watered at \(result)"
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(15), execute: {
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10), execute: {
                 self.refreshFromServer()
             })
             
@@ -103,7 +116,7 @@ class FirstPageViewController: UIViewController {
     }
     
     func addCircleBar(){
-        
+        name.text = "Corcle Bar"
         let trackLayer = CAShapeLayer()
         
         let circularPath = UIBezierPath(arcCenter: .zero, radius: 70, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
@@ -135,7 +148,7 @@ class FirstPageViewController: UIViewController {
     }
     
     func animateCircle(){
-
+        
         basicAnimation.duration = 2
         basicAnimation.fillMode = kCAFillModeForwards
         basicAnimation.isRemovedOnCompletion = false
@@ -199,9 +212,9 @@ class FirstPageViewController: UIViewController {
                         self.animateCircle()
                         
                         self.time.text = "\(time)"
-                     //   self.moisture.text = "\(self.m)%"
+                        //   self.moisture.text = "\(self.m)%"
                         self.temp.text = "\(self.t)°C"
-                        self.light.text = "\(self.l)%"
+                       // self.light.text = "\(self.l)%"
                         
                         self.refresh.endRefreshing()
                         
@@ -212,6 +225,16 @@ class FirstPageViewController: UIViewController {
             }
         }).resume()
         
+    }
+    
+    func sentData(nom : String) {
+       print("Hello here is \(nom)")
+        // self.name.text! = nom
+        //self.name.text = "Hello"
+
+        DispatchQueue.main.async() { () -> Void in
+        self.name?.text = "\(nom)"
+        }
     }
     
     @IBAction func waterPlant(_ sender: Any) {
@@ -225,6 +248,7 @@ class FirstPageViewController: UIViewController {
     @IBAction func update(_ sender: Any) {
         refreshFromServer()
     }
+    
 }
 
 extension UIViewController: CocoaMQTTDelegate {
@@ -283,3 +307,4 @@ extension UIViewController: CocoaMQTTDelegate {
         }
     }
 }
+
