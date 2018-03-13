@@ -1,4 +1,4 @@
-//
+
 //  FirstPageViewController.swift
 //  UtubeAPI
 //
@@ -9,18 +9,26 @@
 import UIKit
 import CocoaMQTT
 
-class FirstPageViewController: UIViewController, PlantDataViewDelegate {
+class FirstPageViewController: UIViewController {
 
+    
+    @IBOutlet var sunType: UILabel!
+    @IBOutlet var soilType: UILabel!
+    @IBOutlet var descBottom: UIImageView!
+    @IBOutlet var textBckgrnd: UIImageView!
+    @IBOutlet var plantImage: UIImageView!
     @IBOutlet var name: UILabel!
     @IBOutlet var temp: UILabel!
     @IBOutlet var light: UILabel!
     @IBOutlet var time_watered: UILabel!
     
+    var type : String? = nil
+    var picture : String? = nil
+    var soil : String? = nil
+    var sun : String? = nil
+    
     @IBOutlet var waterimg: UIImageView!
     let refresh = UIRefreshControl()
-    
-    var plantController: PlantDataViewController?
-    
     var mqtt : CocoaMQTT?
     
     @IBOutlet var time: UILabel!
@@ -32,6 +40,8 @@ class FirstPageViewController: UIViewController, PlantDataViewDelegate {
     
     let shapeLayer = CAShapeLayer()
     let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+    
+    
     
     let circleLabel: UILabel = {
         let label = UILabel()
@@ -52,9 +62,6 @@ class FirstPageViewController: UIViewController, PlantDataViewDelegate {
         backgroundImage.alpha = 0.9
         backgroundImage.image = UIImage(named: "leaves.png")
         self.view.insertSubview(backgroundImage, at: 0)
-        
-        plantController = PlantDataViewController()
-        plantController?.delegate = self
 
         refreshFromServer()
         
@@ -65,7 +72,20 @@ class FirstPageViewController: UIViewController, PlantDataViewDelegate {
         view.addSubview(waterimg)
         mqttSetting()
         
+        textBckgrnd.alpha = 0.8
+        textBckgrnd.layer.cornerRadius = 8
+        
+        descBottom.alpha = 0.8
+        descBottom.layer.cornerRadius = 8
+        
+        //make plant image circular
+        let radius = plantImage.frame.height / 2
+        plantImage.layer.cornerRadius = radius
+        plantImage.layer.masksToBounds = true
+        
         // self.addTarget(self, action: #selector(refreshFromServer), for: .valueChanged)
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -78,15 +98,32 @@ class FirstPageViewController: UIViewController, PlantDataViewDelegate {
         
         circleLabel.frame = CGRect(x:0, y:0, width: 75, height: 75 )
         circleLabel.center = view.center
-        
         addCircleBar()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showSecondViewController" {
-            let pdvc = segue.destination as! PlantDataViewController
-            pdvc.delegate = self
+
+        type = UserDefaults.standard.string(forKey: "name")
+        picture = UserDefaults.standard.string(forKey: "image")
+        soil = UserDefaults.standard.string(forKey: "soil")
+        sun = UserDefaults.standard.string(forKey: "sun")
+        
+        
+        if (type ?? "").isEmpty{
+            return
         }
+        else{
+            name.text = type
+            sunType.text = "Needs \(sun!)."
+            soilType.text = "Plant \(soil!)."
+            let url = URL(string: picture!)
+            let request = URLRequest(url: url!)
+            URLSession.shared.dataTask(with: request) {
+                (data, response, error) in
+                DispatchQueue.main.async {
+                    self.plantImage.image = UIImage(data: data!)
+                }
+                }.resume()
+        }
+        
+        
     }
     
     func mqttSetting() {
@@ -204,7 +241,6 @@ class FirstPageViewController: UIViewController, PlantDataViewDelegate {
                         self.t = x["temp"] as! Double
                         self.l = x["light"] as! Double
                         
-                        
                         self.circleLabel.text = "\(self.m)%"
                         
                         let newVal: Double = (Double(self.m)/Double(100))
@@ -214,7 +250,7 @@ class FirstPageViewController: UIViewController, PlantDataViewDelegate {
                         self.time.text = "\(time)"
                         //   self.moisture.text = "\(self.m)%"
                         self.temp.text = "\(self.t)°C"
-                       // self.light.text = "\(self.l)%"
+                        self.light.text = "\(self.l)%"
                         
                         self.refresh.endRefreshing()
                         
@@ -225,16 +261,6 @@ class FirstPageViewController: UIViewController, PlantDataViewDelegate {
             }
         }).resume()
         
-    }
-    
-    func sentData(nom : String) {
-       print("Hello here is \(nom)")
-        // self.name.text! = nom
-        //self.name.text = "Hello"
-
-        DispatchQueue.main.async() { () -> Void in
-        self.name?.text = "\(nom)"
-        }
     }
     
     @IBAction func waterPlant(_ sender: Any) {
