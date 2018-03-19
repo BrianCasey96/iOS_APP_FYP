@@ -12,6 +12,7 @@
 		524DE591204EC051002DC3CB /* CSwiftV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524DE590204EC051002DC3CB /* CSwiftV.swift */; };
 		524DE595204ED112002DC3CB /* plants.csv in Resources */ = {isa = PBXBuildFile; fileRef = 524DE594204ED112002DC3CB /* plants.csv */; };
 		524DE597204EDE10002DC3CB /* PlantDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524DE596204EDE10002DC3CB /* PlantDataViewController.swift */; };
+		525432FF205EDE8500DC3854 /* AvgValuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525432FE205EDE8500DC3854 /* AvgValuesViewController.swift */; };
 		528763D92047335A006D8385 /* PlantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528763D82047335A006D8385 /* PlantTableViewController.swift */; };
 		528763DB2047337E006D8385 /* PlantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528763DA2047337E006D8385 /* PlantTableViewCell.swift */; };
 		5289DBF9201CA52E001E120F /* PlantData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5289DBF8201CA52E001E120F /* PlantData.swift */; };
@@ -77,6 +78,7 @@
 		524DE590204EC051002DC3CB /* CSwiftV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSwiftV.swift; sourceTree = "<group>"; };
 		524DE594204ED112002DC3CB /* plants.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plants.csv; sourceTree = "<group>"; };
 		524DE596204EDE10002DC3CB /* PlantDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDataViewController.swift; sourceTree = "<group>"; };
+		525432FE205EDE8500DC3854 /* AvgValuesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvgValuesViewController.swift; sourceTree = "<group>"; };
 		528763D82047335A006D8385 /* PlantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantTableViewController.swift; sourceTree = "<group>"; };
 		528763DA2047337E006D8385 /* PlantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantTableViewCell.swift; sourceTree = "<group>"; };
 		5289DBF8201CA52E001E120F /* PlantData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantData.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				52DE3BFF201A7ED600F212D4 /* PhotosViewController.swift */,
 				528763D82047335A006D8385 /* PlantTableViewController.swift */,
 				91874A7C1E27DBAB005D6EA4 /* Main.storyboard */,
+				525432FE205EDE8500DC3854 /* AvgValuesViewController.swift */,
 				524DE596204EDE10002DC3CB /* PlantDataViewController.swift */,
 				524DE590204EC051002DC3CB /* CSwiftV.swift */,
 				528763DA2047337E006D8385 /* PlantTableViewCell.swift */,
@@ -482,6 +485,7 @@
 				528763D92047335A006D8385 /* PlantTableViewController.swift in Sources */,
 				91874AA71E27DD24005D6EA4 /* DemoJSONTableViewController.swift in Sources */,
 				91874A791E27DBAB005D6EA4 /* AppDelegate.swift in Sources */,
+				525432FF205EDE8500DC3854 /* AvgValuesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

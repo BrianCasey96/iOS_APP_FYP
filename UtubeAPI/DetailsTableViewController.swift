@@ -8,12 +8,19 @@
 
 import UIKit
 
-class DetailsTableViewController: UITableViewController {
-    
+class DetailsTableViewController: UITableViewController, UIPopoverControllerDelegate {
     
     let dateformatter = DateFormatter()
     var data: [[String:AnyObject]]?
     let name : String? = nil
+    
+    var sumMoisture : Int? = 0
+    var sumTemp : Double? = 0
+    var sumLight : Double? = 0
+    
+    var avgs = [String: AnyObject]()
+    
+    var divider: Int? = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +30,35 @@ class DetailsTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //        print("Avg moisture is \(sumMoisture!/divider!)")
+        //        print("Avg temp is \(sumTemp!/Double(divider!))")
+        //        print("Avg light is \(sumLight!/Double(divider!))")
+        
+        avgs["moisture"] = sumMoisture!/divider! as AnyObject
+        
+        var avgt = sumTemp!/Double(divider!)
+        avgt.round()
+        avgs["temp"] = Double(round(1000*avgt)/1000) as AnyObject
+        
+        var avgl = sumLight!/Double(divider!)
+        avgl.round()
+        avgs["light"] = avgl as AnyObject
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "avgValues" {
+            let controller = segue.destination as! AvgValuesViewController
+            controller.data = avgs
+        }
+    }
+    
+    func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
+        //do som stuff from the popover
     }
     
     // MARK: - Table view data source
@@ -54,7 +90,6 @@ class DetailsTableViewController: UITableViewController {
         
         dateformatter.dateFormat = "h:mm a"
         let time = dateformatter.string(from: date!)
-        //print()
         
         let m = item["moisture"] as! Int
         let t = item["temp"] as! Double
@@ -65,60 +100,12 @@ class DetailsTableViewController: UITableViewController {
         cell?.light!.text = "\(l)%"
         cell?.time.text = time
         
+        sumMoisture = sumMoisture! + m
+        sumTemp = sumTemp! + t
+        sumLight = sumLight! + l
+        divider = indexPath.last! + 1
+        
         return cell!
     }
-    
-    //     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    //
-    //       // return self.title
-    //
-    //    }
-    
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 

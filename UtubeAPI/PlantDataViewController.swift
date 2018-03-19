@@ -11,9 +11,10 @@ import UIKit
 class PlantDataViewController: UIViewController {
     var data: [String:AnyObject]?
  
+    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet var addButton: UIButton!
     @IBOutlet var img: UIImageView!
     @IBOutlet var desc: UILabel!
-    
  
     @IBOutlet var maintenanceScroll: UIScrollView!
     @IBOutlet var descScroll: UIScrollView!
@@ -23,14 +24,24 @@ class PlantDataViewController: UIViewController {
     @IBOutlet var maintenance: UILabel!
     @IBOutlet var characteristics: UILabel!
 
+    @IBOutlet var textBckgrnd: UIImageView!
     
+    @IBOutlet var useBckGrnd: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-      //  scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height+100)
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.alpha = 0.9
+        backgroundImage.image = UIImage(named: "leaves.png")
+        self.view.insertSubview(backgroundImage, at: 0)
+
+        textBckgrnd.alpha = 0.8
+        textBckgrnd.layer.cornerRadius = 8
         
-        descScroll.contentSize = CGSize(width: desc.frame.width, height: desc.frame.height+100)
-        maintenanceScroll.contentSize = CGSize(width: maintenance.frame.width, height: maintenance.frame.height+100)
+        useBckGrnd.alpha = 0.8
+        useBckGrnd.layer.cornerRadius = 8
+      
+        scrollView.contentSize = CGSize(width: view.frame.width, height: 1000)
         
         self.title = (data!["name"] as! String)
         desc.text = (data?["desc"] as! String)
@@ -49,9 +60,6 @@ class PlantDataViewController: UIViewController {
         
         desc.sizeToFit()
         maintenance.sizeToFit()
-        
-        
-        
     }
     
     override func didReceiveMemoryWarning() {

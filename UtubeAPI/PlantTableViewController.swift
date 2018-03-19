@@ -9,11 +9,12 @@
 import UIKit
 
 
-class PlantTableViewController: UITableViewController, UISearchBarDelegate {
+class PlantTableViewController: UITableViewController, UISearchBarDelegate{
     
     var listData = [[String: AnyObject]]()
     var data = [String: AnyObject]()
     var names = [String]()
+    
     
     var filtered = [String]()
     
@@ -23,18 +24,12 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         let plantsCSVString = loadFromCSVFile("plants")
         loadDataFromCSVString(plantsCSVString)
         
         searchBar.delegate = self
-        searchBar.returnKeyType = UIReturnKeyType.search
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        searchBar.returnKeyType = UIReturnKeyType.done
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,12 +40,22 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate {
         view.endEditing(true)
     }
     
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchBar.endEditing(true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
     // MARK: - Table view data source
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         if searchBar.text == nil || searchBar.text == "" {
             isSearching = false
+            
             self.view.endEditing(true)
+            
             tableView.reloadData()
         }
             
@@ -61,10 +66,10 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate {
                 $0.range(of: searchText, options: .caseInsensitive) != nil
             })
             
+            
             tableView.reloadData()
         }
     }
-    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -100,7 +105,6 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate {
                 if equal{
                     
                     let url = URL(string: a["img"]  as! String)
-              //      print("Name: \(a["name"])  Image: \(a["img"])")
                     let request = URLRequest(url: url!)
                     URLSession.shared.dataTask(with: request) {
                         (data, response, error) in
@@ -108,7 +112,6 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate {
                             cell?.img.image = UIImage(data: data!)
                         }
                         }.resume()
-                    
                 }
             }
         }
@@ -147,8 +150,6 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate {
     
     public func loadDataFromCSVString(_ csvString: String) {
         let csv = CSwiftV(String: csvString)
-        
-        //  var employees = [Employee]()
         
         for row in csv.keyedRows! {
             data["name"] = row["name"] as AnyObject

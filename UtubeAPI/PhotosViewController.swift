@@ -11,7 +11,7 @@ import UIKit
 class PhotosViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDelegate{
     
-  //  var images : [UIImage] = []
+    //  var images : [UIImage] = []
     var inPath : IndexPath? = nil
     var canDelete = false
     var images = [[UIImage: String]]()
@@ -21,16 +21,26 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getImage()
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.alpha = 0.9
+        backgroundImage.image = UIImage(named: "leaves.png")
+
+        photosCollection.backgroundView = backgroundImage
+
+        getImages()
         photosCollection.delegate = self
         photosCollection.dataSource = self
-
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
+    
+ 
+    
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
@@ -59,21 +69,29 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         cell.img.layer.borderWidth = 2.0
         cell.img.layer.borderColor = UIColor.green.cgColor
         
-        cell.string.text = "Image \(indexPath.row+1)"
-       // let image : UIImage = images[indexPath.row]
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+      
+        let result = formatter.string(from: date)
+        cell.string.text = result
+        
+        // let image : UIImage = images[indexPath.row]
         let image : UIImage = images[indexPath.row].keys.first!
+        
+      //  cell.img.contentMode = .scaleAspectFill
         
         cell.img.image = image
         
         return cell
     }
     
-   
+    
     func deleteUser(sender:UIButton) {
         
         let i : Int = (sender.layer.value(forKey: "index")) as! Int
         let x = images[i].values.first
-       // images.remove(at: i)
+        // images.remove(at: i)
         
         let fileManager = FileManager.default
         try? fileManager.removeItem(atPath: x!)
@@ -85,6 +103,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if !canDelete{
+            
             let img : UIImage = images[indexPath.row].keys.first!
             
             let newImageView = UIImageView(image: img)
@@ -93,14 +112,11 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
             newImageView.backgroundColor = .black
             
             newImageView.contentMode = .scaleAspectFit
-           // newImageView.frame = CGRect(0, 0, 375, 667)
             newImageView.isUserInteractionEnabled = true
-            newImageView.clipsToBounds = true
+           // newImageView.clipsToBounds = true
             let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
             newImageView.addGestureRecognizer(pan)
-            print(newImageView.description)
-            //
-            
+
             //        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
             //        newImageView.addGestureRecognizer(tap)
             //
@@ -108,19 +124,20 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
             
             self.navigationController?.isNavigationBarHidden = true
             self.tabBarController?.tabBar.isHidden = true
-            }
         }
-
+    }
+    
     @IBAction func editButton(_ sender: Any) {
-       
+        
         if canDelete{
-        canDelete = false
+            canDelete = false
         }
         else{
             canDelete = true
         }
+        //this calls the top collectionView function and different code is called depending on the  canDelete boolean
         photosCollection.reloadData()
-    
+        
     }
     
     func handlePan(sender: UIPanGestureRecognizer) {
@@ -143,7 +160,6 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         self.tabBarController?.tabBar.isHidden = false
         sender.view?.removeFromSuperview()
     }
-    
     
     @IBAction func getAlert(_ sender: Any) {
         
@@ -190,7 +206,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         
         saveImage(image)
-
+        
         dismiss(animated:true, completion: nil)
         photosCollection.reloadData()
     }
@@ -201,20 +217,20 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         
         let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("Image\(image.description)")
         
-        let data = UIImagePNGRepresentation(image)
+        let data = UIImageJPEGRepresentation(image, 0.8)
         images.append([image : imagePath])
         
         print("Added Image \(imagePath)")
         fileManager.createFile(atPath: imagePath as String, contents: data, attributes: nil)
     }
     
-    func getImage(){
+    func getImages(){
         let fileManager = FileManager.default
         let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let directoryContents = try! fileManager.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
- 
+        
         for i in directoryContents{
-          //  try? fileManager.removeItem(atPath: i.path)
+            //  try? fileManager.removeItem(atPath: i.path)
             
             if let image = UIImage(contentsOfFile: i.path) {
                 images.append([image : i.path])
@@ -222,8 +238,6 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
                 fatalError("Can't create image from file \(i)")
             }
         }
-
-        
     }
     
 }

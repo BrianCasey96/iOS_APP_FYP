@@ -10,11 +10,11 @@ import UIKit
 
 class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
     
-    let gd = getData()
+//  let gd = getData()
     @IBOutlet var searchBar: UISearchBar!
     
     var listData = [[String: AnyObject]]()
-    var Dets : [String] = []
+
     var filtered = [String]()
     let refresh = UIRefreshControl()
     var numberOfRowsAtSection: [Int] = []
@@ -35,7 +35,7 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         tableView.reloadData()
         
         searchBar.delegate = self
-        searchBar.returnKeyType = UIReturnKeyType.search
+        searchBar.returnKeyType = UIReturnKeyType.done
 //  
 //        gd.refreshDataFromServer()
 //        self.data = gd.populatePlantData()
@@ -112,8 +112,10 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         return newDates
     }
     
+    // if there is one value for today it duplicates the last date there was data in the table view
     func sortDatabyDate() -> [[String: AnyObject]]{
         var myArray = [[String: AnyObject]]()
+        
         var x = 1
         var num_elements = 0
         var section = 0
@@ -126,6 +128,7 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
             let nextValueSplit = nextValue?.lastPathComponent?.split(separator:"T").map(String.init)
             
             num_elements = num_elements + 1
+            
             if valueSplit?.first != nextValueSplit?.first{
                 myArray.append([(valueSplit?.first)!: num_elements as AnyObject])
                 num_elements = 0
@@ -133,6 +136,7 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
             }
             x = x + 1
             
+            //get last date from listData
             if x == listData.count - 1{
                 myArray.append([(valueSplit?.first)!: num_elements as AnyObject])
             }
@@ -158,6 +162,15 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
             tableView.reloadData()
         }
     }
+    
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchBar.endEditing(true)
+    }
+    
+     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
     
     func getDateFromEachSection() -> [String]{
         let x = sortDatabyDate()
@@ -216,7 +229,6 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if isSearching{
-            print("Fitered count is \([filtered.count])")
             return filtered.count
         }
         
@@ -253,7 +265,6 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         
         let date = x.reversed()[index!].keys.first
         
-        
         let data = listData.reversed()[startRange..<endRange]
         
         let rangeOfValues: [[String:AnyObject]] = Array(data)
@@ -264,50 +275,7 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
             controller.data = rangeOfValues
             controller.title = date
         }
-        
     }
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     
-     */
 }
 
 

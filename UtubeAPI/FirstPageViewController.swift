@@ -17,31 +17,29 @@ class FirstPageViewController: UIViewController {
     @IBOutlet var descBottom: UIImageView!
     @IBOutlet var textBckgrnd: UIImageView!
     @IBOutlet var plantImage: UIImageView!
-    @IBOutlet var name: UILabel!
     @IBOutlet var temp: UILabel!
     @IBOutlet var light: UILabel!
     @IBOutlet var time_watered: UILabel!
+    
+    @IBOutlet var waterimg: UIImageView!
+ 
+    @IBOutlet var time: UILabel!
     
     var type : String? = nil
     var picture : String? = nil
     var soil : String? = nil
     var sun : String? = nil
     
-    @IBOutlet var waterimg: UIImageView!
     let refresh = UIRefreshControl()
     var mqtt : CocoaMQTT?
-    
-    @IBOutlet var time: UILabel!
     
     var topValue = [[String: AnyObject]]()
     let dateformatter = DateFormatter()
     let calendar = NSCalendar.current
-    var top : [PlantData]?
+   // var top : [PlantData]?
     
     let shapeLayer = CAShapeLayer()
     let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
-    
-    
     
     let circleLabel: UILabel = {
         let label = UILabel()
@@ -50,7 +48,6 @@ class FirstPageViewController: UIViewController {
         label.font = UIFont.boldSystemFont(ofSize: 30)
         return label
     }()
-    
     
     var m : Int = 0
     var t : Double = 0
@@ -70,6 +67,11 @@ class FirstPageViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         waterimg.addGestureRecognizer(tapRecognizer)
         view.addSubview(waterimg)
+        
+        plantImage.isUserInteractionEnabled = true
+        let plantImageTap = UITapGestureRecognizer(target: self, action: #selector(plantImageTapped))
+        plantImage.addGestureRecognizer(plantImageTap)
+        
         mqttSetting()
         
         textBckgrnd.alpha = 0.8
@@ -83,9 +85,7 @@ class FirstPageViewController: UIViewController {
         plantImage.layer.cornerRadius = radius
         plantImage.layer.masksToBounds = true
         
-        // self.addTarget(self, action: #selector(refreshFromServer), for: .valueChanged)
-        
-        
+        let tabBarController: UITabBarController?
     }
     
     override func didReceiveMemoryWarning() {
@@ -105,12 +105,11 @@ class FirstPageViewController: UIViewController {
         soil = UserDefaults.standard.string(forKey: "soil")
         sun = UserDefaults.standard.string(forKey: "sun")
         
-        
         if (type ?? "").isEmpty{
             return
         }
         else{
-            name.text = type
+            self.title = type
             sunType.text = "Needs \(sun!)."
             soilType.text = "Plant \(soil!)."
             let url = URL(string: picture!)
@@ -122,8 +121,6 @@ class FirstPageViewController: UIViewController {
                 }
                 }.resume()
         }
-        
-        
     }
     
     func mqttSetting() {
@@ -134,16 +131,22 @@ class FirstPageViewController: UIViewController {
         mqtt?.connect()
     }
     
+    func plantImageTapped(recognizer: UITapGestureRecognizer){
+        let imageView = recognizer.view as? UIImageView
+        if imageView != nil {
+         tabBarController?.selectedIndex = 3
+        }
+    }
+    
     func imageTapped(recognizer: UITapGestureRecognizer) {
-        print("Image was tapped")
         let imageView = recognizer.view as? UIImageView
         if imageView != nil {
             print("water plant")
             mqtt!.publish("rpi/gpio", withString: "on")
-            let date = Date()
-            self.dateformatter.dateFormat = "h:mm a"
-            let result =  self.dateformatter.string(from: date)
-            time_watered.text = "Plant last watered at \(result)"
+           // let date = Date()
+           // self.dateformatter.dateFormat = "h:mm a"
+           // let result =  self.dateformatter.string(from: date)
+            //time_watered.text = "Plant last watered at \(result)"
             
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10), execute: {
                 self.refreshFromServer()
@@ -153,16 +156,13 @@ class FirstPageViewController: UIViewController {
     }
     
     func addCircleBar(){
-        name.text = "Corcle Bar"
         let trackLayer = CAShapeLayer()
         
-        let circularPath = UIBezierPath(arcCenter: .zero, radius: 70, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+        let circularPath = UIBezierPath(arcCenter: .zero, radius: 65, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
         
         trackLayer.path = circularPath.cgPath
-        
         trackLayer.strokeColor = UIColor.green.cgColor
         trackLayer.lineWidth = 10
-        
         trackLayer.lineCap = kCALineCapRound
         trackLayer.strokeEnd = 1
         trackLayer.fillColor = UIColor.clear.cgColor
@@ -177,7 +177,6 @@ class FirstPageViewController: UIViewController {
         shapeLayer.transform = CATransform3DMakeRotation(-CGFloat.pi/2, 0, 0, 1)
         shapeLayer.strokeEnd = 0
         shapeLayer.fillColor = UIColor.clear.cgColor
-        
         
         view.layer.addSublayer(trackLayer)
         view.layer.addSublayer(shapeLayer)
@@ -301,7 +300,6 @@ extension UIViewController: CocoaMQTTDelegate {
         myalert.addAction(UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction!) in
             print("Done")
         })
-        
         
         self.present(myalert, animated: true)
     }
