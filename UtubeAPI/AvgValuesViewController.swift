@@ -9,9 +9,8 @@
 import UIKit
 
 class AvgValuesViewController: UIViewController {
-
-    @IBOutlet var moisture: UILabel!
     
+    @IBOutlet var moisture: UILabel!
     @IBOutlet var temp: UILabel!
     @IBOutlet var light: UILabel!
     @IBOutlet var popupView: UIView!

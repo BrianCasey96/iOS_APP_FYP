@@ -110,8 +110,8 @@ class FirstPageViewController: UIViewController {
         }
         else{
             self.title = type
-            sunType.text = "Needs \(sun!)."
-            soilType.text = "Plant \(soil!)."
+            sunType.text = "Needs \(sun!)"
+            soilType.text = "Plant \(soil!)"
             let url = URL(string: picture!)
             let request = URLRequest(url: url!)
             URLSession.shared.dataTask(with: request) {
@@ -121,6 +121,71 @@ class FirstPageViewController: UIViewController {
                 }
                 }.resume()
         }
+        
+    }
+    
+    func adviseUser(){
+
+        if (soil?.elementsEqual("requires well-drained soil"))!{
+            if (m > 70){
+                soilType.text?.append(" - Good")
+            }
+                
+            else{
+                soilType.text?.append(" - Add more water")
+            }
+        }
+        else if (soil?.elementsEqual("tolerates droughty soil"))!{
+            if (m > 70){
+                soilType.text?.append(" - Use less water")
+            }
+            
+            else{
+                soilType.text?.append(" - Good")
+            }
+            
+        }
+        else if (soil?.elementsEqual("requires damp soil"))!{
+            if (m > 70){
+                soilType.text?.append(" - Good")
+            }
+                
+            else{
+                soilType.text?.append(" - Needs more water")
+            }
+        }
+        else if (soil?.elementsEqual("requires acid soil"))!{
+            soilType.text?.append("")
+        }
+        else{
+            soilType.text?.append("")
+        }
+        
+        
+       
+        if (sun?.elementsEqual("full sun"))!{
+            if (l > 70){
+                sunType.text?.append(" - Good")
+            }
+                
+            else{
+                sunType.text?.append(" - Add more sunlight ")
+            }
+        }
+        else if (sun?.elementsEqual("part shade"))!{
+            if (m < 70){
+                sunType.text?.append(" - Good")
+            }
+                
+            else{
+                sunType.text?.append(" - Use less light")
+            }
+        }
+     
+        else{
+            sunType.text?.append("")
+        }
+        
     }
     
     func mqttSetting() {
@@ -252,21 +317,13 @@ class FirstPageViewController: UIViewController {
                         self.light.text = "\(self.l)%"
                         
                         self.refresh.endRefreshing()
-                        
+                        self.adviseUser()
                     }
                 }catch let error as NSError{
                     print(error)
                 }
             }
         }).resume()
-        
-    }
-    
-    @IBAction func waterPlant(_ sender: Any) {
-        print("water plant")
-        mqtt!.publish("rpi/gpio", withString: "on")
-        sleep(5)
-        refreshFromServer()
         
     }
     
