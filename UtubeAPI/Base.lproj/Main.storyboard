@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -106,11 +107,6 @@
                         <color key="backgroundColor" red="0.82675751621478044" green="1" blue="0.20279474486805971" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Most Recent Values" id="Udy-17-dM0">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="add" id="2Nz-Ne-qn1">
-                            <connections>
-                                <segue destination="cj5-hW-mgv" kind="show" id="4jv-Ls-zwS"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Update" id="Ufm-ok-sIO">
                             <connections>
                                 <action selector="update:" destination="hup-5T-v20" id="fUO-Db-nO4"/>
@@ -289,17 +285,150 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="fwC-EJ-aA4">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="listTabBarItem" id="XmB-uS-v1G">
-                            <connections>
-                                <action selector="avgValues:" destination="SRt-FX-U7U" id="h4F-25-67W"/>
-                                <segue destination="fhT-Zb-jjD" kind="presentation" identifier="avgValues" id="Vvz-o0-ur7"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="listTabBarItem" id="XmB-uS-v1G">
+                                <connections>
+                                    <action selector="avgValues:" destination="SRt-FX-U7U" id="h4F-25-67W"/>
+                                    <segue destination="fhT-Zb-jjD" kind="presentation" identifier="avgValues" id="Vvz-o0-ur7"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Info" id="x1G-K8-349">
+                                <connections>
+                                    <segue destination="b6Y-bg-vxh" kind="presentation" identifier="ChartView" id="9N0-FR-RAi"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lel-KX-b2a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="688.79999999999995" y="-412.44377811094455"/>
+        </scene>
+        <!--Chart View Controller-->
+        <scene sceneID="2S5-Yn-8pO">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="b6Y-bg-vxh" customClass="ChartViewController" customModule="UtubeAPI" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cLM-v1-zE9"/>
+                        <viewControllerLayoutGuide type="bottom" id="3Zf-ME-Nu2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="r9Y-in-sV7">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="1800"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FWv-LB-rXm">
+                                <rect key="frame" x="-4" y="73" width="383" height="1640"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jct-pe-uQi">
+                                        <rect key="frame" x="20" y="20" width="343" height="480"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o1Y-Io-1k6">
+                                                <rect key="frame" x="0.0" y="436" width="343" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                <state key="normal" title="Dismiss"/>
+                                                <connections>
+                                                    <action selector="dismissPopover:" destination="b6Y-bg-vxh" eventType="touchUpInside" id="7ee-ua-vzI"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JBy-Gl-1Aj" customClass="LineChartView" customModule="Charts">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="436"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Moisture Graph" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yga-rC-fAl">
+                                                        <rect key="frame" x="0.0" y="8" width="335" height="29"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.82675751620000004" green="1" blue="0.20279474489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.015756598350000001" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NIv-Bl-8Bn">
+                                        <rect key="frame" x="20" y="561" width="343" height="480"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SSt-BT-fhK">
+                                                <rect key="frame" x="0.0" y="436" width="343" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                <state key="normal" title="Dismiss"/>
+                                                <connections>
+                                                    <action selector="dismissPopover:" destination="b6Y-bg-vxh" eventType="touchUpInside" id="9ca-L5-Bkm"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qgT-hY-2tg" customClass="LineChartView" customModule="Charts">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="436"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Light Graph" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ktk-AT-o4E">
+                                                        <rect key="frame" x="8" y="8" width="327" height="29"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.82675751620000004" green="1" blue="0.20279474489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.015756598350000001" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q4I-HT-pID">
+                                        <rect key="frame" x="20" y="1081" width="343" height="480"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uMf-xB-MPj">
+                                                <rect key="frame" x="0.0" y="436" width="343" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                <state key="normal" title="Dismiss"/>
+                                                <connections>
+                                                    <action selector="dismissPopover:" destination="b6Y-bg-vxh" eventType="touchUpInside" id="wAS-sx-rB1"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9DH-Sd-L4c" customClass="LineChartView" customModule="Charts">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="436"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Temperature Graph" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IGC-Uh-AuW">
+                                                        <rect key="frame" x="8" y="0.0" width="327" height="29"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.82675751620000004" green="1" blue="0.20279474489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.015756598350000001" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <size key="freeformSize" width="400" height="1800"/>
+                    <connections>
+                        <outlet property="chartView" destination="JBy-Gl-1Aj" id="SRr-Xb-SsD"/>
+                        <outlet property="lightChartView" destination="qgT-hY-2tg" id="cOh-TQ-qDD"/>
+                        <outlet property="popUpView" destination="jct-pe-uQi" id="xPo-tv-Xfd"/>
+                        <outlet property="popUpView2" destination="NIv-Bl-8Bn" id="Lze-YY-C77"/>
+                        <outlet property="popUpView3" destination="q4I-HT-pID" id="aPo-lq-Xzc"/>
+                        <outlet property="scrollView" destination="FWv-LB-rXm" id="FdQ-w8-6iz"/>
+                        <outlet property="tempChartView" destination="9DH-Sd-L4c" id="Vuo-Vx-Anm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EOt-pV-ttg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2652.8000000000002" y="-1344.8275862068967"/>
         </scene>
         <!--Avg Values View Controller-->
         <scene sceneID="gcu-lW-CGY">
@@ -392,7 +521,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3rQ-4x-atP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1653.5999999999999" y="-411.544227886057"/>
+            <point key="canvasLocation" x="1708" y="-196"/>
         </scene>
         <!--Search-->
         <scene sceneID="A4w-Pu-HbW">
@@ -574,7 +703,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btO-XO-wfv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1136.8" y="375.11244377811096"/>
+            <point key="canvasLocation" x="1031" y="459"/>
         </scene>
         <!--Search-->
         <scene sceneID="Fs3-Qp-g2z">
@@ -750,7 +879,4 @@
         <image name="sun_icon" width="112" height="112"/>
         <image name="temp_icon" width="100" height="100"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="4jv-Ls-zwS"/>
-    </inferredMetricsTieBreakers>
 </document>

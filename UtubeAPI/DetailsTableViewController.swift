@@ -33,10 +33,7 @@ class DetailsTableViewController: UITableViewController, UIPopoverControllerDele
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //        print("Avg moisture is \(sumMoisture!/divider!)")
-        //        print("Avg temp is \(sumTemp!/Double(divider!))")
-        //        print("Avg light is \(sumLight!/Double(divider!))")
-        
+
         avgs["moisture"] = sumMoisture!/divider! as AnyObject
         
         var avgt = sumTemp!/Double(divider!)
@@ -47,14 +44,6 @@ class DetailsTableViewController: UITableViewController, UIPopoverControllerDele
         avgl.round()
         avgs["light"] = avgl as AnyObject
         
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "avgValues" {
-            let controller = segue.destination as! AvgValuesViewController
-            controller.data = avgs
-        }
     }
     
     func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
@@ -106,6 +95,19 @@ class DetailsTableViewController: UITableViewController, UIPopoverControllerDele
         divider = indexPath.last! + 1
         
         return cell!
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "avgValues" {
+            let controller = segue.destination as! AvgValuesViewController
+            controller.data = avgs
+        }
+        
+        if segue.identifier == "ChartView" {
+            let controller = segue.destination as! ChartViewController
+            controller.values = data
+        }
     }
 }
 

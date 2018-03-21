@@ -11,7 +11,6 @@ import CocoaMQTT
 
 class FirstPageViewController: UIViewController {
 
-    
     @IBOutlet var sunType: UILabel!
     @IBOutlet var soilType: UILabel!
     @IBOutlet var descBottom: UIImageView!
@@ -125,7 +124,7 @@ class FirstPageViewController: UIViewController {
     }
     
     func adviseUser(){
-
+// Good adds itself each time update is called
         if (soil?.elementsEqual("requires well-drained soil"))!{
             if (m > 70){
                 soilType.text?.append(" - Good")
