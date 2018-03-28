@@ -8,7 +8,6 @@
 
 import Foundation
 
-//TODO: make these prettier and probably not extensions
 public extension String {
     func splitOnNewLine() -> ([String]) {
         return self.components(separatedBy: CharacterSet.newlines)

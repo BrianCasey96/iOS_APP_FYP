@@ -26,11 +26,9 @@ class ChartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         popUpView.layer.cornerRadius = 10
-        popUpView.layer.masksToBounds = true
-        popUpView.layer.cornerRadius = 10
-        popUpView2.layer.masksToBounds = true
+        popUpView2.layer.cornerRadius = 10
         popUpView3.layer.cornerRadius = 10
-        popUpView3.layer.masksToBounds = true
+
 
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height+2000)
         
@@ -56,7 +54,7 @@ class ChartViewController: UIViewController {
         var chart_moist_Entry = [ChartDataEntry]()
         var chart_light_Entry = [ChartDataEntry]()
         
-      //  values = values?.reversed()
+        values = values?.reversed()
         
         if let filteredList = values{
             for i in 0..<filteredList.count{
@@ -76,9 +74,9 @@ class ChartViewController: UIViewController {
         }
 
         
-        let templine = LineChartDataSet(values: chart_temp_Entry, label: "Temperature")
-        let moistline = LineChartDataSet(values: chart_moist_Entry, label: "Moisture")
-        let lightline = LineChartDataSet(values: chart_light_Entry, label: "Light")
+        let templine = LineChartDataSet(values: chart_temp_Entry, label: "Temperature °C")
+        let moistline = LineChartDataSet(values: chart_moist_Entry, label: "Moisture%")
+        let lightline = LineChartDataSet(values: chart_light_Entry, label: "Light%")
         
         
         templine.colors = [UIColor.yellow]

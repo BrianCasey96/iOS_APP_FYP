@@ -369,7 +369,7 @@
 					};
 					91874A741E27DBAB005D6EA4 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 424XP5MAS8;
+						DevelopmentTeam = ECMP8NKXGD;
 						ProvisioningStyle = Automatic;
 					};
 					91874A881E27DBAC005D6EA4 = {
@@ -769,10 +769,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 424XP5MAS8;
+				DEVELOPMENT_TEAM = ECMP8NKXGD;
 				INFOPLIST_FILE = UtubeAPI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.UtubeAPI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ex.finalyrproject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -784,10 +784,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 424XP5MAS8;
+				DEVELOPMENT_TEAM = ECMP8NKXGD;
 				INFOPLIST_FILE = UtubeAPI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.UtubeAPI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ex.finalyrproject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

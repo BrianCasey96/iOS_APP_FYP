@@ -104,6 +104,7 @@ class FirstPageViewController: UIViewController {
         soil = UserDefaults.standard.string(forKey: "soil")
         sun = UserDefaults.standard.string(forKey: "sun")
         
+        
         if (type ?? "").isEmpty{
             return
         }
@@ -117,14 +118,15 @@ class FirstPageViewController: UIViewController {
                 (data, response, error) in
                 DispatchQueue.main.async {
                     self.plantImage.image = UIImage(data: data!)
+                    print(url!)
                 }
                 }.resume()
+            self.adviseUser()
         }
         
     }
     
     func adviseUser(){
-// Good adds itself each time update is called
         if (soil?.elementsEqual("requires well-drained soil"))!{
             if (m > 70){
                 soilType.text?.append(" - Good")
@@ -316,7 +318,7 @@ class FirstPageViewController: UIViewController {
                         self.light.text = "\(self.l)%"
                         
                         self.refresh.endRefreshing()
-                        self.adviseUser()
+                   //
                     }
                 }catch let error as NSError{
                     print(error)
