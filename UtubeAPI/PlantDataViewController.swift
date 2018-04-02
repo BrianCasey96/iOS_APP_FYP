@@ -73,14 +73,15 @@ class PlantDataViewController: UIViewController {
         myalert.addAction(UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction!) in
             print("Done")
         })
+        
+        self.present(myalert, animated: true)
+        
         let name = data!["name"] as! String
         let image = data!["img"] as! String
         let soil = data?["soil"] as! String
         let sun = data?["sun"] as! String
         
-        self.present(myalert, animated: true)
-        
-        UserDefaults.standard.set(name, forKey: "name") //setObject
+        UserDefaults.standard.set(name, forKey: "name")
         UserDefaults.standard.set(image, forKey: "image")
         UserDefaults.standard.set(soil, forKey: "soil")
         UserDefaults.standard.set(sun, forKey: "sun")

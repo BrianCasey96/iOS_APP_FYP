@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class PhotosViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDelegate{
@@ -15,6 +16,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     var inPath : IndexPath? = nil
     var canDelete = false
     var images = [[UIImage: String]]()
+    let fileManager = FileManager.default
     
     @IBOutlet var photosCollection: UICollectionView!
     
@@ -24,9 +26,9 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.alpha = 0.9
         backgroundImage.image = UIImage(named: "leaves.png")
-
+        
         photosCollection.backgroundView = backgroundImage
-
+        
         getImages()
         photosCollection.delegate = self
         photosCollection.dataSource = self
@@ -37,10 +39,6 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         super.didReceiveMemoryWarning()
         
     }
-    
- 
-    
-
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
@@ -72,14 +70,14 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
-      
+        
         let result = formatter.string(from: date)
         cell.string.text = result
         
         // let image : UIImage = images[indexPath.row]
         let image : UIImage = images[indexPath.row].keys.first!
         
-      //  cell.img.contentMode = .scaleAspectFill
+        //  cell.img.contentMode = .scaleAspectFill
         
         cell.img.image = image
         
@@ -113,10 +111,10 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
             
             newImageView.contentMode = .scaleAspectFit
             newImageView.isUserInteractionEnabled = true
-           // newImageView.clipsToBounds = true
+            // newImageView.clipsToBounds = true
             let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
             newImageView.addGestureRecognizer(pan)
-
+            
             //        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
             //        newImageView.addGestureRecognizer(tap)
             //
@@ -135,7 +133,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         else{
             canDelete = true
         }
-        //this calls the top collectionView function and different code is called depending on the  canDelete boolean
+        //this calls the top collectionView function and different code is called depending on the canDelete boolean being true or false
         photosCollection.reloadData()
         
     }
@@ -192,40 +190,52 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     }
     
     func openCamera() {
-        
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = .camera;
-            imagePicker.allowsEditing = false
-            self.present(imagePicker, animated: true, completion: nil)
-        }
+        AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: {(_ granted: Bool) -> Void in
+            if granted {
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    let imagePicker = UIImagePickerController()
+                    imagePicker.delegate = self
+                    imagePicker.sourceType = .camera;
+                    imagePicker.allowsEditing = false
+                    self.present(imagePicker, animated: true, completion: nil)
+                }
+            } else {
+                let myalert = UIAlertController(title: "You need to go to settings and accept camera permissions", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+                
+                myalert.addAction(UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                    print("Done")
+                })
+         
+                self.present(myalert, animated: true)
+            }
+        })
+
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         
-        saveImage(image)
-        
+        //the image is passed to the saveImage function where it is added to the
+        //images array and also persisted to memory using fileManager.createFile
         dismiss(animated:true, completion: nil)
+        saveImage(image)
         photosCollection.reloadData()
     }
     
     func saveImage(_ image: UIImage){
         
-        let fileManager = FileManager.default
-        
         let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("Image\(image.description)")
         
-        let data = UIImageJPEGRepresentation(image, 0.8)
+        //The second parameter represents JPEG quality, where 1.0 is highest and 0.0 is lowest.
+        let data = UIImageJPEGRepresentation(image, 1)
         images.append([image : imagePath])
         
-        print("Added Image \(imagePath)")
         fileManager.createFile(atPath: imagePath as String, contents: data, attributes: nil)
     }
     
     func getImages(){
-        let fileManager = FileManager.default
+        
         let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let directoryContents = try! fileManager.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
         
@@ -241,7 +251,3 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     }
     
 }
-
-
-
-

@@ -229,7 +229,6 @@
 				52C03BA02062798F004B3A20 /* ChartViewController.swift */,
 				525432FE205EDE8500DC3854 /* AvgValuesViewController.swift */,
 				524DE596204EDE10002DC3CB /* PlantDataViewController.swift */,
-				524DE590204EC051002DC3CB /* CSwiftV.swift */,
 				528763DA2047337E006D8385 /* PlantTableViewCell.swift */,
 				5289DBFA201CA686001E120F /* getData.swift */,
 				5289DBF8201CA52E001E120F /* PlantData.swift */,
@@ -239,6 +238,7 @@
 				91874A781E27DBAB005D6EA4 /* AppDelegate.swift */,
 				91874A7F1E27DBAB005D6EA4 /* Assets.xcassets */,
 				524DE594204ED112002DC3CB /* plants.csv */,
+				524DE590204EC051002DC3CB /* CSwiftV.swift */,
 				91874A811E27DBAB005D6EA4 /* LaunchScreen.storyboard */,
 				91874A841E27DBAB005D6EA4 /* Info.plist */,
 			);

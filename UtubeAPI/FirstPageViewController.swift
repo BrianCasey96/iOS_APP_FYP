@@ -8,6 +8,7 @@
 
 import UIKit
 import CocoaMQTT
+import UserNotifications
 
 class FirstPageViewController: UIViewController {
 
@@ -23,6 +24,7 @@ class FirstPageViewController: UIViewController {
     @IBOutlet var waterimg: UIImageView!
  
     @IBOutlet var time: UILabel!
+    
     
     var type : String? = nil
     var picture : String? = nil
@@ -85,6 +87,8 @@ class FirstPageViewController: UIViewController {
         plantImage.layer.masksToBounds = true
         
         let tabBarController: UITabBarController?
+        
+         UNUserNotificationCenter.current().delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -106,12 +110,14 @@ class FirstPageViewController: UIViewController {
         
         
         if (type ?? "").isEmpty{
-            return
+            soilType.text = "Go to the search tab and choose the"
+            sunType.text = "type of plant you are growing."
         }
         else{
-            self.title = type
+            self.navigationItem.title = type
             sunType.text = "Needs \(sun!)"
             soilType.text = "Plant \(soil!)"
+            
             let url = URL(string: picture!)
             let request = URLRequest(url: url!)
             URLSession.shared.dataTask(with: request) {
@@ -124,6 +130,8 @@ class FirstPageViewController: UIViewController {
             self.adviseUser()
         }
         
+        trialNotify()
+       // setUpNotification()
     }
     
     func adviseUser(){
@@ -266,6 +274,7 @@ class FirstPageViewController: UIViewController {
         URLSession.shared.dataTask(with: urlRequest!, completionHandler: {
             (data, response, error) in
             
+            //http check
             if let httpResponse = response as? HTTPURLResponse {
                 switch httpResponse.statusCode {
                 case 500..<600:
@@ -285,21 +294,10 @@ class FirstPageViewController: UIViewController {
             }else{
                 do{
                     self.topValue = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [[String: AnyObject]]
-                    
-                    
-                    print(self.topValue)
+
                     let x = self.topValue[0]
-                    
-                    self.dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                    let value = x["time_value"]
-                    
-                    let a = value?.replacingOccurrences(of: "T", with: " ")
-                    let b = a?.replacingOccurrences(of: ".000Z", with: "")
-                    
-                    let date = self.dateformatter.date(from: b!)
-                    
-                    self.dateformatter.dateFormat = "h:mm a"
-                    let time = self.dateformatter.string(from: date!)
+                    let date = x["time_value"] as! String
+                    let time = self.fixDateFormat(value: date)
                     
                     DispatchQueue.main.async() { () -> Void in
                         self.m = x["moisture"] as! Int
@@ -307,18 +305,14 @@ class FirstPageViewController: UIViewController {
                         self.l = x["light"] as! Double
                         
                         self.circleLabel.text = "\(self.m)%"
-                        
-                        let newVal: Double = (Double(self.m)/Double(100))
-                        self.basicAnimation.toValue = newVal
+                        self.basicAnimation.toValue = (Double(self.m)/Double(100))
                         self.animateCircle()
                         
                         self.time.text = "\(time)"
-                        //   self.moisture.text = "\(self.m)%"
                         self.temp.text = "\(self.t)°C"
                         self.light.text = "\(self.l)%"
                         
                         self.refresh.endRefreshing()
-                   //
                     }
                 }catch let error as NSError{
                     print(error)
@@ -328,10 +322,80 @@ class FirstPageViewController: UIViewController {
         
     }
     
+
     @IBAction func update(_ sender: Any) {
         refreshFromServer()
     }
     
+    func fixDateFormat(value: String )-> String{
+        self.dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let a = value.replacingOccurrences(of: "T", with: " ")
+        let b = a.replacingOccurrences(of: ".000Z", with: "")
+        
+        let date = self.dateformatter.date(from: b)
+        
+        self.dateformatter.dateFormat = "h:mm a"
+        let time = self.dateformatter.string(from: date!)
+        return time
+        
+    }
+    
+    private func requestAuthorization(completionHandler: @escaping (_ success: Bool) -> ()) {
+        // Request Authorization
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
+            if let error = error {
+                print("Request Authorization Failed (\(error), \(error.localizedDescription))")
+            }
+            completionHandler(success)
+        }
+    }
+    
+    private func scheduleLocalNotification() {
+        // Create Notification Content
+        let content = UNMutableNotificationContent()
+        content.title = "Don't forget to water your plant"
+        content.body = "Mositure Level is getting low"
+        content.sound = UNNotificationSound.default()
+      //  content.subtitle = ""
+        
+        
+//        let date = Date(timeIntervalSinceNow: 3600)
+//        let trigger = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
+
+        
+        // Add Trigger
+       let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3600, repeats: true)
+        
+        // Create Notification Request
+        let request = UNNotificationRequest(identifier: "LocalNotification", content: content, trigger: trigger)
+        
+        // Add Request to User Notification Center
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if let error = error {
+                print("Unable to Add Notification Request (\(error), \(error.localizedDescription))")
+            }
+        }
+    }
+    
+    func trialNotify(){
+        
+        UNUserNotificationCenter.current().getNotificationSettings { (notificationSettings) in
+            switch notificationSettings.authorizationStatus {
+            case .notDetermined:
+                self.requestAuthorization(completionHandler: { (success) in
+                    guard success else { return }
+                    
+                    self.scheduleLocalNotification()
+                })
+            case .authorized:
+                self.scheduleLocalNotification()
+            case .denied:
+                print("Application Not Allowed to Display Notifications")
+            }
+        }
+    }
+  
 }
 
 extension UIViewController: CocoaMQTTDelegate {
@@ -388,5 +452,13 @@ extension UIViewController: CocoaMQTTDelegate {
             _ = mqtt.connect()
         }
     }
+}
+
+extension FirstPageViewController: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert])
+    }
+    
 }
 

@@ -264,9 +264,7 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         }
         
         let date = x.reversed()[index!].keys.first
-        
         let data = listData.reversed()[startRange..<endRange]
-        
         let rangeOfValues: [[String:AnyObject]] = Array(data)
         
         if segue.identifier == "next" {
