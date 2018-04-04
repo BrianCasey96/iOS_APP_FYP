@@ -20,7 +20,6 @@ class AvgValuesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         if let m = data!["moisture"], let t = data!["temp"], let l = data!["light"]{
             moisture.text = "Moisture : \(m)%"
             temp.text = "Temperature : \(t)°C"
@@ -29,8 +28,7 @@ class AvgValuesViewController: UIViewController {
         
         popupView.layer.cornerRadius = 10
         popupView.layer.masksToBounds = true
-    
-        // Do any additional setup after loading the view.
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,15 +39,6 @@ class AvgValuesViewController: UIViewController {
     @IBAction func dismissPopover(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+ 
 
 }

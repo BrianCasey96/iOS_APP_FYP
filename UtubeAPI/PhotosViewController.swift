@@ -17,6 +17,10 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     var canDelete = false
     var images = [[UIImage: String]]()
     let fileManager = FileManager.default
+    var result: String?
+    
+    let date = Date()
+    let formatter = DateFormatter()
     
     @IBOutlet var photosCollection: UICollectionView!
     
@@ -32,6 +36,10 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         getImages()
         photosCollection.delegate = self
         photosCollection.dataSource = self
+        
+        
+        formatter.dateFormat = "dd.MM.yyyy"
+        result = formatter.string(from: date)
         
     }
     
@@ -66,16 +74,16 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         
         cell.img.layer.borderWidth = 2.0
         cell.img.layer.borderColor = UIColor.green.cgColor
+
         
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        
-        let result = formatter.string(from: date)
-        cell.string.text = result
-        
-        // let image : UIImage = images[indexPath.row]
         let image : UIImage = images[indexPath.row].keys.first!
+        let imagePath = images[indexPath.row].values.first
+       
+        //trims the image path string to get the date picture was taken
+        if let range = imagePath?.range(of: "Date ") {
+            let picDate = imagePath![range.upperBound...]
+            cell.string.text = "\(picDate)"
+        }
         
         //  cell.img.contentMode = .scaleAspectFill
         
@@ -89,7 +97,6 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         
         let i : Int = (sender.layer.value(forKey: "index")) as! Int
         let x = images[i].values.first
-        // images.remove(at: i)
         
         let fileManager = FileManager.default
         try? fileManager.removeItem(atPath: x!)
@@ -101,25 +108,22 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if !canDelete{
-            
+            //tapped picture goes to fullscreen
             let img : UIImage = images[indexPath.row].keys.first!
             
             let newImageView = UIImageView(image: img)
             
             newImageView.frame = UIScreen.main.bounds
+
             newImageView.backgroundColor = .black
             
-            newImageView.contentMode = .scaleAspectFit
+           // newImageView.contentMode = .scaleAspectFit
             newImageView.isUserInteractionEnabled = true
-            // newImageView.clipsToBounds = true
-            let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+           
+            let pan = UIPanGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
             newImageView.addGestureRecognizer(pan)
             
-            //        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
-            //        newImageView.addGestureRecognizer(tap)
-            //
             self.view.addSubview(newImageView)
-            
             self.navigationController?.isNavigationBarHidden = true
             self.tabBarController?.tabBar.isHidden = true
         }
@@ -133,12 +137,13 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         else{
             canDelete = true
         }
-        //this calls the top collectionView function and different code is called depending on the canDelete boolean being true or false
+        //this calls the top collectionView function and different code is called
+        //depending on the canDelete boolean being true or false
         photosCollection.reloadData()
         
     }
     
-    func handlePan(sender: UIPanGestureRecognizer) {
+    func handleSwipeGesture(sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
         if let view = sender.view {
             view.center = CGPoint(x:view.center.x + translation.x,
@@ -151,12 +156,6 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         if sender.state == .ended{
             sender.view?.removeFromSuperview()
         }
-    }
-    
-    func dismissFullscreenImage(sender: UITapGestureRecognizer) {
-        self.navigationController?.isNavigationBarHidden = false
-        self.tabBarController?.tabBar.isHidden = false
-        sender.view?.removeFromSuperview()
     }
     
     @IBAction func getAlert(_ sender: Any) {
@@ -225,9 +224,12 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     
     func saveImage(_ image: UIImage){
         
-        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("Image\(image.description)")
+        
+        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("Image\(image.debugDescription), Date \(result!)")
+        print(imagePath)
         
         //The second parameter represents JPEG quality, where 1.0 is highest and 0.0 is lowest.
+        
         let data = UIImageJPEGRepresentation(image, 1)
         images.append([image : imagePath])
         
@@ -244,10 +246,10 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
             
             if let image = UIImage(contentsOfFile: i.path) {
                 images.append([image : i.path])
+
             } else {
                 fatalError("Can't create image from file \(i)")
             }
         }
     }
-    
 }

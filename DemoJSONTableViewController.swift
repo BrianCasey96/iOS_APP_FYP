@@ -17,7 +17,7 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
 
     var filtered = [String]()
     let refresh = UIRefreshControl()
-    var numberOfRowsAtSection: [Int] = []
+ //   var numberOfRowsAtSection: [Int] = []
     var DateArray = [String]()
     
     var isSearching = false
@@ -36,7 +36,7 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
-//  
+
 //        gd.refreshDataFromServer()
 //        self.data = gd.populatePlantData()
 //        print ("Data from proper \(self.data)")
@@ -56,19 +56,6 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         
         URLSession.shared.dataTask(with: urlRequest!, completionHandler: {
             (data, response, error) in
-            
-            if let httpResponse = response as? HTTPURLResponse {
-                switch httpResponse.statusCode {
-                case 500..<600:
-                    print("Server error \(httpResponse.statusCode)")
-                     self.title = "Server request error \(httpResponse.statusCode)"
-                case 400..<500:
-                    print("Client request error \(httpResponse.statusCode)")
-                    self.title = "Client request error \(httpResponse.statusCode)"
-                default:
-                    print("")
-                }
-            }
             
             if(error != nil){
                 print(error.debugDescription)
@@ -122,8 +109,8 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
         
         while x < listData.count - 1{
             let value = listData[x]["time_value"]
-       
             let valueSplit = value?.lastPathComponent.split(separator:"T").map(String.init)
+            
             let nextValue = listData[x+1]["time_value"]
             let nextValueSplit = nextValue?.lastPathComponent?.split(separator:"T").map(String.init)
             
@@ -170,7 +157,7 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
      func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
     }
-    
+
     
     func getDateFromEachSection() -> [String]{
         let x = sortDatabyDate()
@@ -186,16 +173,16 @@ class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
     
     // returns an array with the number of rows in each section
     // extracts the value from the dictionary numberOfRowsAtSection
-    func getNumofRows() -> [Int]{
-        let x = sortDatabyDate()
-        
-        for i in x.enumerated(){
-            numberOfRowsAtSection.append(i.element.values.first as! Int)
-            
-        }
-        numberOfRowsAtSection.reverse()
-        return numberOfRowsAtSection
-    }
+//    func getNumofRows() -> [Int]{
+//        let x = sortDatabyDate()
+//
+//        for i in x.enumerated(){
+//            numberOfRowsAtSection.append(i.element.values.first as! Int)
+//
+//        }
+//        numberOfRowsAtSection.reverse()
+//        return numberOfRowsAtSection
+//    }
     
     // MARK: - Table view data source
     

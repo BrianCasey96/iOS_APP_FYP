@@ -29,7 +29,6 @@ class ChartViewController: UIViewController {
         popUpView2.layer.cornerRadius = 10
         popUpView3.layer.cornerRadius = 10
 
-
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height+2000)
         
         updateChart()

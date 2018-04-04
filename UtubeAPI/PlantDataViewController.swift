@@ -68,7 +68,7 @@ class PlantDataViewController: UIViewController {
     }
     
     @IBAction func add(_ sender: Any) {
-        let myalert = UIAlertController(title: "\(data!["name"] as! String) has been added to the homepage", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        let myalert = UIAlertController(title: "\(data!["name"] as! String) is now added to the homepage", message: nil, preferredStyle: UIAlertControllerStyle.alert)
 
         myalert.addAction(UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction!) in
             print("Done")

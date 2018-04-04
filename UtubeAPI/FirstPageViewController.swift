@@ -9,6 +9,7 @@
 import UIKit
 import CocoaMQTT
 import UserNotifications
+import SystemConfiguration
 
 class FirstPageViewController: UIViewController {
 
@@ -60,7 +61,7 @@ class FirstPageViewController: UIViewController {
         backgroundImage.alpha = 0.9
         backgroundImage.image = UIImage(named: "leaves.png")
         self.view.insertSubview(backgroundImage, at: 0)
-
+        
         refreshFromServer()
         
         waterimg.image = #imageLiteral(resourceName: "waterCan")
@@ -69,15 +70,14 @@ class FirstPageViewController: UIViewController {
         waterimg.addGestureRecognizer(tapRecognizer)
         view.addSubview(waterimg)
         
-        plantImage.isUserInteractionEnabled = true
-        let plantImageTap = UITapGestureRecognizer(target: self, action: #selector(plantImageTapped))
-        plantImage.addGestureRecognizer(plantImageTap)
+//        plantImage.isUserInteractionEnabled = true
+//        let plantImageTap = UITapGestureRecognizer(target: self, action: #selector(plantImageTapped))
+//        plantImage.addGestureRecognizer(plantImageTap)
         
-        mqttSetting()
+        mqttSettings()
         
         textBckgrnd.alpha = 0.8
         textBckgrnd.layer.cornerRadius = 8
-        
         descBottom.alpha = 0.8
         descBottom.layer.cornerRadius = 8
         
@@ -86,9 +86,18 @@ class FirstPageViewController: UIViewController {
         plantImage.layer.cornerRadius = radius
         plantImage.layer.masksToBounds = true
         
-        let tabBarController: UITabBarController?
+       // let tabBarController: UITabBarController?
         
          UNUserNotificationCenter.current().delegate = self
+        
+        //Refreshes the app when it is in foreground and you reopen the app
+        NotificationCenter.default.addObserver(self, selector:#selector(refreshFromServer), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        refreshFromServer()
     }
     
     override func didReceiveMemoryWarning() {
@@ -129,9 +138,8 @@ class FirstPageViewController: UIViewController {
                 }.resume()
             self.adviseUser()
         }
-        
-        trialNotify()
-       // setUpNotification()
+    
+        notification()
     }
     
     func adviseUser(){
@@ -139,7 +147,6 @@ class FirstPageViewController: UIViewController {
             if (m > 70){
                 soilType.text?.append(" - Good")
             }
-                
             else{
                 soilType.text?.append(" - Add more water")
             }
@@ -158,7 +165,6 @@ class FirstPageViewController: UIViewController {
             if (m > 70){
                 soilType.text?.append(" - Good")
             }
-                
             else{
                 soilType.text?.append(" - Needs more water")
             }
@@ -176,7 +182,6 @@ class FirstPageViewController: UIViewController {
             if (l > 70){
                 sunType.text?.append(" - Good")
             }
-                
             else{
                 sunType.text?.append(" - Add more sunlight ")
             }
@@ -197,7 +202,7 @@ class FirstPageViewController: UIViewController {
         
     }
     
-    func mqttSetting() {
+    func mqttSettings() {
         let clientID = "iOS Device"
         let defaultHost = "35.198.67.227"
         mqtt = CocoaMQTT(clientID: clientID, host: defaultHost, port: 1883)
@@ -205,12 +210,12 @@ class FirstPageViewController: UIViewController {
         mqtt?.connect()
     }
     
-    func plantImageTapped(recognizer: UITapGestureRecognizer){
-        let imageView = recognizer.view as? UIImageView
-        if imageView != nil {
-         tabBarController?.selectedIndex = 3
-        }
-    }
+//    func plantImageTapped(recognizer: UITapGestureRecognizer){
+//        let imageView = recognizer.view as? UIImageView
+//        if imageView != nil {
+//         tabBarController?.selectedIndex = 3
+//        }
+//    }
     
     func imageTapped(recognizer: UITapGestureRecognizer) {
         let imageView = recognizer.view as? UIImageView
@@ -274,20 +279,6 @@ class FirstPageViewController: UIViewController {
         URLSession.shared.dataTask(with: urlRequest!, completionHandler: {
             (data, response, error) in
             
-            //http check
-            if let httpResponse = response as? HTTPURLResponse {
-                switch httpResponse.statusCode {
-                case 500..<600:
-                    print("Server error \(httpResponse.statusCode)")
-                    self.time.text = "Server error \(httpResponse.statusCode)"
-                case 400..<500:
-                    print("Client request error \(httpResponse.statusCode)")
-                    self.time.text = "Server error \(httpResponse.statusCode)"
-                default:
-                    print("")
-                }
-            }
-            
             if(error != nil){
                 self.m = 0
                 print(error.debugDescription)
@@ -308,6 +299,9 @@ class FirstPageViewController: UIViewController {
                         self.basicAnimation.toValue = (Double(self.m)/Double(100))
                         self.animateCircle()
                         
+                        self.t.round()
+                        self.l.round()
+                        
                         self.time.text = "\(time)"
                         self.temp.text = "\(self.t)°C"
                         self.light.text = "\(self.l)%"
@@ -322,7 +316,6 @@ class FirstPageViewController: UIViewController {
         
     }
     
-
     @IBAction func update(_ sender: Any) {
         refreshFromServer()
     }
@@ -365,7 +358,7 @@ class FirstPageViewController: UIViewController {
 
         
         // Add Trigger
-       let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3600, repeats: true)
+       let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
         
         // Create Notification Request
         let request = UNNotificationRequest(identifier: "LocalNotification", content: content, trigger: trigger)
@@ -378,7 +371,7 @@ class FirstPageViewController: UIViewController {
         }
     }
     
-    func trialNotify(){
+    func notification(){
         
         UNUserNotificationCenter.current().getNotificationSettings { (notificationSettings) in
             switch notificationSettings.authorizationStatus {

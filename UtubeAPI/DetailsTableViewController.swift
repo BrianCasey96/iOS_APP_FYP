@@ -81,14 +81,15 @@ class DetailsTableViewController: UITableViewController, UIPopoverControllerDele
         let time = dateformatter.string(from: date!)
         
         let m = item["moisture"] as! Int
-        let t = item["temp"] as! Double
-        let l = item["light"] as! Double
+        var t = item["temp"] as! Double
+        var l = item["light"] as! Double
         
+        t.round()
+        l.round()
         cell?.moisture!.text = "\(m)%"
         cell?.temp!.text = "\(t)°C"
         cell?.light!.text = "\(l)%"
         cell?.time.text = time
-        
         sumMoisture = sumMoisture! + m
         sumTemp = sumTemp! + t
         sumLight = sumLight! + l
