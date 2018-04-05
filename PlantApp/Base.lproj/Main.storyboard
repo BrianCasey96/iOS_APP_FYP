@@ -14,7 +14,7 @@
         <!--Most Recent Values-->
         <scene sceneID="5uA-Jn-w2O">
             <objects>
-                <viewController id="hup-5T-v20" customClass="FirstPageViewController" customModule="UtubeAPI" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hup-5T-v20" customClass="FirstPageViewController" customModule="PlantApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IbP-ie-yeb"/>
                         <viewControllerLayoutGuide type="bottom" id="hqo-qv-bJI"/>
@@ -132,7 +132,7 @@
         <!--Gallery-->
         <scene sceneID="c0q-rH-fxZ">
             <objects>
-                <viewController id="tHS-xK-HD6" customClass="PhotosViewController" customModule="UtubeAPI" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tHS-xK-HD6" customClass="PhotosViewController" customModule="PlantApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JaG-fg-Dfz"/>
                         <viewControllerLayoutGuide type="bottom" id="c8k-2d-spI"/>
@@ -156,7 +156,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="1xg-kv-Ou7" customClass="CollectionViewCell" customModule="UtubeAPI" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="1xg-kv-Ou7" customClass="CollectionViewCell" customModule="PlantApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="281"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -216,13 +216,13 @@
         <!--Title-->
         <scene sceneID="gDj-3s-9c4">
             <objects>
-                <tableViewController id="SRt-FX-U7U" customClass="DetailsTableViewController" customModule="UtubeAPI" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="SRt-FX-U7U" customClass="DetailsTableViewController" customModule="PlantApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="92" sectionHeaderHeight="27" sectionFooterHeight="30" id="EES-Xi-Mem">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="DetailsTableViewCell" rowHeight="86" id="2Eb-hc-uqS" customClass="DetailsTableViewCell" customModule="UtubeAPI" customModuleProvider="target">
+                            <tableViewCell autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="DetailsTableViewCell" rowHeight="86" id="2Eb-hc-uqS" customClass="DetailsTableViewCell" customModule="PlantApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="27" width="375" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2Eb-hc-uqS" id="fLs-8a-uBO">
@@ -307,7 +307,7 @@
         <!--Chart View Controller-->
         <scene sceneID="2S5-Yn-8pO">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="b6Y-bg-vxh" customClass="ChartViewController" customModule="UtubeAPI" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="b6Y-bg-vxh" customClass="ChartViewController" customModule="PlantApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cLM-v1-zE9"/>
                         <viewControllerLayoutGuide type="bottom" id="3Zf-ME-Nu2"/>
@@ -490,7 +490,7 @@
         <!--Avg Values View Controller-->
         <scene sceneID="gcu-lW-CGY">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="fhT-Zb-jjD" customClass="AvgValuesViewController" customModule="UtubeAPI" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="fhT-Zb-jjD" customClass="AvgValuesViewController" customModule="PlantApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lHP-PN-iO0"/>
                         <viewControllerLayoutGuide type="bottom" id="nBG-uc-EBK"/>
@@ -583,7 +583,7 @@
         <!--Search-->
         <scene sceneID="A4w-Pu-HbW">
             <objects>
-                <tableViewController id="cj5-hW-mgv" customClass="PlantTableViewController" customModule="UtubeAPI" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="cj5-hW-mgv" customClass="PlantTableViewController" customModule="PlantApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="7mi-df-dme">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -594,7 +594,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlantTableViewCell" rowHeight="90" id="cDV-3Z-lQL" customClass="PlantTableViewCell" customModule="UtubeAPI" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlantTableViewCell" rowHeight="90" id="cDV-3Z-lQL" customClass="PlantTableViewCell" customModule="PlantApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cDV-3Z-lQL" id="PaB-GA-1nV">
@@ -648,7 +648,7 @@
         <!--Plant Data View Controller-->
         <scene sceneID="Gk3-Oy-xOA">
             <objects>
-                <viewController id="r44-HQ-bxx" customClass="PlantDataViewController" customModule="UtubeAPI" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="r44-HQ-bxx" customClass="PlantDataViewController" customModule="PlantApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SdX-gr-lgE"/>
                         <viewControllerLayoutGuide type="bottom" id="vzX-Sa-PRO"/>
@@ -783,7 +783,7 @@
         <!--Plant Details-->
         <scene sceneID="ccm-8x-Ts1">
             <objects>
-                <tableViewController id="v75-NQ-HpE" customClass="DemoJSONTableViewController" customModule="UtubeAPI" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="v75-NQ-HpE" customClass="DateTableViewController" customModule="PlantApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="43" sectionHeaderHeight="30" sectionFooterHeight="30" id="xfA-vT-JcJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -795,7 +795,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="TableViewCell" rowHeight="43" id="1C6-Nd-OQE" customClass="TableViewCell" customModule="UtubeAPI" customModuleProvider="target">
+                            <tableViewCell autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="TableViewCell" rowHeight="43" id="1C6-Nd-OQE" customClass="TableViewCell" customModule="PlantApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="74" width="375" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1C6-Nd-OQE" id="S0P-Jy-Ih0">

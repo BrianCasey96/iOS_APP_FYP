@@ -7,11 +7,11 @@
 //
 
 import XCTest
-@testable import UtubeAPI
+@testable import PlantApp
 
 let dateformatter = DateFormatter()
 
-class UtubeAPITests: XCTestCase {
+class PlantAppTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

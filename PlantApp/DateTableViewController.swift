@@ -1,5 +1,5 @@
 //
-//  DemoJSONTableViewController.swift
+//  DateTableViewController.swift
 //  UtubeAPI
 //
 //  Created by Casey, Brian on 12/01/2017.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DemoJSONTableViewController: UITableViewController, UISearchBarDelegate {
+class DateTableViewController: UITableViewController, UISearchBarDelegate {
     
 //  let gd = getData()
     @IBOutlet var searchBar: UISearchBar!

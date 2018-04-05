@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "91874A741E27DBAB005D6EA4"
-               BuildableName = "UtubeAPI.app"
-               BlueprintName = "UtubeAPI"
-               ReferencedContainer = "container:UtubeAPI.xcodeproj">
+               BuildableName = "PlantApp.app"
+               BlueprintName = "PlantApp"
+               ReferencedContainer = "container:PlantApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "91874A881E27DBAC005D6EA4"
-               BuildableName = "UtubeAPITests.xctest"
-               BlueprintName = "UtubeAPITests"
-               ReferencedContainer = "container:UtubeAPI.xcodeproj">
+               BuildableName = "PlantAppTests.xctest"
+               BlueprintName = "PlantAppTests"
+               ReferencedContainer = "container:PlantApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -44,9 +44,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "91874A931E27DBAC005D6EA4"
-               BuildableName = "UtubeAPIUITests.xctest"
-               BlueprintName = "UtubeAPIUITests"
-               ReferencedContainer = "container:UtubeAPI.xcodeproj">
+               BuildableName = "PlantAppUITests.xctest"
+               BlueprintName = "PlantAppUITests"
+               ReferencedContainer = "container:PlantApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -56,7 +56,7 @@
                BlueprintIdentifier = "524DE581204C2616002DC3CB"
                BuildableName = "PlantPiTests.xctest"
                BlueprintName = "PlantPiTests"
-               ReferencedContainer = "container:UtubeAPI.xcodeproj">
+               ReferencedContainer = "container:PlantApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -64,9 +64,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "91874A741E27DBAB005D6EA4"
-            BuildableName = "UtubeAPI.app"
-            BlueprintName = "UtubeAPI"
-            ReferencedContainer = "container:UtubeAPI.xcodeproj">
+            BuildableName = "PlantApp.app"
+            BlueprintName = "PlantApp"
+            ReferencedContainer = "container:PlantApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -88,9 +88,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "91874A741E27DBAB005D6EA4"
-            BuildableName = "UtubeAPI.app"
-            BlueprintName = "UtubeAPI"
-            ReferencedContainer = "container:UtubeAPI.xcodeproj">
+            BuildableName = "PlantApp.app"
+            BlueprintName = "PlantApp"
+            ReferencedContainer = "container:PlantApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -107,9 +107,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "91874A741E27DBAB005D6EA4"
-            BuildableName = "UtubeAPI.app"
-            BlueprintName = "UtubeAPI"
-            ReferencedContainer = "container:UtubeAPI.xcodeproj">
+            BuildableName = "PlantApp.app"
+            BlueprintName = "PlantApp"
+            ReferencedContainer = "container:PlantApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

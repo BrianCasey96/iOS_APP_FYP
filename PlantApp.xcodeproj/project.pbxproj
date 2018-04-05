@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		5230D82E206291B40045F726 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5230D82B206291800045F726 /* Charts.framework */; };
 		5230D82F206291B40045F726 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5230D82B206291800045F726 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		524DE585204C2616002DC3CB /* PlantPiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524DE584204C2616002DC3CB /* PlantPiTests.swift */; };
 		524DE591204EC051002DC3CB /* CSwiftV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524DE590204EC051002DC3CB /* CSwiftV.swift */; };
 		524DE595204ED112002DC3CB /* plants.csv in Resources */ = {isa = PBXBuildFile; fileRef = 524DE594204ED112002DC3CB /* plants.csv */; };
 		524DE597204EDE10002DC3CB /* PlantDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524DE596204EDE10002DC3CB /* PlantDataViewController.swift */; };
@@ -29,9 +28,9 @@
 		91874A7E1E27DBAB005D6EA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91874A7C1E27DBAB005D6EA4 /* Main.storyboard */; };
 		91874A801E27DBAB005D6EA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91874A7F1E27DBAB005D6EA4 /* Assets.xcassets */; };
 		91874A831E27DBAB005D6EA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91874A811E27DBAB005D6EA4 /* LaunchScreen.storyboard */; };
-		91874A8E1E27DBAC005D6EA4 /* UtubeAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91874A8D1E27DBAC005D6EA4 /* UtubeAPITests.swift */; };
-		91874A991E27DBAC005D6EA4 /* UtubeAPIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91874A981E27DBAC005D6EA4 /* UtubeAPIUITests.swift */; };
-		91874AA71E27DD24005D6EA4 /* DemoJSONTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91874AA61E27DD24005D6EA4 /* DemoJSONTableViewController.swift */; };
+		91874A8E1E27DBAC005D6EA4 /* PlantAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91874A8D1E27DBAC005D6EA4 /* PlantAppTests.swift */; };
+		91874A991E27DBAC005D6EA4 /* PlantAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91874A981E27DBAC005D6EA4 /* PlantAppUITests.swift */; };
+		91874AA71E27DD24005D6EA4 /* DateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91874AA61E27DD24005D6EA4 /* DateTableViewController.swift */; };
 		918819571E290374004297DB /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918819561E290374004297DB /* TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -99,8 +98,6 @@
 		31EB4B867750B650AA182FA3 /* Pods_UtubeAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UtubeAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5230D825206291800045F726 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../Downloads/Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		524DE582204C2616002DC3CB /* PlantPiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantPiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		524DE584204C2616002DC3CB /* PlantPiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantPiTests.swift; sourceTree = "<group>"; };
-		524DE586204C2616002DC3CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		524DE590204EC051002DC3CB /* CSwiftV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSwiftV.swift; sourceTree = "<group>"; };
 		524DE594204ED112002DC3CB /* plants.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plants.csv; sourceTree = "<group>"; };
 		524DE596204EDE10002DC3CB /* PlantDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDataViewController.swift; sourceTree = "<group>"; };
@@ -116,19 +113,19 @@
 		52DE3BFF201A7ED600F212D4 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		52DE3C01201A887E00F212D4 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		87CDD96D24EE67DB5758F7AB /* Pods-UtubeAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtubeAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UtubeAPI/Pods-UtubeAPI.debug.xcconfig"; sourceTree = "<group>"; };
-		91874A751E27DBAB005D6EA4 /* UtubeAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UtubeAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		91874A751E27DBAB005D6EA4 /* PlantApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91874A781E27DBAB005D6EA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91874A7D1E27DBAB005D6EA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		91874A7F1E27DBAB005D6EA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91874A821E27DBAB005D6EA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		91874A841E27DBAB005D6EA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		91874A891E27DBAC005D6EA4 /* UtubeAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UtubeAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		91874A8D1E27DBAC005D6EA4 /* UtubeAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtubeAPITests.swift; sourceTree = "<group>"; };
+		91874A891E27DBAC005D6EA4 /* PlantAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		91874A8D1E27DBAC005D6EA4 /* PlantAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantAppTests.swift; sourceTree = "<group>"; };
 		91874A8F1E27DBAC005D6EA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		91874A941E27DBAC005D6EA4 /* UtubeAPIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UtubeAPIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		91874A981E27DBAC005D6EA4 /* UtubeAPIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtubeAPIUITests.swift; sourceTree = "<group>"; };
+		91874A941E27DBAC005D6EA4 /* PlantAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		91874A981E27DBAC005D6EA4 /* PlantAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantAppUITests.swift; sourceTree = "<group>"; };
 		91874A9A1E27DBAC005D6EA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		91874AA61E27DD24005D6EA4 /* DemoJSONTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoJSONTableViewController.swift; path = ../DemoJSONTableViewController.swift; sourceTree = "<group>"; };
+		91874AA61E27DD24005D6EA4 /* DateTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTableViewController.swift; sourceTree = "<group>"; };
 		918819561E290374004297DB /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,15 +172,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		524DE583204C2616002DC3CB /* PlantPiTests */ = {
-			isa = PBXGroup;
-			children = (
-				524DE584204C2616002DC3CB /* PlantPiTests.swift */,
-				524DE586204C2616002DC3CB /* Info.plist */,
-			);
-			path = PlantPiTests;
-			sourceTree = "<group>";
-		};
 		741F0C21974BA8C31DF84C3D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,10 +184,9 @@
 			isa = PBXGroup;
 			children = (
 				5230D825206291800045F726 /* Charts.xcodeproj */,
-				91874A771E27DBAB005D6EA4 /* UtubeAPI */,
-				91874A8C1E27DBAC005D6EA4 /* UtubeAPITests */,
-				91874A971E27DBAC005D6EA4 /* UtubeAPIUITests */,
-				524DE583204C2616002DC3CB /* PlantPiTests */,
+				91874A771E27DBAB005D6EA4 /* PlantApp */,
+				91874A8C1E27DBAC005D6EA4 /* PlantAppTests */,
+				91874A971E27DBAC005D6EA4 /* PlantAppUITests */,
 				91874A761E27DBAB005D6EA4 /* Products */,
 				D7AB543309D95A0996610978 /* Pods */,
 				741F0C21974BA8C31DF84C3D /* Frameworks */,
@@ -209,19 +196,19 @@
 		91874A761E27DBAB005D6EA4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				91874A751E27DBAB005D6EA4 /* UtubeAPI.app */,
-				91874A891E27DBAC005D6EA4 /* UtubeAPITests.xctest */,
-				91874A941E27DBAC005D6EA4 /* UtubeAPIUITests.xctest */,
+				91874A751E27DBAB005D6EA4 /* PlantApp.app */,
+				91874A891E27DBAC005D6EA4 /* PlantAppTests.xctest */,
+				91874A941E27DBAC005D6EA4 /* PlantAppUITests.xctest */,
 				524DE582204C2616002DC3CB /* PlantPiTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		91874A771E27DBAB005D6EA4 /* UtubeAPI */ = {
+		91874A771E27DBAB005D6EA4 /* PlantApp */ = {
 			isa = PBXGroup;
 			children = (
 				52BF7AF62031E5440099ACC2 /* FirstPageViewController.swift */,
-				91874AA61E27DD24005D6EA4 /* DemoJSONTableViewController.swift */,
+				91874AA61E27DD24005D6EA4 /* DateTableViewController.swift */,
 				5289DBFC201CDC21001E120F /* DetailsTableViewController.swift */,
 				52DE3BFF201A7ED600F212D4 /* PhotosViewController.swift */,
 				528763D82047335A006D8385 /* PlantTableViewController.swift */,
@@ -242,25 +229,25 @@
 				91874A811E27DBAB005D6EA4 /* LaunchScreen.storyboard */,
 				91874A841E27DBAB005D6EA4 /* Info.plist */,
 			);
-			path = UtubeAPI;
+			path = PlantApp;
 			sourceTree = "<group>";
 		};
-		91874A8C1E27DBAC005D6EA4 /* UtubeAPITests */ = {
+		91874A8C1E27DBAC005D6EA4 /* PlantAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				91874A8D1E27DBAC005D6EA4 /* UtubeAPITests.swift */,
+				91874A8D1E27DBAC005D6EA4 /* PlantAppTests.swift */,
 				91874A8F1E27DBAC005D6EA4 /* Info.plist */,
 			);
-			path = UtubeAPITests;
+			path = PlantAppTests;
 			sourceTree = "<group>";
 		};
-		91874A971E27DBAC005D6EA4 /* UtubeAPIUITests */ = {
+		91874A971E27DBAC005D6EA4 /* PlantAppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				91874A981E27DBAC005D6EA4 /* UtubeAPIUITests.swift */,
+				91874A981E27DBAC005D6EA4 /* PlantAppUITests.swift */,
 				91874A9A1E27DBAC005D6EA4 /* Info.plist */,
 			);
-			path = UtubeAPIUITests;
+			path = PlantAppUITests;
 			sourceTree = "<group>";
 		};
 		D7AB543309D95A0996610978 /* Pods */ = {
@@ -293,9 +280,9 @@
 			productReference = 524DE582204C2616002DC3CB /* PlantPiTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		91874A741E27DBAB005D6EA4 /* UtubeAPI */ = {
+		91874A741E27DBAB005D6EA4 /* PlantApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 91874A9D1E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "UtubeAPI" */;
+			buildConfigurationList = 91874A9D1E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "PlantApp" */;
 			buildPhases = (
 				D22F6FEBEED7E2A10B72803A /* [CP] Check Pods Manifest.lock */,
 				91874A711E27DBAB005D6EA4 /* Sources */,
@@ -310,14 +297,14 @@
 			dependencies = (
 				5230D831206291B40045F726 /* PBXTargetDependency */,
 			);
-			name = UtubeAPI;
+			name = PlantApp;
 			productName = UtubeAPI;
-			productReference = 91874A751E27DBAB005D6EA4 /* UtubeAPI.app */;
+			productReference = 91874A751E27DBAB005D6EA4 /* PlantApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		91874A881E27DBAC005D6EA4 /* UtubeAPITests */ = {
+		91874A881E27DBAC005D6EA4 /* PlantAppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 91874AA01E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "UtubeAPITests" */;
+			buildConfigurationList = 91874AA01E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "PlantAppTests" */;
 			buildPhases = (
 				91874A851E27DBAC005D6EA4 /* Sources */,
 				91874A861E27DBAC005D6EA4 /* Frameworks */,
@@ -328,14 +315,14 @@
 			dependencies = (
 				91874A8B1E27DBAC005D6EA4 /* PBXTargetDependency */,
 			);
-			name = UtubeAPITests;
+			name = PlantAppTests;
 			productName = UtubeAPITests;
-			productReference = 91874A891E27DBAC005D6EA4 /* UtubeAPITests.xctest */;
+			productReference = 91874A891E27DBAC005D6EA4 /* PlantAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		91874A931E27DBAC005D6EA4 /* UtubeAPIUITests */ = {
+		91874A931E27DBAC005D6EA4 /* PlantAppUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 91874AA31E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "UtubeAPIUITests" */;
+			buildConfigurationList = 91874AA31E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "PlantAppUITests" */;
 			buildPhases = (
 				91874A901E27DBAC005D6EA4 /* Sources */,
 				91874A911E27DBAC005D6EA4 /* Frameworks */,
@@ -346,9 +333,9 @@
 			dependencies = (
 				91874A961E27DBAC005D6EA4 /* PBXTargetDependency */,
 			);
-			name = UtubeAPIUITests;
+			name = PlantAppUITests;
 			productName = UtubeAPIUITests;
-			productReference = 91874A941E27DBAC005D6EA4 /* UtubeAPIUITests.xctest */;
+			productReference = 91874A941E27DBAC005D6EA4 /* PlantAppUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -385,7 +372,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 91874A701E27DBAB005D6EA4 /* Build configuration list for PBXProject "UtubeAPI" */;
+			buildConfigurationList = 91874A701E27DBAB005D6EA4 /* Build configuration list for PBXProject "PlantApp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -404,9 +391,9 @@
 			);
 			projectRoot = "";
 			targets = (
-				91874A741E27DBAB005D6EA4 /* UtubeAPI */,
-				91874A881E27DBAC005D6EA4 /* UtubeAPITests */,
-				91874A931E27DBAC005D6EA4 /* UtubeAPIUITests */,
+				91874A741E27DBAB005D6EA4 /* PlantApp */,
+				91874A881E27DBAC005D6EA4 /* PlantAppTests */,
+				91874A931E27DBAC005D6EA4 /* PlantAppUITests */,
 				524DE581204C2616002DC3CB /* PlantPiTests */,
 			);
 		};
@@ -527,7 +514,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				524DE585204C2616002DC3CB /* PlantPiTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,7 +534,7 @@
 				5289DBF9201CA52E001E120F /* PlantData.swift in Sources */,
 				5289DBFB201CA686001E120F /* getData.swift in Sources */,
 				528763D92047335A006D8385 /* PlantTableViewController.swift in Sources */,
-				91874AA71E27DD24005D6EA4 /* DemoJSONTableViewController.swift in Sources */,
+				91874AA71E27DD24005D6EA4 /* DateTableViewController.swift in Sources */,
 				91874A791E27DBAB005D6EA4 /* AppDelegate.swift in Sources */,
 				525432FF205EDE8500DC3854 /* AvgValuesViewController.swift in Sources */,
 			);
@@ -558,7 +544,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91874A8E1E27DBAC005D6EA4 /* UtubeAPITests.swift in Sources */,
+				91874A8E1E27DBAC005D6EA4 /* PlantAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,7 +552,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91874A991E27DBAC005D6EA4 /* UtubeAPIUITests.swift in Sources */,
+				91874A991E27DBAC005D6EA4 /* PlantAppUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,17 +566,17 @@
 		};
 		524DE588204C2616002DC3CB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 91874A741E27DBAB005D6EA4 /* UtubeAPI */;
+			target = 91874A741E27DBAB005D6EA4 /* PlantApp */;
 			targetProxy = 524DE587204C2616002DC3CB /* PBXContainerItemProxy */;
 		};
 		91874A8B1E27DBAC005D6EA4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 91874A741E27DBAB005D6EA4 /* UtubeAPI */;
+			target = 91874A741E27DBAB005D6EA4 /* PlantApp */;
 			targetProxy = 91874A8A1E27DBAC005D6EA4 /* PBXContainerItemProxy */;
 		};
 		91874A961E27DBAC005D6EA4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 91874A741E27DBAB005D6EA4 /* UtubeAPI */;
+			target = 91874A741E27DBAB005D6EA4 /* PlantApp */;
 			targetProxy = 91874A951E27DBAC005D6EA4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -639,7 +625,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UtubeAPI.app/UtubeAPI";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlantApp.app/PlantApp";
 			};
 			name = Debug;
 		};
@@ -667,7 +653,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UtubeAPI.app/UtubeAPI";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlantApp.app/PlantApp";
 			};
 			name = Release;
 		};
@@ -772,7 +758,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = ECMP8NKXGD;
-				INFOPLIST_FILE = UtubeAPI/Info.plist;
+				INFOPLIST_FILE = PlantApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ex.finalyrproject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -790,7 +776,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = ECMP8NKXGD;
-				INFOPLIST_FILE = UtubeAPI/Info.plist;
+				INFOPLIST_FILE = PlantApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ex.finalyrproject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -804,12 +790,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = UtubeAPITests/Info.plist;
+				INFOPLIST_FILE = PlantAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.UtubeAPITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.PlantAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UtubeAPI.app/UtubeAPI";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlantApp.app/PlantApp";
 			};
 			name = Debug;
 		};
@@ -818,12 +804,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = UtubeAPITests/Info.plist;
+				INFOPLIST_FILE = PlantAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.UtubeAPITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.PlantAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UtubeAPI.app/UtubeAPI";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlantApp.app/PlantApp";
 			};
 			name = Release;
 		};
@@ -833,7 +819,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = UtubeAPIUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.UtubeAPIUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.PlantAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = UtubeAPI;
@@ -846,7 +832,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = UtubeAPIUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.UtubeAPIUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.PlantAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = UtubeAPI;
@@ -865,7 +851,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		91874A701E27DBAB005D6EA4 /* Build configuration list for PBXProject "UtubeAPI" */ = {
+		91874A701E27DBAB005D6EA4 /* Build configuration list for PBXProject "PlantApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				91874A9B1E27DBAC005D6EA4 /* Debug */,
@@ -874,7 +860,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		91874A9D1E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "UtubeAPI" */ = {
+		91874A9D1E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "PlantApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				91874A9E1E27DBAC005D6EA4 /* Debug */,
@@ -883,7 +869,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		91874AA01E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "UtubeAPITests" */ = {
+		91874AA01E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "PlantAppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				91874AA11E27DBAC005D6EA4 /* Debug */,
@@ -892,7 +878,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		91874AA31E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "UtubeAPIUITests" */ = {
+		91874AA31E27DBAC005D6EA4 /* Build configuration list for PBXNativeTarget "PlantAppUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				91874AA41E27DBAC005D6EA4 /* Debug */,
