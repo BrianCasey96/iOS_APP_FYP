@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_UtubeAPIVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_UtubeAPIVersionString[];
+FOUNDATION_EXPORT double Pods_PlantAppVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_PlantAppVersionString[];
 

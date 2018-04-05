@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0768F099555FEDC5ACF9DA9349D36A8C"
-               BuildableName = "Pods_UtubeAPI.framework"
-               BlueprintName = "Pods-UtubeAPI"
+               BlueprintIdentifier = "78186C479A116AF64D3B4EABDC3D33F5"
+               BuildableName = "Pods_PlantApp.framework"
+               BlueprintName = "Pods-PlantApp"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0768F099555FEDC5ACF9DA9349D36A8C"
-            BuildableName = "Pods_UtubeAPI.framework"
-            BlueprintName = "Pods-UtubeAPI"
+            BlueprintIdentifier = "78186C479A116AF64D3B4EABDC3D33F5"
+            BuildableName = "Pods_PlantApp.framework"
+            BlueprintName = "Pods-PlantApp"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
