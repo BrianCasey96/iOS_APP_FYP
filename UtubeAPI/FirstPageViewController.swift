@@ -139,10 +139,11 @@ class FirstPageViewController: UIViewController {
             self.adviseUser()
         }
     
-        notification()
+      //  notification()
     }
     
     func adviseUser(){
+        
         if (soil?.elementsEqual("requires well-drained soil"))!{
             if (m > 70){
                 soilType.text?.append(" - Good")
@@ -282,6 +283,13 @@ class FirstPageViewController: UIViewController {
             if(error != nil){
                 self.m = 0
                 print(error.debugDescription)
+                let errorAlert = UIAlertController(title: "Error getting the data. Please check your internet connection.", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+                
+                errorAlert.addAction(UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction!) in
+                })
+                
+                self.present(errorAlert, animated: true)
+                
             }else{
                 do{
                     self.topValue = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [[String: AnyObject]]
@@ -350,12 +358,6 @@ class FirstPageViewController: UIViewController {
         content.title = "Don't forget to water your plant"
         content.body = "Mositure Level is getting low"
         content.sound = UNNotificationSound.default()
-      //  content.subtitle = ""
-        
-        
-//        let date = Date(timeIntervalSinceNow: 3600)
-//        let trigger = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: date)
-
         
         // Add Trigger
        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)

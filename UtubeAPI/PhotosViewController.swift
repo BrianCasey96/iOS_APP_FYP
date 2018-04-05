@@ -74,7 +74,7 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         
         cell.img.layer.borderWidth = 2.0
         cell.img.layer.borderColor = UIColor.green.cgColor
-
+        cell.img.contentMode = .scaleToFill
         
         let image : UIImage = images[indexPath.row].keys.first!
         let imagePath = images[indexPath.row].values.first
@@ -84,8 +84,6 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
             let picDate = imagePath![range.upperBound...]
             cell.string.text = "\(picDate)"
         }
-        
-        //  cell.img.contentMode = .scaleAspectFill
         
         cell.img.image = image
         

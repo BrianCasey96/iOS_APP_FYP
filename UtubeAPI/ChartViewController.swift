@@ -80,19 +80,16 @@ class ChartViewController: UIViewController {
         
         templine.colors = [UIColor.yellow]
         lightline.colors = [UIColor.red]
-         moistline.colors = [UIColor.blue]
+        moistline.colors = [UIColor.blue]
         
         
         let data = LineChartData()
-     //   data.addDataSet(templine)
         data.addDataSet(moistline)
-      //  data.addDataSet(lightline)
         chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: getTimes().reversed())
         chartView.xAxis.granularity = 1
         chartView.xAxis.labelPosition = XAxis.LabelPosition.bottom
-        
         chartView.data = data
-        chartView.chartDescription?.text = "DAY"
+        chartView.chartDescription?.text = "Time"
         
         let ldata = LineChartData()
         ldata.addDataSet(lightline)
@@ -100,6 +97,7 @@ class ChartViewController: UIViewController {
         lightChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: getTimes().reversed())
         lightChartView.xAxis.granularity = 1
         lightChartView.xAxis.labelPosition = XAxis.LabelPosition.bottom
+        lightChartView.chartDescription?.text = "Time"
         
         let tdata = LineChartData()
         tdata.addDataSet(templine)
@@ -107,7 +105,7 @@ class ChartViewController: UIViewController {
         tempChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: getTimes().reversed())
         tempChartView.xAxis.granularity = 1
         tempChartView.xAxis.labelPosition = XAxis.LabelPosition.bottom
-        
+        tempChartView.chartDescription?.text = "Time"
         
     }
 
