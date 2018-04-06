@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5206AABA20769801009E52BD /* Pods_PlantApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5206AABB20769801009E52BD /* Pods_PlantApp.framework */; };
+		5206AABF2077B46C009E52BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5206AABE2077B46C009E52BD /* Assets.xcassets */; };
 		5230D82E206291B40045F726 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5230D82B206291800045F726 /* Charts.framework */; };
 		5230D82F206291B40045F726 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5230D82B206291800045F726 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		524DE591204EC051002DC3CB /* CSwiftV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524DE590204EC051002DC3CB /* CSwiftV.swift */; };
@@ -26,7 +27,6 @@
 		52DE3C02201A887E00F212D4 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DE3C01201A887E00F212D4 /* CollectionViewCell.swift */; };
 		91874A791E27DBAB005D6EA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91874A781E27DBAB005D6EA4 /* AppDelegate.swift */; };
 		91874A7E1E27DBAB005D6EA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91874A7C1E27DBAB005D6EA4 /* Main.storyboard */; };
-		91874A801E27DBAB005D6EA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91874A7F1E27DBAB005D6EA4 /* Assets.xcassets */; };
 		91874A831E27DBAB005D6EA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91874A811E27DBAB005D6EA4 /* LaunchScreen.storyboard */; };
 		91874A8E1E27DBAC005D6EA4 /* PlantAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91874A8D1E27DBAC005D6EA4 /* PlantAppTests.swift */; };
 		91874A991E27DBAC005D6EA4 /* PlantAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91874A981E27DBAC005D6EA4 /* PlantAppUITests.swift */; };
@@ -95,6 +95,7 @@
 
 /* Begin PBXFileReference section */
 		5206AABB20769801009E52BD /* Pods_PlantApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_PlantApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5206AABE2077B46C009E52BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5230D825206291800045F726 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../Downloads/Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		524DE582204C2616002DC3CB /* PlantPiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantPiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		524DE590204EC051002DC3CB /* CSwiftV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSwiftV.swift; sourceTree = "<group>"; };
@@ -115,7 +116,6 @@
 		91874A751E27DBAB005D6EA4 /* PlantApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91874A781E27DBAB005D6EA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91874A7D1E27DBAB005D6EA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		91874A7F1E27DBAB005D6EA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91874A821E27DBAB005D6EA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		91874A841E27DBAB005D6EA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91874A891E27DBAC005D6EA4 /* PlantAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -223,7 +223,7 @@
 				52DE3C01201A887E00F212D4 /* CollectionViewCell.swift */,
 				918819561E290374004297DB /* TableViewCell.swift */,
 				91874A781E27DBAB005D6EA4 /* AppDelegate.swift */,
-				91874A7F1E27DBAB005D6EA4 /* Assets.xcassets */,
+				5206AABE2077B46C009E52BD /* Assets.xcassets */,
 				524DE594204ED112002DC3CB /* plants.csv */,
 				524DE590204EC051002DC3CB /* CSwiftV.swift */,
 				91874A811E27DBAB005D6EA4 /* LaunchScreen.storyboard */,
@@ -429,8 +429,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				91874A831E27DBAB005D6EA4 /* LaunchScreen.storyboard in Resources */,
-				91874A801E27DBAB005D6EA4 /* Assets.xcassets in Resources */,
 				524DE595204ED112002DC3CB /* plants.csv in Resources */,
+				5206AABF2077B46C009E52BD /* Assets.xcassets in Resources */,
 				91874A7E1E27DBAB005D6EA4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

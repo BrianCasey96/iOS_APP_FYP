@@ -20,12 +20,11 @@ class FirstPageViewController: UIViewController {
     @IBOutlet var plantImage: UIImageView!
     @IBOutlet var temp: UILabel!
     @IBOutlet var light: UILabel!
-    @IBOutlet var time_watered: UILabel!
     
     @IBOutlet var waterimg: UIImageView!
  
+    @IBOutlet var infoButton: UIButton!
     @IBOutlet var time: UILabel!
-    
     
     var type : String? = nil
     var picture : String? = nil
@@ -45,7 +44,7 @@ class FirstPageViewController: UIViewController {
     
     let circleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Nil"
+        label.text = ""
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 30)
         return label
@@ -70,6 +69,8 @@ class FirstPageViewController: UIViewController {
         waterimg.addGestureRecognizer(tapRecognizer)
         view.addSubview(waterimg)
         
+        infoButton.isUserInteractionEnabled = false
+        
 //        plantImage.isUserInteractionEnabled = true
 //        let plantImageTap = UITapGestureRecognizer(target: self, action: #selector(plantImageTapped))
 //        plantImage.addGestureRecognizer(plantImageTap)
@@ -90,11 +91,9 @@ class FirstPageViewController: UIViewController {
         
          UNUserNotificationCenter.current().delegate = self
         
-        //Refreshes the app when it is in foreground and you reopen the app
+        //Refreshes the app when it is in foreground and animates again when app is reopened
         NotificationCenter.default.addObserver(self, selector:#selector(refreshFromServer), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         refreshFromServer()
@@ -124,8 +123,8 @@ class FirstPageViewController: UIViewController {
         }
         else{
             self.navigationItem.title = type
-            sunType.text = "Needs \(sun!)"
-            soilType.text = "Plant \(soil!)"
+           // sunType.text = "Needs \(sun!) and \(soil!)"
+            soilType.text = "Needs \(sun!) and \(soil!)"
             
             let url = URL(string: picture!)
             let request = URLRequest(url: url!)
@@ -144,56 +143,60 @@ class FirstPageViewController: UIViewController {
     
     func adviseUser(){
         
-        if (soil?.elementsEqual("requires well-drained soil"))!{
-            if (m > 70){
-                soilType.text?.append(" - Good")
-            }
-            else{
-                soilType.text?.append(" - Add more water")
-            }
-        }
-        else if (soil?.elementsEqual("tolerates droughty soil"))!{
-            if (m > 70){
-                soilType.text?.append(" - Use less water")
-            }
-            
-            else{
-                soilType.text?.append(" - Good")
-            }
-            
-        }
-        else if (soil?.elementsEqual("requires damp soil"))!{
-            if (m > 70){
-                soilType.text?.append(" - Good")
-            }
-            else{
-                soilType.text?.append(" - Needs more water")
-            }
-        }
-        else if (soil?.elementsEqual("requires acid soil"))!{
-            soilType.text?.append("")
-        }
-        else{
-            soilType.text?.append("")
-        }
+//        if (soil?.elementsEqual("requires well-drained soil"))!{
+//            if (m > 70){
+//                soilType.text?.append(" - Good")
+//            }
+//            else{
+//                animateInfoButton()
+//                soilType.text?.append(" - Add more water")
+//            }
+//        }
+//        else if (soil?.elementsEqual("tolerates droughty soil"))!{
+//            if (m > 60){
+//                soilType.text?.append(" - Use less water")
+//            }
+//
+//            else{
+//                soilType.text?.append(" - Good")
+//            }
+//
+//        }
+//        else if (soil?.elementsEqual("requires damp soil"))!{
+//            if (m > 60){
+//                soilType.text?.append(" - Good")
+//            }
+//            else{
+//                animateInfoButton()
+//                soilType.text?.append(" - Needs more water")
+//            }
+//        }
+//        else if (soil?.elementsEqual("requires acid soil"))!{
+//            soilType.text?.append("")
+//        }
+//        else{
+//            soilType.text?.append("")
+//        }
         
         
        
         if (sun?.elementsEqual("full sun"))!{
             if (l > 70){
-                sunType.text?.append(" - Good")
+                sunType.text?.append("Light levels are good 👍")
             }
             else{
-                sunType.text?.append(" - Add more sunlight ")
+                animateInfoButton()
+                sunType.text?.append("Add more sunlight")
             }
         }
         else if (sun?.elementsEqual("part shade"))!{
-            if (m < 70){
-                sunType.text?.append(" - Good")
+            if (m < 70 || m > 40){
+                sunType.text?.append("Light levels are good")
             }
                 
             else{
-                sunType.text?.append(" - Use less light")
+                animateInfoButton()
+                sunType.text?.append("Use less light.")
             }
         }
      
@@ -234,6 +237,26 @@ class FirstPageViewController: UIViewController {
             
         }
     }
+    
+    @IBAction func infoButtonTapped(_ sender: Any) {
+       // animateInfoButton()
+        
+    
+    }
+    func animateInfoButton(){
+        //  let pulseAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.opacity))
+        let pulseAnimation = CABasicAnimation(keyPath: "transform.scale")
+        pulseAnimation.duration = 0.7
+        // pulseAnimation.duration = 1
+        pulseAnimation.fromValue = 1
+        pulseAnimation.toValue = 0.8
+        pulseAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        pulseAnimation.autoreverses = true
+        pulseAnimation.repeatCount = .greatestFiniteMagnitude
+        infoButton.layer.add(pulseAnimation, forKey: "animateOpacity")
+    }
+    
+
     
     func addCircleBar(){
         let trackLayer = CAShapeLayer()
