@@ -292,7 +292,7 @@
                                     <segue destination="fhT-Zb-jjD" kind="presentation" identifier="avgValues" id="Vvz-o0-ur7"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Info" id="x1G-K8-349">
+                            <barButtonItem image="pichart" id="x1G-K8-349">
                                 <connections>
                                     <segue destination="b6Y-bg-vxh" kind="presentation" identifier="ChartView" id="9N0-FR-RAi"/>
                                 </connections>
@@ -932,6 +932,7 @@
         <image name="listTabBarItem" width="25" height="25"/>
         <image name="moisture_icon" width="112" height="112"/>
         <image name="photoTabBarItem" width="25" height="25"/>
+        <image name="pichart" width="25" height="25"/>
         <image name="searchTabBarItem" width="25" height="25"/>
         <image name="sun_icon" width="112" height="112"/>
         <image name="temp_icon" width="100" height="100"/>

@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  UtubeAPI
+//  PlantApp
 //
 //  Created by Casey, Brian on 12/01/2017.
 //  Copyright © 2017 Casey, Brian. All rights reserved.

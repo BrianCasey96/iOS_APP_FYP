@@ -1,6 +1,6 @@
 //
 //  ChartViewController.swift
-//  UtubeAPI
+//  PlantApp
 //
 //  Created by Casey, Brian on 21/03/2018.
 //  Copyright © 2018 Casey, Brian. All rights reserved.
@@ -85,7 +85,7 @@ class ChartViewController: UIViewController {
         
         let data = LineChartData()
         data.addDataSet(moistline)
-        chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: getTimes().reversed())
+        chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: getTimes())
         chartView.xAxis.granularity = 1
         chartView.xAxis.labelPosition = XAxis.LabelPosition.bottom
         chartView.data = data
@@ -94,7 +94,7 @@ class ChartViewController: UIViewController {
         let ldata = LineChartData()
         ldata.addDataSet(lightline)
         lightChartView.data = ldata
-        lightChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: getTimes().reversed())
+        lightChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: getTimes())
         lightChartView.xAxis.granularity = 1
         lightChartView.xAxis.labelPosition = XAxis.LabelPosition.bottom
         lightChartView.chartDescription?.text = "Time"
@@ -102,7 +102,7 @@ class ChartViewController: UIViewController {
         let tdata = LineChartData()
         tdata.addDataSet(templine)
         tempChartView.data = tdata
-        tempChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: getTimes().reversed())
+        tempChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: getTimes())
         tempChartView.xAxis.granularity = 1
         tempChartView.xAxis.labelPosition = XAxis.LabelPosition.bottom
         tempChartView.chartDescription?.text = "Time"

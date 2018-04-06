@@ -1,6 +1,6 @@
 //
 //  DateTableViewController.swift
-//  UtubeAPI
+//  PlantApp
 //
 //  Created by Casey, Brian on 12/01/2017.
 //  Copyright © 2017 Casey, Brian. All rights reserved.
@@ -223,8 +223,7 @@ class DateTableViewController: UITableViewController, UISearchBarDelegate {
         return dates.count
     }
     
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    func getCellValues() -> (String, [[String:AnyObject]]){
         let index = tableView.indexPathForSelectedRow?.row
         var loops = -1
         let x = sortDatabyDate()
@@ -254,11 +253,18 @@ class DateTableViewController: UITableViewController, UISearchBarDelegate {
         let data = listData.reversed()[startRange..<endRange]
         let rangeOfValues: [[String:AnyObject]] = Array(data)
         
+        return (date!, rangeOfValues)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+        let (date, rangeOfValues) = getCellValues()
+        
         if segue.identifier == "next" {
             //Creating an object of the second View controller
             let controller = segue.destination as! DetailsTableViewController
-            controller.data = rangeOfValues
             controller.title = date
+            controller.data = rangeOfValues
         }
     }
 }

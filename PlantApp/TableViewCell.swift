@@ -1,6 +1,6 @@
 //
 //  TableViewCell.swift
-//  UtubeAPI
+//  PlantApp
 //
 //  Created by Casey, Brian on 13/01/2017.
 //  Copyright © 2017 Casey, Brian. All rights reserved.

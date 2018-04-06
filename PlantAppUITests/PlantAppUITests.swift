@@ -1,6 +1,6 @@
 //
-//  UtubeAPIUITests.swift
-//  UtubeAPIUITests
+//  PlantAppUITests.swift
+//  PlantAppUITests
 //
 //  Created by Casey, Brian on 12/01/2017.
 //  Copyright © 2017 Casey, Brian. All rights reserved.
