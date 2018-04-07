@@ -203,11 +203,26 @@ class DateTableViewController: UITableViewController, UISearchBarDelegate {
         var dates = reformatDates()
         time = dates[indexPath.row]
         
+        //to be able to display 'Today' beside current date
+        dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = dateformatter.string(from: Date())
+        let today = dateformatter.date(from: date)
+        dateformatter.dateFormat = "EEE dd, MMM yy"
+        let now = dateformatter.string(from: today!)
+       
+        
         if isSearching{
             cell?.date!.text = filtered[indexPath.row]
         }
         else{
-            cell?.date!.text = time
+           
+            let isEqual = (now == time) // is a boolean
+            if isEqual {
+                cell?.date!.text = "\(time!) - Today"
+            }
+            else{
+                cell?.date!.text = time
+            }
         }
         return cell!
     }

@@ -14,8 +14,6 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate{
     var listData = [[String: AnyObject]]()
     var data = [String: AnyObject]()
     var names = [String]()
-    
-    
     var filtered = [String]()
     
     var isSearching = false

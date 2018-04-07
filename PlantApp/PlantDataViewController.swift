@@ -15,14 +15,10 @@ class PlantDataViewController: UIViewController {
     @IBOutlet var addButton: UIButton!
     @IBOutlet var img: UIImageView!
     @IBOutlet var desc: UILabel!
- 
-    @IBOutlet var maintenanceScroll: UIScrollView!
-    @IBOutlet var descScroll: UIScrollView!
 
     @IBOutlet var soil: UILabel!
     @IBOutlet var sun: UILabel!
     @IBOutlet var maintenance: UILabel!
-    @IBOutlet var characteristics: UILabel!
 
     @IBOutlet var textBckgrnd: UIImageView!
     

@@ -71,9 +71,9 @@ class FirstPageViewController: UIViewController {
         
         infoButton.isUserInteractionEnabled = false
         
-//        plantImage.isUserInteractionEnabled = true
-//        let plantImageTap = UITapGestureRecognizer(target: self, action: #selector(plantImageTapped))
-//        plantImage.addGestureRecognizer(plantImageTap)
+        plantImage.isUserInteractionEnabled = true
+        let plantImageTap = UITapGestureRecognizer(target: self, action: #selector(plantImageTapped))
+        plantImage.addGestureRecognizer(plantImageTap)
         
         mqttSettings()
         
@@ -214,12 +214,13 @@ class FirstPageViewController: UIViewController {
         mqtt?.connect()
     }
     
-//    func plantImageTapped(recognizer: UITapGestureRecognizer){
-//        let imageView = recognizer.view as? UIImageView
-//        if imageView != nil {
-//         tabBarController?.selectedIndex = 3
-//        }
-//    }
+    func plantImageTapped(recognizer: UITapGestureRecognizer){
+        let imageView = recognizer.view as? UIImageView
+        if imageView != nil {
+         tabBarController?.selectedIndex = 3
+            
+        }
+    }
     
     func imageTapped(recognizer: UITapGestureRecognizer) {
         let imageView = recognizer.view as? UIImageView
