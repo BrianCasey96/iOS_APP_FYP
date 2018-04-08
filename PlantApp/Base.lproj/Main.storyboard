@@ -81,18 +81,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.55035978279999997" green="1" blue="0.95003005129999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tgO-N3-OGP">
-                                <rect key="frame" x="16" y="456" width="343" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWX-Jn-nBb">
-                                <rect key="frame" x="15" y="416" width="344" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Temperature:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xVb-0n-P4c">
                                 <rect key="frame" x="17" y="136" width="108" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -104,11 +92,33 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3So-t8-MFF">
-                                <rect key="frame" x="335" y="457" width="33" height="34"/>
+                                <rect key="frame" x="345" y="458" width="20" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="info"/>
                                 <connections>
                                     <action selector="infoButtonTapped:" destination="hup-5T-v20" eventType="touchUpInside" id="gNb-HQ-bXs"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MoistureAdvice" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HoB-Ah-hae">
+                                <rect key="frame" x="16" y="429" width="308" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="LightAdvice" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofV-Uq-U7E">
+                                <rect key="frame" x="17" y="458" width="307" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQh-Ef-7N2">
+                                <rect key="frame" x="345" y="429" width="20" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="info"/>
+                                <connections>
+                                    <action selector="infoButtonTapped:" destination="hup-5T-v20" eventType="touchUpInside" id="RvM-tH-lZE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -122,12 +132,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="adviseLight" destination="ofV-Uq-U7E" id="Y6B-iy-GJT"/>
+                        <outlet property="adviseMoisture" destination="HoB-Ah-hae" id="zeb-ru-PSV"/>
                         <outlet property="descBottom" destination="ymf-72-EAS" id="ZYi-dn-NnH"/>
-                        <outlet property="infoButton" destination="3So-t8-MFF" id="tIi-1t-O8n"/>
                         <outlet property="light" destination="qb9-zp-H0W" id="X79-TQ-B9g"/>
+                        <outlet property="lightAlert" destination="3So-t8-MFF" id="wwZ-S9-uz2"/>
+                        <outlet property="moistureAlert" destination="cQh-Ef-7N2" id="kKe-RR-9HE"/>
                         <outlet property="plantImage" destination="fKh-3B-lda" id="qJL-ej-95u"/>
-                        <outlet property="soilType" destination="uWX-Jn-nBb" id="mQq-Ds-leO"/>
-                        <outlet property="sunType" destination="tgO-N3-OGP" id="OvD-Ja-ehD"/>
                         <outlet property="temp" destination="oTh-aL-4tr" id="Grl-15-Cwa"/>
                         <outlet property="textBckgrnd" destination="gSq-T8-3J2" id="sgm-RR-eZh"/>
                         <outlet property="time" destination="3F1-Wa-aKY" id="bxd-le-1fd"/>
@@ -138,7 +149,7 @@
             </objects>
             <point key="canvasLocation" x="-3298.4000000000001" y="374.66266866566718"/>
         </scene>
-        <!--Gallery-->
+        <!--Photo Gallery-->
         <scene sceneID="c0q-rH-fxZ">
             <objects>
                 <viewController id="tHS-xK-HD6" customClass="PhotosViewController" customModule="PlantApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -202,7 +213,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Gallery" id="Gwj-yY-FBJ">
+                    <navigationItem key="navigationItem" title="Photo Gallery" id="Gwj-yY-FBJ">
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="YBh-Xb-60u">
                             <connections>
                                 <action selector="editButton:" destination="tHS-xK-HD6" id="eDe-oP-1xp"/>

@@ -22,7 +22,7 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         let plantsCSVString = loadFromCSVFile("plants")
         loadDataFromCSVString(plantsCSVString)
         
@@ -76,8 +76,6 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if isSearching{
-            print("Filtered Count is \(filtered.count)")
-            print("Filtered List is \(filtered)")
             return filtered.count
         }
         

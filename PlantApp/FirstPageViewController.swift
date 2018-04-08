@@ -13,8 +13,6 @@ import SystemConfiguration
 
 class FirstPageViewController: UIViewController {
 
-    @IBOutlet var sunType: UILabel!
-    @IBOutlet var soilType: UILabel!
     @IBOutlet var descBottom: UIImageView!
     @IBOutlet var textBckgrnd: UIImageView!
     @IBOutlet var plantImage: UIImageView!
@@ -23,9 +21,12 @@ class FirstPageViewController: UIViewController {
     
     @IBOutlet var waterimg: UIImageView!
  
-    @IBOutlet var infoButton: UIButton!
+    
     @IBOutlet var time: UILabel!
     
+    @IBOutlet var adviseLight: UILabel!
+    @IBOutlet var adviseMoisture: UILabel!
+
     var type : String? = nil
     var picture : String? = nil
     var soil : String? = nil
@@ -41,7 +42,8 @@ class FirstPageViewController: UIViewController {
     
     let shapeLayer = CAShapeLayer()
     let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
-    
+    @IBOutlet var moistureAlert: UIButton!
+    @IBOutlet var lightAlert: UIButton!
     let circleLabel: UILabel = {
         let label = UILabel()
         label.text = ""
@@ -69,8 +71,6 @@ class FirstPageViewController: UIViewController {
         waterimg.addGestureRecognizer(tapRecognizer)
         view.addSubview(waterimg)
         
-        infoButton.isUserInteractionEnabled = false
-        
         plantImage.isUserInteractionEnabled = true
         let plantImageTap = UITapGestureRecognizer(target: self, action: #selector(plantImageTapped))
         plantImage.addGestureRecognizer(plantImageTap)
@@ -87,12 +87,17 @@ class FirstPageViewController: UIViewController {
         plantImage.layer.cornerRadius = radius
         plantImage.layer.masksToBounds = true
         
-       // let tabBarController: UITabBarController?
-        
+        //these images will be shown if the user needs to take action
+        lightAlert.isHidden = true
+        moistureAlert.isHidden = true
+        animateInfoButtons()
+
          UNUserNotificationCenter.current().delegate = self
         
         //Refreshes the app when it is in foreground and animates again when app is reopened
         NotificationCenter.default.addObserver(self, selector:#selector(refreshFromServer), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        
+        notification()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -118,13 +123,12 @@ class FirstPageViewController: UIViewController {
         
         
         if (type ?? "").isEmpty{
-            soilType.text = "Go to the search tab and choose the"
-            sunType.text = "type of plant you are growing."
+            adviseLight.text = "Choose your plant from the search tab"
         }
         else{
             self.navigationItem.title = type
            // sunType.text = "Needs \(sun!) and \(soil!)"
-            soilType.text = "Needs \(sun!) and \(soil!)"
+          //  soilType.text = "Needs \(sun!) and \(soil!)"
             
             let url = URL(string: picture!)
             let request = URLRequest(url: url!)
@@ -137,73 +141,47 @@ class FirstPageViewController: UIViewController {
                 }.resume()
             self.adviseUser()
         }
-    
-      //  notification()
     }
+    
     
     func adviseUser(){
         
-//        if (soil?.elementsEqual("requires well-drained soil"))!{
-//            if (m > 70){
-//                soilType.text?.append(" - Good")
-//            }
-//            else{
-//                animateInfoButton()
-//                soilType.text?.append(" - Add more water")
-//            }
-//        }
-//        else if (soil?.elementsEqual("tolerates droughty soil"))!{
-//            if (m > 60){
-//                soilType.text?.append(" - Use less water")
-//            }
-//
-//            else{
-//                soilType.text?.append(" - Good")
-//            }
-//
-//        }
-//        else if (soil?.elementsEqual("requires damp soil"))!{
-//            if (m > 60){
-//                soilType.text?.append(" - Good")
-//            }
-//            else{
-//                animateInfoButton()
-//                soilType.text?.append(" - Needs more water")
-//            }
-//        }
-//        else if (soil?.elementsEqual("requires acid soil"))!{
-//            soilType.text?.append("")
-//        }
-//        else{
-//            soilType.text?.append("")
-//        }
-        
-        
-       
         if (sun?.elementsEqual("full sun"))!{
             if (l > 70){
-                sunType.text?.append("Light levels are good 👍")
+                adviseLight.text = "Light levels are good for Full Sun 👍"
+                lightAlert.isHidden = true
             }
             else{
-                animateInfoButton()
-                sunType.text?.append("Add more sunlight")
+                adviseLight.text = "Allow the plant more sun"
+                lightAlert.isHidden = false
             }
         }
         else if (sun?.elementsEqual("part shade"))!{
             if (m < 70 || m > 40){
-                sunType.text?.append("Light levels are good")
+                adviseLight.text = "Light levels are good for Part Shade 😁"
+                lightAlert.isHidden = true
             }
                 
             else{
-                animateInfoButton()
-                sunType.text?.append("Use less light.")
+                adviseLight.text = "Use less light."
+                lightAlert.isHidden = false
             }
         }
-     
-        else{
-            sunType.text?.append("")
+        
+        if self.m < 40{
+            adviseMoisture.text? = "60% Mositure Level is optimal"
+            moistureAlert.isHidden = false
+           
+        }
+        else if self.m > 80{
+            adviseMoisture.text = "Mositure level is a little too high"
+            moistureAlert.isHidden = false
         }
         
+        else if (self.m > 55 && self.m < 75){
+            adviseMoisture.text = "Mositure level is good 😁"
+            moistureAlert.isHidden = true
+        }
     }
     
     func mqttSettings() {
@@ -218,7 +196,7 @@ class FirstPageViewController: UIViewController {
         let imageView = recognizer.view as? UIImageView
         if imageView != nil {
          tabBarController?.selectedIndex = 3
-            
+
         }
     }
     
@@ -240,11 +218,11 @@ class FirstPageViewController: UIViewController {
     }
     
     @IBAction func infoButtonTapped(_ sender: Any) {
-       // animateInfoButton()
+       // animateInfoButtons()
         
     
     }
-    func animateInfoButton(){
+    func animateInfoButtons(){
         //  let pulseAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.opacity))
         let pulseAnimation = CABasicAnimation(keyPath: "transform.scale")
         pulseAnimation.duration = 0.7
@@ -254,7 +232,8 @@ class FirstPageViewController: UIViewController {
         pulseAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         pulseAnimation.autoreverses = true
         pulseAnimation.repeatCount = .greatestFiniteMagnitude
-        infoButton.layer.add(pulseAnimation, forKey: "animateOpacity")
+        moistureAlert.layer.add(pulseAnimation, forKey: "animateOpacity")
+        lightAlert.layer.add(pulseAnimation, forKey: "animateOpacity")
     }
     
 
