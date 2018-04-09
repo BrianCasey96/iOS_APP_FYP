@@ -95,21 +95,18 @@
                                 <rect key="frame" x="345" y="458" width="20" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="info"/>
-                                <connections>
-                                    <action selector="infoButtonTapped:" destination="hup-5T-v20" eventType="touchUpInside" id="gNb-HQ-bXs"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MoistureAdvice" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HoB-Ah-hae">
-                                <rect key="frame" x="16" y="429" width="308" height="21"/>
+                                <rect key="frame" x="16" y="429" width="343" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="LightAdvice" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofV-Uq-U7E">
-                                <rect key="frame" x="17" y="458" width="307" height="21"/>
+                                <rect key="frame" x="17" y="458" width="342" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -117,9 +114,6 @@
                                 <rect key="frame" x="345" y="429" width="20" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="info"/>
-                                <connections>
-                                    <action selector="infoButtonTapped:" destination="hup-5T-v20" eventType="touchUpInside" id="RvM-tH-lZE"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.82675751621478044" green="1" blue="0.20279474486805971" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -823,7 +817,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HRi-r6-ahJ">
-                                            <rect key="frame" x="16" y="-4" width="193" height="50"/>
+                                            <rect key="frame" x="16" y="-4" width="317" height="50"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
@@ -860,7 +854,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-551" y="-412"/>
+            <point key="canvasLocation" x="-551.20000000000005" y="-412.44377811094455"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="YZo-dt-dfa">

@@ -118,7 +118,6 @@ class FirstPageViewController: UIViewController {
 
         type = UserDefaults.standard.string(forKey: "name")
         picture = UserDefaults.standard.string(forKey: "image")
-        soil = UserDefaults.standard.string(forKey: "soil")
         sun = UserDefaults.standard.string(forKey: "sun")
         
         
@@ -127,9 +126,7 @@ class FirstPageViewController: UIViewController {
         }
         else{
             self.navigationItem.title = type
-           // sunType.text = "Needs \(sun!) and \(soil!)"
-          //  soilType.text = "Needs \(sun!) and \(soil!)"
-            
+
             let url = URL(string: picture!)
             let request = URLRequest(url: url!)
             URLSession.shared.dataTask(with: request) {
@@ -139,26 +136,77 @@ class FirstPageViewController: UIViewController {
                     print(url!)
                 }
                 }.resume()
-            self.adviseUser()
         }
     }
     
+    func refreshFromServer(){
+        refresh.beginRefreshing()
+        let url:String = "http://35.198.67.227:8080/top"
+        let urlRequest = URL(string : url)
+        
+        URLSession.shared.dataTask(with: urlRequest!, completionHandler: {
+            (data, response, error) in
+            
+            if(error != nil){
+                self.m = 0
+                print(error.debugDescription)
+                let errorAlert = UIAlertController(title: "Error getting the data. Please check your internet connection.", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+                
+                errorAlert.addAction(UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction!) in
+                })
+                
+                self.present(errorAlert, animated: true)
+                
+            }else{
+                do{
+                    self.topValue = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [[String: AnyObject]]
+                    
+                    let x = self.topValue[0]
+                    let date = x["time_value"] as! String
+                    let time = self.fixDateFormat(value: date)
+                    
+                    DispatchQueue.main.async() { () -> Void in
+                        self.m = x["moisture"] as! Int
+                        self.t = x["temp"] as! Double
+                        self.l = x["light"] as! Double
+                        
+                        self.circleLabel.text = "\(self.m)%"
+                        self.basicAnimation.toValue = (Double(self.m)/Double(100))
+                        self.animateCircle()
+                        
+                        self.t.round()
+                        self.l.round()
+                        
+                        self.time.text = "\(time)"
+                        self.temp.text = "\(self.t)°C"
+                        self.light.text = "\(self.l)%"
+                        
+                        self.adviseUser(light: self.l, mositure: self.m)
+                        self.refresh.endRefreshing()
+                    }
+                }catch let error as NSError{
+                    print(error)
+                }
+            }
+        }).resume()
+    }
     
-    func adviseUser(){
+    
+    func adviseUser(light: Double, mositure: Int){
         
         if (sun?.elementsEqual("full sun"))!{
-            if (l > 70){
-                adviseLight.text = "Light levels are good for Full Sun 👍"
+            if (light > 70){
+                adviseLight.text = "Light levels are at optimal for full sun"
                 lightAlert.isHidden = true
             }
             else{
-                adviseLight.text = "Allow the plant more sun"
+                adviseLight.text = "Allow the plant more sunlight"
                 lightAlert.isHidden = false
             }
         }
         else if (sun?.elementsEqual("part shade"))!{
-            if (m < 70 || m > 40){
-                adviseLight.text = "Light levels are good for Part Shade 😁"
+            if (light < 70 || light > 40){
+                adviseLight.text = "Light levels are at optimal for part shade"
                 lightAlert.isHidden = true
             }
                 
@@ -168,19 +216,23 @@ class FirstPageViewController: UIViewController {
             }
         }
         
-        if self.m < 40{
-            adviseMoisture.text? = "60% Mositure Level is optimal"
+        if mositure < 40{
+            adviseMoisture.text? = "Increase moisture level to 60%"
             moistureAlert.isHidden = false
            
         }
-        else if self.m > 80{
+        else if mositure > 60{
             adviseMoisture.text = "Mositure level is a little too high"
             moistureAlert.isHidden = false
         }
         
-        else if (self.m > 55 && self.m < 75){
-            adviseMoisture.text = "Mositure level is good 😁"
+        else if (mositure > 40 && mositure < 60){
+            adviseMoisture.text = "Mositure level is good"
             moistureAlert.isHidden = true
+        }
+        else{
+            adviseMoisture.text = "Alert"
+            moistureAlert.isHidden = false
         }
     }
     
@@ -217,11 +269,6 @@ class FirstPageViewController: UIViewController {
         }
     }
     
-    @IBAction func infoButtonTapped(_ sender: Any) {
-       // animateInfoButtons()
-        
-    
-    }
     func animateInfoButtons(){
         //  let pulseAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.opacity))
         let pulseAnimation = CABasicAnimation(keyPath: "transform.scale")
@@ -235,8 +282,6 @@ class FirstPageViewController: UIViewController {
         moistureAlert.layer.add(pulseAnimation, forKey: "animateOpacity")
         lightAlert.layer.add(pulseAnimation, forKey: "animateOpacity")
     }
-    
-
     
     func addCircleBar(){
         let trackLayer = CAShapeLayer()
@@ -273,58 +318,6 @@ class FirstPageViewController: UIViewController {
         basicAnimation.isRemovedOnCompletion = false
         
         shapeLayer.add(basicAnimation, forKey: "key")
-    }
-    
-    func refreshFromServer(){
-        refresh.beginRefreshing()
-        let url:String = "http://35.198.67.227:8080/top"
-        let urlRequest = URL(string : url)
-        
-        URLSession.shared.dataTask(with: urlRequest!, completionHandler: {
-            (data, response, error) in
-            
-            if(error != nil){
-                self.m = 0
-                print(error.debugDescription)
-                let errorAlert = UIAlertController(title: "Error getting the data. Please check your internet connection.", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-                
-                errorAlert.addAction(UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction!) in
-                })
-                
-                self.present(errorAlert, animated: true)
-                
-            }else{
-                do{
-                    self.topValue = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [[String: AnyObject]]
-
-                    let x = self.topValue[0]
-                    let date = x["time_value"] as! String
-                    let time = self.fixDateFormat(value: date)
-                    
-                    DispatchQueue.main.async() { () -> Void in
-                        self.m = x["moisture"] as! Int
-                        self.t = x["temp"] as! Double
-                        self.l = x["light"] as! Double
-                        
-                        self.circleLabel.text = "\(self.m)%"
-                        self.basicAnimation.toValue = (Double(self.m)/Double(100))
-                        self.animateCircle()
-                        
-                        self.t.round()
-                        self.l.round()
-                        
-                        self.time.text = "\(time)"
-                        self.temp.text = "\(self.t)°C"
-                        self.light.text = "\(self.l)%"
-                        
-                        self.refresh.endRefreshing()
-                    }
-                }catch let error as NSError{
-                    print(error)
-                }
-            }
-        }).resume()
-        
     }
     
     @IBAction func update(_ sender: Any) {

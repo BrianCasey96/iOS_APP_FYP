@@ -35,7 +35,6 @@ class PlantAppTests: XCTestCase {
         
         dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let value = x["time_value"]
-        print(value as Any)
         let a = (value as AnyObject).replacingOccurrences(of: "T", with: " ")
         let b = a.replacingOccurrences(of: ".000Z", with: "")
 

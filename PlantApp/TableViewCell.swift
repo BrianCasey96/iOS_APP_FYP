@@ -8,22 +8,15 @@
 
 import UIKit
 
+//Represents a cell in DataTableViewController
 class TableViewCell: UITableViewCell {
 
-    @IBOutlet var light: UILabel!
-    @IBOutlet var temp: UILabel!
     @IBOutlet var date: UILabel!
-    @IBOutlet var moisture: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
 
 }
