@@ -13,7 +13,6 @@ class TableViewCell: UITableViewCell {
 
     @IBOutlet var date: UILabel!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

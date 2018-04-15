@@ -10,19 +10,16 @@ import UIKit
 
 class PlantDataViewController: UIViewController {
     var data: [String:AnyObject]?
- 
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var addButton: UIButton!
     @IBOutlet var img: UIImageView!
     @IBOutlet var desc: UILabel!
-
     @IBOutlet var soil: UILabel!
     @IBOutlet var sun: UILabel!
     @IBOutlet var maintenance: UILabel!
-
     @IBOutlet var textBckgrnd: UIImageView!
-    
     @IBOutlet var useBckGrnd: UIImageView!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,7 +30,6 @@ class PlantDataViewController: UIViewController {
 
         textBckgrnd.alpha = 0.8
         textBckgrnd.layer.cornerRadius = 8
-        
         useBckGrnd.alpha = 0.8
         useBckGrnd.layer.cornerRadius = 8
       
@@ -64,7 +60,7 @@ class PlantDataViewController: UIViewController {
     }
     
     @IBAction func add(_ sender: Any) {
-        let myalert = UIAlertController(title: "\(data!["name"] as! String) is now added to the homepage", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        let myalert = UIAlertController(title: "\(data!["name"] as! String) has now been added to the homepage", message: nil, preferredStyle: UIAlertControllerStyle.alert)
 
         myalert.addAction(UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction!) in
             print("Done")
@@ -81,7 +77,8 @@ class PlantDataViewController: UIViewController {
         UserDefaults.standard.set(image, forKey: "image")
         UserDefaults.standard.set(soil, forKey: "soil")
         UserDefaults.standard.set(sun, forKey: "sun")
+        
+        tabBarController?.selectedIndex = 0
     }
-
 }
 

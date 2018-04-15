@@ -11,8 +11,7 @@ import AVFoundation
 
 class PhotosViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDelegate{
-    
-    //  var images : [UIImage] = []
+
     var inPath : IndexPath? = nil
     var canDelete = false
     var images = [[UIImage: String]]()
@@ -30,13 +29,11 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.alpha = 0.9
         backgroundImage.image = UIImage(named: "leaves.png")
-        
         photosCollection.backgroundView = backgroundImage
-        
+
         getImages()
         photosCollection.delegate = self
         photosCollection.dataSource = self
-        
         
         formatter.dateFormat = "dd.MM.yyyy"
         result = formatter.string(from: date)
@@ -45,7 +42,6 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -110,11 +106,8 @@ UINavigationControllerDelegate, UICollectionViewDataSource,UICollectionViewDeleg
             let img : UIImage = images[indexPath.row].keys.first!
             
             let newImageView = UIImageView(image: img)
-            
             newImageView.frame = UIScreen.main.bounds
-
             newImageView.backgroundColor = .black
-            
            // newImageView.contentMode = .scaleAspectFit
             newImageView.isUserInteractionEnabled = true
            

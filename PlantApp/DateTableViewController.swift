@@ -36,10 +36,6 @@ class DateTableViewController: UITableViewController, UISearchBarDelegate {
         
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
-
-//        gd.refreshDataFromServer()
-//        self.data = gd.populatePlantData()
-//        print ("Data from proper \(self.data)")
     }
     
     func dismissKeyboard() {
@@ -66,9 +62,6 @@ class DateTableViewController: UITableViewController, UISearchBarDelegate {
                     DispatchQueue.main.async() { () -> Void in
                         self.tableView.reloadData()
                         self.refresh.endRefreshing()
-                     //   self.data = self.gd.populatePlantData()
-                      //  print(self.data)
-                        
                     }
                 }catch let error as NSError{
                     print(error)
@@ -99,7 +92,6 @@ class DateTableViewController: UITableViewController, UISearchBarDelegate {
         return newDates
     }
     
-    // if there is one value for today it duplicates the last date there was data in the table view
     func sortDatabyDate() -> [[String: AnyObject]]{
         var myArray = [[String: AnyObject]]()
         
@@ -171,24 +163,9 @@ class DateTableViewController: UITableViewController, UISearchBarDelegate {
         return nameOfRowsForEachSection
     }
     
-    // returns an array with the number of rows in each section
-    // extracts the value from the dictionary numberOfRowsAtSection
-//    func getNumofRows() -> [Int]{
-//        let x = sortDatabyDate()
-//
-//        for i in x.enumerated(){
-//            numberOfRowsAtSection.append(i.element.values.first as! Int)
-//
-//        }
-//        numberOfRowsAtSection.reverse()
-//        return numberOfRowsAtSection
-//    }
-    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // let x = sortDatabyDate()
-        // return x.count
         return 1
     }
     

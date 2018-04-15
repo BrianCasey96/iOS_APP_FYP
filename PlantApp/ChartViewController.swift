@@ -12,10 +12,8 @@ import Charts
 class ChartViewController: UIViewController {
 
     var values: [[String:AnyObject]]?
-    
     @IBOutlet var chartView: LineChartView!
     let dateformatter = DateFormatter()
-    
     @IBOutlet var tempChartView: LineChartView!
     @IBOutlet var lightChartView: LineChartView!
     @IBOutlet var scrollView: UIScrollView!
@@ -33,7 +31,6 @@ class ChartViewController: UIViewController {
         
         updateChart()
         chartView.setScaleEnabled(true)
-        
         chartView.animate(xAxisDuration: 2.5)
         // Do any additional setup after loading the view.
     }
@@ -72,11 +69,9 @@ class ChartViewController: UIViewController {
             }
         }
 
-        
         let templine = LineChartDataSet(values: chart_temp_Entry, label: "Temperature °C")
         let moistline = LineChartDataSet(values: chart_moist_Entry, label: "Moisture%")
         let lightline = LineChartDataSet(values: chart_light_Entry, label: "Light%")
-        
         
         templine.colors = [UIColor.yellow]
         lightline.colors = [UIColor.red]
@@ -111,9 +106,8 @@ class ChartViewController: UIViewController {
 
     
     func getTimes() -> [String]{
-        
         var times = [String]()
-        
+
         if let filteredList = values {
             for i in 0..<filteredList.count {
                 
@@ -130,5 +124,4 @@ class ChartViewController: UIViewController {
         }
         return times
     }
-
 }

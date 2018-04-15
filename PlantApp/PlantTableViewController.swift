@@ -15,14 +15,12 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate{
     var data = [String: AnyObject]()
     var names = [String]()
     var filtered = [String]()
-    
     var isSearching = false
     
     @IBOutlet var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let plantsCSVString = loadFromCSVFile("plants")
         loadDataFromCSVString(plantsCSVString)
         
@@ -51,20 +49,15 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate{
         
         if searchBar.text == nil || searchBar.text == "" {
             isSearching = false
-            
             self.view.endEditing(true)
-            
             tableView.reloadData()
         }
             
         else{
             isSearching = true
-            
             filtered = names.filter({
                 $0.range(of: searchText, options: .caseInsensitive) != nil
             })
-            
-            
             tableView.reloadData()
         }
     }
@@ -74,11 +67,9 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate{
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if isSearching{
             return filtered.count
         }
-        
         return listData.count
     }
     
@@ -86,12 +77,8 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate{
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellIdentifier = "PlantTableViewCell"
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? PlantTableViewCell;
-        
         var item = self.listData[indexPath.row]
-        
-        
         if isSearching{
             
             cell?.plantName.text = self.filtered[indexPath.row]
@@ -150,7 +137,12 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate{
         for row in csv.keyedRows! {
             data["name"] = row["name"] as AnyObject
             let img = row["imgs-src"]
-            data["img"] = "http://www.gardening.cornell.edu/homegardening/\(img!)" as AnyObject
+            if (img?.starts(with: "images"))!{
+                data["img"] = "http://www.gardening.cornell.edu/homegardening/\(img!)" as AnyObject
+            }
+            else{
+                data["img"] = img as AnyObject
+            }
             data["desc"] = row["desc"] as AnyObject
             data["sun"] = row["sunlight"] as AnyObject
             data["soil"] = row["soil"] as AnyObject
@@ -159,7 +151,7 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate{
             
             listData.append(data)
         }
-        
+        //sorts names in alphabetical order
         listData.sort { ($0["name"] as! String) < ($1["name"] as! String) }
         
         for n in listData{
@@ -183,6 +175,10 @@ class PlantTableViewController: UITableViewController, UISearchBarDelegate{
         }
         
         if segue.identifier == "next" {
+            // search will not be active when returning to the page
+            if isSearching{
+                 view.endEditing(true)
+            }
             //Creating an object of the second View controller
             let controller = segue.destination as! PlantDataViewController
             controller.data = data

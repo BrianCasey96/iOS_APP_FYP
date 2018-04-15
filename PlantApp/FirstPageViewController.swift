@@ -12,21 +12,17 @@ import UserNotifications
 import SystemConfiguration
 
 class FirstPageViewController: UIViewController {
-
+    
     @IBOutlet var descBottom: UIImageView!
     @IBOutlet var textBckgrnd: UIImageView!
     @IBOutlet var plantImage: UIImageView!
     @IBOutlet var temp: UILabel!
     @IBOutlet var light: UILabel!
-    
     @IBOutlet var waterimg: UIImageView!
- 
-    
     @IBOutlet var time: UILabel!
-    
     @IBOutlet var adviseLight: UILabel!
     @IBOutlet var adviseMoisture: UILabel!
-
+    
     var type : String? = nil
     var picture : String? = nil
     var soil : String? = nil
@@ -38,7 +34,6 @@ class FirstPageViewController: UIViewController {
     var topValue = [[String: AnyObject]]()
     let dateformatter = DateFormatter()
     let calendar = NSCalendar.current
-   // var top : [PlantData]?
     
     let shapeLayer = CAShapeLayer()
     let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
@@ -87,14 +82,14 @@ class FirstPageViewController: UIViewController {
         plantImage.layer.cornerRadius = radius
         plantImage.layer.masksToBounds = true
         
-        //these images will be shown if the user needs to take action
+        //these images will be shown by the adviseUser function if the user needs to take action
         lightAlert.isHidden = true
         moistureAlert.isHidden = true
         animateInfoButtons()
-
-         UNUserNotificationCenter.current().delegate = self
         
-        //Refreshes the app when it is in foreground and animates again when app is reopened
+        UNUserNotificationCenter.current().delegate = self
+        
+        //Refreshes the app when it is opened from the foreground
         NotificationCenter.default.addObserver(self, selector:#selector(refreshFromServer), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         
         notification()
@@ -115,28 +110,6 @@ class FirstPageViewController: UIViewController {
         circleLabel.frame = CGRect(x:0, y:0, width: 75, height: 75 )
         circleLabel.center = view.center
         addCircleBar()
-
-        type = UserDefaults.standard.string(forKey: "name")
-        picture = UserDefaults.standard.string(forKey: "image")
-        sun = UserDefaults.standard.string(forKey: "sun")
-        
-        
-        if (type ?? "").isEmpty{
-            adviseLight.text = "Choose your plant from the search tab"
-        }
-        else{
-            self.navigationItem.title = type
-
-            let url = URL(string: picture!)
-            let request = URLRequest(url: url!)
-            URLSession.shared.dataTask(with: request) {
-                (data, response, error) in
-                DispatchQueue.main.async {
-                    self.plantImage.image = UIImage(data: data!)
-                    print(url!)
-                }
-                }.resume()
-        }
     }
     
     func refreshFromServer(){
@@ -174,6 +147,7 @@ class FirstPageViewController: UIViewController {
                         self.basicAnimation.toValue = (Double(self.m)/Double(100))
                         self.animateCircle()
                         
+                        //round to nearest whole number
                         self.t.round()
                         self.l.round()
                         
@@ -194,45 +168,68 @@ class FirstPageViewController: UIViewController {
     
     func adviseUser(light: Double, mositure: Int){
         
-        if (sun?.elementsEqual("full sun"))!{
-            if (light > 70){
-                adviseLight.text = "Light levels are at optimal for full sun"
-                lightAlert.isHidden = true
-            }
-            else{
-                adviseLight.text = "Allow the plant more sunlight"
-                lightAlert.isHidden = false
-            }
-        }
-        else if (sun?.elementsEqual("part shade"))!{
-            if (light < 70 || light > 40){
-                adviseLight.text = "Light levels are at optimal for part shade"
-                lightAlert.isHidden = true
-            }
-                
-            else{
-                adviseLight.text = "Use less light."
-                lightAlert.isHidden = false
-            }
-        }
+        type = UserDefaults.standard.string(forKey: "name")
+        picture = UserDefaults.standard.string(forKey: "image")
+        sun = UserDefaults.standard.string(forKey: "sun")
         
-        if mositure < 40{
-            adviseMoisture.text? = "Increase moisture level to 60%"
-            moistureAlert.isHidden = false
-           
-        }
-        else if mositure > 60{
-            adviseMoisture.text = "Mositure level is a little too high"
-            moistureAlert.isHidden = false
-        }
-        
-        else if (mositure > 40 && mositure < 60){
-            adviseMoisture.text = "Mositure level is good"
-            moistureAlert.isHidden = true
+        if (type ?? "").isEmpty{
+            adviseMoisture.text = "Choose your plant from the search tab"
+            
         }
         else{
-            adviseMoisture.text = "Alert"
-            moistureAlert.isHidden = false
+            self.navigationItem.title = type
+            
+            let url = URL(string: picture!)
+            let request = URLRequest(url: url!)
+            URLSession.shared.dataTask(with: request) {
+                (data, response, error) in
+                DispatchQueue.main.async {
+                    self.plantImage.image = UIImage(data: data!)
+                    print(url!)
+                }
+                }.resume()
+            
+            if (sun?.elementsEqual("full sun"))!{
+                if (light > 70){
+                    adviseLight.text = "Light levels are at optimal for full sun"
+                    lightAlert.isHidden = true
+                }
+                else{
+                    adviseLight.text = "Allow the plant more sunlight"
+                    lightAlert.isHidden = false
+                }
+            }
+            else if (sun?.elementsEqual("part shade"))!{
+                if (light < 70 || light > 40){
+                    adviseLight.text = "Light levels are at optimal for part shade"
+                    lightAlert.isHidden = true
+                }
+                    
+                else{
+                    adviseLight.text = "Use less light."
+                    lightAlert.isHidden = false
+                }
+            }
+            
+            if mositure < 40{
+                adviseMoisture.text? = "Increase moisture level to 60%"
+                moistureAlert.isHidden = false
+                
+            }
+            else if mositure > 60{
+                adviseMoisture.text = "Mositure level is a little too high"
+                moistureAlert.isHidden = false
+            }
+                
+            else if (mositure > 40 && mositure < 60){
+                adviseMoisture.text = "Mositure level is good"
+                moistureAlert.isHidden = true
+            }
+            else{
+                adviseMoisture.text = "Alert"
+                moistureAlert.isHidden = false
+            }
+            
         }
     }
     
@@ -247,8 +244,8 @@ class FirstPageViewController: UIViewController {
     func plantImageTapped(recognizer: UITapGestureRecognizer){
         let imageView = recognizer.view as? UIImageView
         if imageView != nil {
-         tabBarController?.selectedIndex = 3
-
+            tabBarController?.selectedIndex = 3
+            
         }
     }
     
@@ -257,10 +254,6 @@ class FirstPageViewController: UIViewController {
         if imageView != nil {
             print("water plant")
             mqtt!.publish("rpi/gpio", withString: "on")
-           // let date = Date()
-           // self.dateformatter.dateFormat = "h:mm a"
-           // let result =  self.dateformatter.string(from: date)
-            //time_watered.text = "Plant last watered at \(result)"
             
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10), execute: {
                 self.refreshFromServer()
@@ -270,10 +263,8 @@ class FirstPageViewController: UIViewController {
     }
     
     func animateInfoButtons(){
-        //  let pulseAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.opacity))
         let pulseAnimation = CABasicAnimation(keyPath: "transform.scale")
         pulseAnimation.duration = 0.7
-        // pulseAnimation.duration = 1
         pulseAnimation.fromValue = 1
         pulseAnimation.toValue = 0.8
         pulseAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
@@ -338,7 +329,7 @@ class FirstPageViewController: UIViewController {
         
     }
     
-    private func requestAuthorization(completionHandler: @escaping (_ success: Bool) -> ()) {
+     func requestAuthorization(completionHandler: @escaping (_ success: Bool) -> ()) {
         // Request Authorization
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
             if let error = error {
@@ -348,7 +339,7 @@ class FirstPageViewController: UIViewController {
         }
     }
     
-    private func scheduleLocalNotification() {
+    func scheduleLocalNotification() {
         // Create Notification Content
         let content = UNMutableNotificationContent()
         content.title = "Don't forget to water your plant"
@@ -356,7 +347,7 @@ class FirstPageViewController: UIViewController {
         content.sound = UNNotificationSound.default()
         
         // Add Trigger
-       let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
         
         // Create Notification Request
         let request = UNNotificationRequest(identifier: "LocalNotification", content: content, trigger: trigger)
@@ -386,7 +377,6 @@ class FirstPageViewController: UIViewController {
             }
         }
     }
-  
 }
 
 extension UIViewController: CocoaMQTTDelegate {

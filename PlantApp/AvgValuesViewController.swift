@@ -14,8 +14,7 @@ class AvgValuesViewController: UIViewController {
     @IBOutlet var temp: UILabel!
     @IBOutlet var light: UILabel!
     @IBOutlet var popupView: UIView!
-    
-   var data: [String:AnyObject]?
+    var data: [String:AnyObject]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +27,6 @@ class AvgValuesViewController: UIViewController {
         
         popupView.layer.cornerRadius = 10
         popupView.layer.masksToBounds = true
-
     }
 
     override func didReceiveMemoryWarning() {

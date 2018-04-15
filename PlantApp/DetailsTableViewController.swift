@@ -76,7 +76,6 @@ class DetailsTableViewController: UITableViewController, UIPopoverControllerDele
         let b = a.replacingOccurrences(of: ".000Z", with: "")
         
         let date = dateformatter.date(from: b)
-        
         dateformatter.dateFormat = "h:mm a"
         let time = dateformatter.string(from: date!)
         
