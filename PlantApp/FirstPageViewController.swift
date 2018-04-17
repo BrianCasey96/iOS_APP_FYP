@@ -221,7 +221,7 @@ class FirstPageViewController: UIViewController {
                 moistureAlert.isHidden = false
             }
                 
-            else if (mositure > 40 && mositure < 60){
+            else if (mositure >= 40 && mositure <= 60){
                 adviseMoisture.text = "Mositure level is good"
                 moistureAlert.isHidden = true
             }

@@ -96,10 +96,6 @@ class PlantAppTests: XCTestCase {
         
         waitForExpectations(timeout: 5, handler: nil)
     }
-    
-    func testSortDatabyDate(){
-        
-    }
    
     
     func testPerformanceExample() {
